@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F427xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;..\algorithm;..\application;..\board</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1226,6 +1226,43 @@
         </Group>
         <Group>
           <GroupName>application</GroupName>
+          <Files>
+            <File>
+              <FileName>chassis_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\chassis_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>servo_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\servo_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>nuc_commu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\nuc_commu.c</FilePath>
+            </File>
+            <File>
+              <FileName>commu_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\commu_task.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>board</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\bsp_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nuccom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\bsp_nuccom.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

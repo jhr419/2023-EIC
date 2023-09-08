@@ -24,10 +24,29 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "bsp_usart.h"
+#include "bsp_nuccom.h"
+#include <stdarg.h>
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+extern UART_HandleTypeDef huart6;
+void usart_printf(const char *fmt,...)
+{
+    static uint8_t tx_buf[256] = {0};
+    static va_list ap;
+    static uint16_t len;
+    va_start(ap, fmt);
+		
+    len = vsprintf((char *)tx_buf, fmt, ap);
 
+    va_end(ap);
+
+		HAL_UART_Transmit(&huart6, tx_buf, len, 100);
+    usart6_tx_dma_enable(tx_buf, len);
+
+}
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,7 +116,8 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
-
+			usart6_tx_dma_init();
+			
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

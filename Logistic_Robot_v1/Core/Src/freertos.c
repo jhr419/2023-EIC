@@ -50,14 +50,16 @@
 osThreadId defaultTaskHandle;
 osThreadId servo_task_handle;
 osThreadId chassis_task_handle;
+osThreadId commu_task_handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 //
-void servo_task(void const* argument);
-void chassis_task(void const* argument);
+extern void servo_task(void const* argument);
+extern void chassis_task(void const* argument);
+extern void commu_task(void const* argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -112,6 +114,10 @@ void MX_FREERTOS_Init(void) {
 	
 	osThreadDef(chassisTask , chassis_task , osPriorityHigh, 0 ,1024);
 	chassis_task_handle = osThreadCreate(osThread(chassisTask),NULL);
+	
+	osThreadDef(commutask , commu_task , osPriorityHigh , 0 , 1024 );
+	commu_task_handle = osThreadCreate(osThread(commutask),NULL);
+	
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */

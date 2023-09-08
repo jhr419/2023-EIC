@@ -51,3 +51,8 @@ logistic_robot_v1\main.o: ../Core/Inc/dma.h
 logistic_robot_v1\main.o: ../Core/Inc/tim.h
 logistic_robot_v1\main.o: ../Core/Inc/usart.h
 logistic_robot_v1\main.o: ../Core/Inc/gpio.h
+logistic_robot_v1\main.o: ..\board\bsp_usart.h
+logistic_robot_v1\main.o: ..\board\struct_typedef.h
+logistic_robot_v1\main.o: ..\board\bsp_nuccom.h
+logistic_robot_v1\main.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdarg.h
+logistic_robot_v1\main.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdio.h

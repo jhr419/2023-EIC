@@ -37,6 +37,12 @@
 "logistic_robot_v1\cmsis_os.o"
 "logistic_robot_v1\heap_4.o"
 "logistic_robot_v1\port.o"
+"logistic_robot_v1\chassis_task.o"
+"logistic_robot_v1\servo_task.o"
+"logistic_robot_v1\nuc_commu.o"
+"logistic_robot_v1\commu_task.o"
+"logistic_robot_v1\bsp_usart.o"
+"logistic_robot_v1\bsp_nuccom.o"
 --strict --scatter "Logistic_Robot_v1\Logistic_Robot_v1.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
