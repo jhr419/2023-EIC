@@ -17,7 +17,7 @@ void NUC_com_init(uint8_t *rx1_buf, uint8_t *rx2_buf, uint16_t dma_buf_num)
 {
 	//使能DMA串口接收
 	SET_BIT(huart6.Instance->CR3 , USART_CR3_DMAR);
-	//使能
+	//使能空闲中断
 	__HAL_UART_ENABLE_IT(&huart6, UART_IT_IDLE);
 	
 	__HAL_DMA_DISABLE(&hdma_usart6_rx);

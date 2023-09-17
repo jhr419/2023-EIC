@@ -1,10 +1,10 @@
-#include "main.h"
 #include "nuc_commu.h"
 #include "struct_typedef.h"
+#include "cmsis_os.h"
+#include "bsp_nuccom.h"
 
 extern UART_HandleTypeDef huart6;
 extern DMA_HandleTypeDef hdma_usart6_rx;
-
 static void sbus_to_nucCtrl(volatile const uint8_t *sbus_buf, toSTM32_t *nuc_info);
 
 //接收到数据
@@ -12,86 +12,93 @@ toSTM32_t GimbalRxMsg;
 
 static uint8_t nucinfo_rx_buf[2][NUCINFO_RX_BUF_NUM];
 
-void USART6_IRQHandler (void)
+void nuc_control_init(void)
 {
-		if (huart6.Instance->SR & UART_FLAG_RXNE) // 接收到数据//接受中断
-    {
-        __HAL_UART_CLEAR_PEFLAG(&huart6);
-    }
-		else if (USART6 -> SR & UART_FLAG_IDLE)
-		{
-			static uint16_t this_time_rx_len = 0;
-			__HAL_UART_CLEAR_PEFLAG(&huart6);
-			if ((hdma_usart6_rx.Instance->CR & DMA_SxCR_CT) == RESET)
-        {
-            /* Current memory buffer used is Memory 0 */
-
-            // disable DMA
-            // 失效DMA
-            __HAL_DMA_DISABLE(&hdma_usart6_rx);
-
-            // get receive data length, length = set_data_length - remain_length
-            // 获取接收数据长度,长度 = 设定长度 - 剩余长度
-            this_time_rx_len = NUCINFO_RX_BUF_NUM - hdma_usart6_rx.Instance->NDTR;
-
-            // reset set_data_lenght
-            // 重新设定数据长度
-            hdma_usart6_rx.Instance->NDTR = NUCINFO_RX_BUF_NUM;
-
-            // set memory buffer 1
-            // 设定缓冲1
-            hdma_usart6_rx.Instance->CR |= DMA_SxCR_CT;
-
-            // enable DMA
-            // 使能DMA
-            __HAL_DMA_ENABLE(&hdma_usart6_rx);
-
-            if (this_time_rx_len == NUCINFO_FRAME_LENGTH)
-            {
-								
-                sbus_to_nucCtrl(nucinfo_rx_buf[0], &GimbalRxMsg);
-                //usart_printf("%d,%d,%d,%f,%f,%f,%f\r\n",GimbalRxMsg.is_fire,GimbalRxMsg.is_spin,GimbalRxMsg.recognized,GimbalRxMsg.yaw.data,GimbalRxMsg.pitch.data,GimbalRxMsg.velocity_x.data,GimbalRxMsg.velocity_y.data);
-            }
-        }
-        else
-        {
-            /* Current memory buffer used is Memory 1 */
-            // disable DMA
-            // 失效DMA
-            __HAL_DMA_DISABLE(&hdma_usart6_rx);
-
-            // get receive data length, length = set_data_length - remain_length
-            // 获取接收数据长度,长度 = 设定长度 - 剩余长度
-            this_time_rx_len = NUCINFO_RX_BUF_NUM - hdma_usart6_rx.Instance->NDTR;
-
-            // reset set_data_lenght
-            // 重新设定数据长度
-            hdma_usart6_rx.Instance->NDTR = NUCINFO_RX_BUF_NUM;
-
-            // set memory buffer 0
-            // 设定缓冲??0
-            hdma_usart6_rx.Instance->CR &= ~(DMA_SxCR_CT);
-
-            // enable DMA
-            // 使能DMA
-            __HAL_DMA_ENABLE(&hdma_usart6_rx);
-
-            if (this_time_rx_len == NUCINFO_FRAME_LENGTH)
-            {
-                // 处理nuc传来的数
-							//早期处理，通过闪灯检测是否
-                //__HAL_TIM_SetCompare(&htim5, TIM_CHANNEL_1, 0x00000000);
-								
-                sbus_to_nucCtrl(nucinfo_rx_buf[1], &GimbalRxMsg);
-                //usart_printf("%d,%d,%d,%f,%f,%f,%f\r\n",GimbalRxMsg.is_fire,GimbalRxMsg.is_spin,GimbalRxMsg.recognized,GimbalRxMsg.yaw.data,GimbalRxMsg.pitch.data,GimbalRxMsg.velocity_x.data,GimbalRxMsg.velocity_y.data);
-            }
-        }
-    }
-		
+    NUC_com_init(nucinfo_rx_buf[0], nucinfo_rx_buf[1], NUCINFO_RX_BUF_NUM);
 }
+
+//void USART6_IRQHandler (void)
+//{
+//	  
+//		if (__HAL_UART_GET_FLAG(&huart6,UART_FLAG_RXNE)) // 接收到数据//接受中断
+//    {
+//			  
+//        __HAL_UART_CLEAR_PEFLAG(&huart6);
+//    }
+//		else if (__HAL_UART_GET_FLAG(&huart6,UART_FLAG_IDLE))
+//		{
+//			static int this_time_rx_len = 0;
+//			__HAL_UART_CLEAR_PEFLAG(&huart6);
+//			if ((hdma_usart6_rx.Instance->CR & DMA_SxCR_CT) == RESET)
+//        {
+//            /* Current memory buffer used is Memory 0 */
+
+//            // disable DMA
+//            // 失效DMA
+//            __HAL_DMA_DISABLE(&hdma_usart6_rx);
+
+//            // get receive data length, length = set_data_length - remain_length
+//            // 获取接收数据长度,长度 = 设定长度 - 剩余长度
+//            this_time_rx_len = NUCINFO_RX_BUF_NUM - hdma_usart6_rx.Instance->NDTR;
+
+//            // reset set_data_lenght
+//            // 重新设定数据长度
+//            hdma_usart6_rx.Instance->NDTR = NUCINFO_RX_BUF_NUM;
+
+//            // set memory buffer 1
+//            // 设定缓冲1
+//            hdma_usart6_rx.Instance->CR |= DMA_SxCR_CT;
+
+//            // enable DMA
+//            // 使能DMA
+//            __HAL_DMA_ENABLE(&hdma_usart6_rx);
+
+//            if (this_time_rx_len == NUCINFO_FRAME_LENGTH)
+//            {
+//								
+//                sbus_to_nucCtrl(nucinfo_rx_buf[0], &GimbalRxMsg);
+//                usart_printf("%f,%f,%f",GimbalRxMsg.x,GimbalRxMsg.y,GimbalRxMsg.yaw);
+//            }
+//        }
+//        else
+//        {
+//            /* Current memory buffer used is Memory 1 */
+//            // disable DMA
+//            // 失效DMA
+//            __HAL_DMA_DISABLE(&hdma_usart6_rx);
+
+//            // get receive data length, length = set_data_length - remain_length
+//            // 获取接收数据长度,长度 = 设定长度 - 剩余长度
+//            this_time_rx_len = NUCINFO_RX_BUF_NUM - hdma_usart6_rx.Instance->NDTR;
+
+//            // reset set_data_lenght
+//            // 重新设定数据长度
+//            hdma_usart6_rx.Instance->NDTR = NUCINFO_RX_BUF_NUM;
+
+//            // set memory buffer 0
+//            // 设定缓冲??0
+//            hdma_usart6_rx.Instance->CR &= ~(DMA_SxCR_CT);
+
+//            // enable DMA
+//            // 使能DMA
+//            __HAL_DMA_ENABLE(&hdma_usart6_rx);
+
+//            if (this_time_rx_len == NUCINFO_FRAME_LENGTH)
+//            {
+//                // 处理nuc传来的数
+//							//早期处理，通过闪灯检测是否
+//                //__HAL_TIM_SetCompare(&htim5, TIM_CHANNEL_1, 0x00000000);
+//								
+//                sbus_to_nucCtrl(nucinfo_rx_buf[1], &GimbalRxMsg);
+//                usart_printf("%f,%f,%f",GimbalRxMsg.x,GimbalRxMsg.y,GimbalRxMsg.yaw);
+//            }
+//        }
+//    }
+//		}
+
 static void sbus_to_nucCtrl(volatile const uint8_t *sbus_buf, toSTM32_t *nuc_ctrl)
 {
-	if(sbus_buf[0]==SOF )
+	if(sbus_buf[0]==SOF)
 	{
 		int16_t length = (int16_t)((sbus_buf[2]<<8)+sbus_buf[3]);
 		if(sbus_buf[length+4]==END)

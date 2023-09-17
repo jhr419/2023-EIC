@@ -46,3 +46,5 @@ logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include
 logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+logistic_robot_v1\freertos.o: ../application/commu_task.h
+logistic_robot_v1\freertos.o: ../application/struct_typedef.h

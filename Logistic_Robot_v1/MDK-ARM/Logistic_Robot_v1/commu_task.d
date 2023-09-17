@@ -1,5 +1,6 @@
 logistic_robot_v1\commu_task.o: ..\application\commu_task.c
 logistic_robot_v1\commu_task.o: ..\application\commu_task.h
+logistic_robot_v1\commu_task.o: ..\application\struct_typedef.h
 logistic_robot_v1\commu_task.o: ../Core/Inc/main.h
 logistic_robot_v1\commu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 logistic_robot_v1\commu_task.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -33,3 +34,21 @@ logistic_robot_v1\commu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ha
 logistic_robot_v1\commu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 logistic_robot_v1\commu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 logistic_robot_v1\commu_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+logistic_robot_v1\commu_task.o: ../Core/Inc/FreeRTOSConfig.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
+logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+logistic_robot_v1\commu_task.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdarg.h
+logistic_robot_v1\commu_task.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdio.h
+logistic_robot_v1\commu_task.o: ../board/bsp_usart.h
+logistic_robot_v1\commu_task.o: ../board/struct_typedef.h

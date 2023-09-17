@@ -2,7 +2,7 @@
 #define NUC_COMMU_H
 
 #include "struct_typedef.h"
-
+#include "main.h"
 #define SOF 0xA5
 #define END 0x5A
 
@@ -11,8 +11,8 @@
 #define CMD_PINCH 0x03
 
 //4+4+4+1+4+1=20
-#define NUCINFO_RX_BUF_NUM  40u
-#define NUCINFO_FRAME_LENGTH 20u
+#define NUCINFO_RX_BUF_NUM  16u
+#define NUCINFO_FRAME_LENGTH 16u
 
 typedef union
 {
@@ -29,4 +29,5 @@ typedef struct
 	uint8_t cmd;
 }toSTM32_t;
 
+extern void nuc_control_init(void);
 #endif

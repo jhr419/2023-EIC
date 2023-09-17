@@ -24,13 +24,15 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "bsp_usart.h"
-#include "bsp_nuccom.h"
-#include <stdarg.h>
-#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdarg.h>
+#include <stdio.h>
+#include "bsp_usart.h"
+#include <stdlib.h>
+#include "commu_task.h"
+#include "struct_typedef.h"
 extern UART_HandleTypeDef huart6;
 void usart_printf(const char *fmt,...)
 {
@@ -56,6 +58,7 @@ void usart_printf(const char *fmt,...)
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -116,8 +119,6 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
-			usart6_tx_dma_init();
-			
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -129,12 +130,12 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+	while(1){
 
+	
+    /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-  }
+	}
   /* USER CODE END 3 */
 }
 
