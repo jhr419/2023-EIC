@@ -4,11 +4,12 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "bsp_usart.h"
-//∫ÕactionΩªª•£¨ π”√uart8ø⁄∑¢ÀÕ–≈œ¢
-//ø™ª˙∫Û£¨œ»∑¢ÀÕACT0
-
-extern UART_HandleTypeDef huart8;
+//ÊåâÈîÆ‰∏≠Êñ≠ÂºÄÂßãÂêéÂèëÈÄÅÊ≠£Á°ÆÁöÑstuffnumÔºå‰∏ä‰ΩçÊú∫ÂºÄÂßãÂèëÈÄÅÊï∞ÊçÆÔºåÊØîËµõÂºÄÂßã
 extern DMA_HandleTypeDef hdma_uart8_rx;
+extern DMA_HandleTypeDef hdma_usart6_tx;
+extern UART_HandleTypeDef huart6; 
+extern UART_HandleTypeDef huart8;
+
 void uart8_printf(const char *fmt,...)
 {
     static uint8_t tx_buf[256] = {0};
@@ -24,22 +25,20 @@ void uart8_printf(const char *fmt,...)
 
 }
 
-extern DMA_HandleTypeDef hdma_usart6_tx;
-extern UART_HandleTypeDef huart6; 
+
 move_cmd_t my_move;
 arm_cmd_t my_arm;
-//∑¢ÀÕ ˝◊È ˝æ›
+
 void my_uart6_send_data(uint8_t *tdata,uint16_t tnum){
-        //µ»¥˝∑¢ÀÕ◊¥Ã¨OK
         while(HAL_DMA_GetState(&hdma_usart6_tx) == HAL_DMA_STATE_BUSY) HAL_Delay(1);
-        //∑¢ÀÕ ˝æ›
         HAL_UART_Transmit_DMA(&huart6,tdata,tnum);
 }
 
+
+
 uint8_t my_uart6_redata[40];
 void my_uart6_enable_inpterr(){
-    //ø™∆Ù“ª¥Œ÷–∂œ
-    HAL_UART_Receive_DMA(&huart6,my_uart6_redata,34);//…Ë÷√Ω” ’ª∫≥Â«¯
+    HAL_UART_Receive_DMA(&huart6,my_uart6_redata,34);
     
 }
 void  encode(uint8_t* a,uint8_t cmd,uint16_t length,float x, float y, float angle, int stuffnum)
@@ -53,7 +52,6 @@ void  encode(uint8_t* a,uint8_t cmd,uint16_t length,float x, float y, float angl
 	memcpy(&a[16],&stuffnum,2);
 	a[18]=0x5A;
 }
-//¥Æø⁄ ’µΩ ˝æ›ªÿµ˜
 void decode02(uint8_t* data)
 {
 	my_move.x_rel.bytes[0]=data[4];
@@ -83,14 +81,13 @@ void decode_action(uint8_t* data){
 }
 
 void my_uart8_enable_inpterr(){
-    //ø™∆Ù“ª¥Œ÷–∂œ
-    HAL_UART_Receive_DMA(&huart8,my_uart8_redata,60);//…Ë÷√Ω” ’ª∫≥Â«¯
+    HAL_UART_Receive_DMA(&huart8,my_uart8_redata,60);
     
 }
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-	if(huart->Instance == UART8)//≈–∂œ¥Æø⁄∫≈
+	if(huart->Instance == UART8)
     {
-      //ºÏ≤‚–≈œ¢
+
 			for(int i=0;i<60;i++)
 			{
 				if(i+27<60)
@@ -106,7 +103,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 				}
 		  }
 		}
-    if(huart->Instance == USART6)//≈–∂œ¥Æø⁄∫≈
+    if(huart->Instance == USART6)
     {
 			for(int i=0;i<34;i++)
 			{
@@ -118,13 +115,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 						case 0x02:
 						{
 							decode02(&my_uart6_redata[i]);
-							//usart_printf("%f %f %f\r\n",my_move.x_rel.data,my_move.y_rel.data,my_move.angle_rel.data);
 							break;
 						}
 						case 0x03:
 						{
 							decode03(&my_uart6_redata[i]);
-							//usart_printf("yes,act id:%d\r\n",my_arm.act_id);
 							break;
 						}
 					}
@@ -150,11 +145,8 @@ void commu_task(void const* argument){
 	my_uart8_enable_inpterr();
 	my_uart6_enable_inpterr();
 	
-	
-	//Ωo»´≥°∂®Œª«Â¡„
 	uart8_printf("ACT0");
 	while(1){
-		//uart8_printf("1");
 		
 		osDelay(10);
 	}
