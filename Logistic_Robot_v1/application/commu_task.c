@@ -54,15 +54,15 @@ void  encode(uint8_t* a,uint8_t cmd,uint16_t length,float x, float y, float angl
 }
 void decode02(uint8_t* data)
 {
-	my_move.x_rel.bytes[0]=data[4];
-	my_move.x_rel.bytes[1]=data[5];
-	my_move.x_rel.bytes[2]=data[6];
-	my_move.x_rel.bytes[3]=data[7];
+	my_move.vx_err.bytes[0]=data[4];
+	my_move.vx_err.bytes[1]=data[5];
+	my_move.vx_err.bytes[2]=data[6];
+	my_move.vx_err.bytes[3]=data[7];
 	for(int i=0;i<4;i++)
 	{
-		my_move.y_rel.bytes[i]=data[8+i];
+		my_move.vy_err.bytes[i]=data[8+i];
 	}
-	memcpy(&(my_move.angle_rel),&(data[12]),4);
+	memcpy(&(my_move.vw_err),&(data[12]),4);
 }
 void decode03(uint8_t* data)
 {

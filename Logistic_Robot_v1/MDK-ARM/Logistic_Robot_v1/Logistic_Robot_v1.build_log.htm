@@ -3,66 +3,61 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.29.0.0
-Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: 1 xiaozhu, 1, LIC=585FJ-U5W5X-KPGZY-IXUG8-4HUEL-9F8CM
+IDE-Version: ¦ÌVision V5.24.2.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 12 TH, 12, LIC=03C6R-K82SL-MME9I-T9MPA-X8RH5-RHFT0
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.29.0.0
-Toolchain Path:  D:\Develop\Keil V5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 6 (build 750)
-Assembler:       Armasm.exe V5.06 update 6 (build 750)
-Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
-Library Manager: ArmAr.exe V5.06 update 6 (build 750)
-Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
-CPU DLL:         SARMCM3.DLL V5.29.0.0
-Dialog DLL:      DCM.DLL V1.17.3.0
-Target DLL:      CMSIS_AGDI.dll V1.32.0.0
-Dialog DLL:      TCM.DLL V1.36.5.0
+Toolchain:       MDK-ARM Plus  Version: 5.24.1
+Toolchain Path:  D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 5 (build 528)
+Assembler:       Armasm.exe V5.06 update 5 (build 528)
+Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
+Library Manager: ArmAr.exe V5.06 update 5 (build 528)
+Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
+CPU DLL:         SARMCM3.DLL V5.24.1
+Dialog DLL:      DCM.DLL V1.16.0.0
+Target DLL:      CMSIS_AGDI.dll V1.28.3.0
+Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-C:\Users\xiaozhu\Desktop\2023 EIC\2023-EIC\Logistic_Robot_v1\MDK-ARM\Logistic_Robot_v1.uvprojx
-Project File Date:  09/13/2023
+D:\codefiles\2023Engineering innovation competition scheme\2023-EIC\Logistic_Robot_v1\MDK-ARM\Logistic_Robot_v1.uvprojx
+Project File Date:  09/20/2023
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Develop\Keil V5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin'
 Build target 'Logistic_Robot_v1'
-compiling commu_task.c...
+compiling CAN_receive.c...
+compiling chassis_task.c...
 ..\application\commu_task.h(50): warning:  #1295-D: Deprecated declaration my_uart6_enable_inpterr - give arg types
   extern void my_uart6_enable_inpterr();
-..\application\commu_task.c(48): warning:  #223-D: function "memcpy" declared implicitly
-  	memcpy(&a[1],&cmd,1);
-..\application\commu_task.c(67): warning:  #223-D: function "memcpy" declared implicitly
-  	memcpy(&(my_move.angle_rel),&(data[12]),4);
-..\application\commu_task.c(77): warning:  #223-D: function "memcpy" declared implicitly
-  	memcpy(&(my_car_data.yaw),&data[2],4);
-..\application\commu_task.c: 4 warnings, 0 errors
+..\application\chassis_task.c: 1 warning, 0 errors
 linking...
-Program Size: Code=20476 RO-data=1124 RW-data=144 ZI-data=19224  
+Program Size: Code=20360 RO-data=1124 RW-data=168 ZI-data=19008  
 FromELF: creating hex file...
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 4 Warning(s).
+"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.6.0.pack
-                ARM.CMSIS.5.6.0
+                http://www.keil.com/pack/ARM.CMSIS.5.0.1.pack
+                ARM.CMSIS.5.0.1
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.3.0
+   * Component: CORE Version: 5.0.1
 
 Package Vendor: Keil
-                https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.0.pack
-                Keil.STM32F4xx_DFP.2.17.0
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.15.0.pack
+                Keil.STM32F4xx_DFP.2.15.0
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_Logistic_Robot_v1
-  C:\Users\xiaozhu\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include
-  C:\Users\xiaozhu\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include
+  D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.3.0
+   * Component: ARM::CMSIS:CORE:5.0.1
 Build Time Elapsed:  00:00:03
 </pre>
 </body>
