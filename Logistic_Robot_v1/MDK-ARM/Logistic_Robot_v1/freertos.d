@@ -1,7 +1,7 @@
 logistic_robot_v1\freertos.o: ../Core/Src/freertos.c
 logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-logistic_robot_v1\freertos.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stddef.h
-logistic_robot_v1\freertos.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdint.h
+logistic_robot_v1\freertos.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stddef.h
+logistic_robot_v1\freertos.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdint.h
 logistic_robot_v1\freertos.o: ../Core/Inc/FreeRTOSConfig.h
 logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

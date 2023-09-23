@@ -175,9 +175,12 @@ void commu_task(void const* argument){
   
 	uart8_printf("ACT0");
 	//Update_Y(-54.0);
+	uint8_t tx_msg[19];
 	while(1){
-		
-		usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
+		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,0);
+		HAL_UART_Transmit_DMA(&huart6,tx_msg,19);
+		uart8_printf("%f,%f,%f\r\n",my_move.vx_err,my_move.vy_err,my_move.vw_err);
+		//usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
 		osDelay(20);
 	}
 }
