@@ -140,14 +140,43 @@ the HAL_UART_ErrorCallback could be implemented in the user file
        temp = huart->Instance->DR;
    }
 }
-
+/*更新Y坐标*/
+void Stract(char str[],char source[],int num)
+{
+	int i=0, j=0;
+	while(str[i]!='\0') i++;
+	
+	for(j=0;j<num;j++)
+	{
+		str[i++]=source[j];
+	}
+}
+static char c[8]="ACTY";
+void Update_Y(float NEW_Y){
+	int i=0;
+	
+	
+	static union
+	{
+		float Y;
+		char data[4];
+	}NEW_set;
+	
+	NEW_set.Y=NEW_Y;
+	
+  Stract(c,NEW_set.data,4);
+	HAL_UART_Transmit_DMA(&huart8,c, 8);
+	//usart_printf("")
+}
 void commu_task(void const* argument){
 	my_uart8_enable_inpterr();
 	my_uart6_enable_inpterr();
-	
+  
 	uart8_printf("ACT0");
+	//Update_Y(-54.0);
 	while(1){
 		
-		osDelay(10);
+		//usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
+		osDelay(20);
 	}
 }

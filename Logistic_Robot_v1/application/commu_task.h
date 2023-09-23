@@ -47,6 +47,7 @@ extern void commu_task(void const* argument);
 extern void uart8_printf(const char *fmt,...);
 extern void my_uart8_enable_inpterr(void);
 extern void my_uart6_send_data(uint8_t *tdata,uint16_t tnum);
+
 extern void my_uart6_enable_inpterr();
 extern void  encode(uint8_t* a,uint8_t cmd,uint16_t length,float x, float y, float angle, int stuffnum);
 extern void decode02(uint8_t* data);
