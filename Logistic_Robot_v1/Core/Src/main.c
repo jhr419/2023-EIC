@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
+//#include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
 #include "tim.h"
@@ -29,10 +29,16 @@
 /* USER CODE BEGIN Includes */
 #include <stdarg.h>
 #include <stdio.h>
-#include "bsp_usart.h"
+
 #include <stdlib.h>
 #include "commu_task.h"
 #include "struct_typedef.h"
+#include "bsp_usart.h"
+#include "chassis_task.h"
+#include "servo_task.h"
+#include "CAN_receive.h"
+#include "CAN_cmd_MS4015.h"
+#include "CAN_cmd_3508.h"
 extern UART_HandleTypeDef huart6;
 void usart_printf(const char *fmt,...)
 {
@@ -122,10 +128,10 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
+//  MX_FREERTOS_Init();
 
-  /* Start scheduler */
-  osKernelStart();
+//  /* Start scheduler */
+//  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -135,6 +141,9 @@ int main(void)
 	
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
+		//CAN_cmd_chassis(2000,2000,2000,2000);
+		CAN_cmd_iqControl(2000);
+		HAL_Delay(1);
 	}
   /* USER CODE END 3 */
 }

@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "commu_task.h"
+#include "chassis_task.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,6 +50,8 @@
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId commuTaskHandle;
+
+osThreadId chassisTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -109,6 +112,8 @@ void MX_FREERTOS_Init(void) {
 	osThreadDef(commuTask, commu_task,osPriorityHigh,0,1024);
 	commuTaskHandle = osThreadCreate(osThread(commuTask),NULL);
 
+	osThreadDef(chassisTask, chassis_task,osPriorityHigh,0,1024);
+	chassisTaskHandle = osThreadCreate(osThread(chassisTask),NULL);
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */

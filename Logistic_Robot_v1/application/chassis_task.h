@@ -1,5 +1,6 @@
 #ifndef CHASSIS_TASK
 #define  CHASSIS_TASK
 #include "main.h"
-void chassis_task(void);
+
+extern void chassis_task(void const* argument);
 #endif

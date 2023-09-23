@@ -30,6 +30,9 @@ pid_t pid[4];
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {
+	vx_err=100;
+	//vy_err=;
+	//vw_err=;
 	wheel_exp_rpm[0] = (-vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS);
 	wheel_exp_rpm[1] = ( vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS);
 	wheel_exp_rpm[2] = ( vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS);
@@ -65,7 +68,7 @@ void chassis_ctrl(void)
 		CAN_cmd_chassis(wheel_set_rpm[0], wheel_set_rpm[1], wheel_set_rpm[2], wheel_set_rpm[3]);
 }
 
-void chassis_task(){
+void chassis_task(void const* argument){
 	while(1){
 		
 		chassis_ctrl();

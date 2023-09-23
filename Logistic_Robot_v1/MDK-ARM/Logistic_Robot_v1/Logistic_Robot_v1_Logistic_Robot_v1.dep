@@ -1,6 +1,6 @@
 Dependencies for Project 'Logistic_Robot_v1', Target 'Logistic_Robot_v1': (DO NOT MODIFY !)
 F (startup_stm32f427xx.s)(0x650867C7)(--cpu Cortex-M4.fp -g --apcs=interwork -I ..\Core\Inc-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"--pd "__UVISION_VERSION SETA 524" --pd "_RTE_ SETA 1" --pd "STM32F427xx SETA 1"--list startup_stm32f427xx.lst --xref -o logistic_robot_v1\startup_stm32f427xx.o --depend logistic_robot_v1\startup_stm32f427xx.d)
-F (../Core/Src/main.c)(0x650867C7)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\main.o --omf_browse logistic_robot_v1\main.crf --depend logistic_robot_v1\main.d)
+F (../Core/Src/main.c)(0x650ED3DD)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\main.o --omf_browse logistic_robot_v1\main.crf --depend logistic_robot_v1\main.d)
 I (../Core/Inc/main.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x650867C7)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x650867C7)
@@ -33,20 +33,6 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x650867C7)
-I (../Core/Inc/FreeRTOSConfig.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x650867C7)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x650867C7)
 I (../Core/Inc/can.h)(0x650867C7)
 I (../Core/Inc/dma.h)(0x650867C7)
 I (../Core/Inc/tim.h)(0x650867C7)
@@ -54,11 +40,16 @@ I (../Core/Inc/usart.h)(0x650867C7)
 I (../Core/Inc/gpio.h)(0x650867C7)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdio.h)(0x588B8344)
-I (../board/bsp_usart.h)(0x650867C7)
-I (../board/struct_typedef.h)(0x650867C7)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (../application/commu_task.h)(0x650D950F)
 I (../application/struct_typedef.h)(0x650867C7)
+I (../board/bsp_usart.h)(0x650867C7)
+I (../board/struct_typedef.h)(0x650867C7)
+I (../application/chassis_task.h)(0x650ECE8B)
+I (../application/servo_task.h)(0x650867C7)
+I (../application/CAN_receive.h)(0x650AEFF3)
+I (../application/CAN_cmd_MS4015.h)(0x650ADCF6)
+I (../application/CAN_cmd_3508.h)(0x650AE7E4)
 F (../Core/Src/gpio.c)(0x650867C7)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\gpio.o --omf_browse logistic_robot_v1\gpio.crf --depend logistic_robot_v1\gpio.d)
 I (../Core/Inc/gpio.h)(0x650867C7)
 I (../Core/Inc/main.h)(0x650867C7)
@@ -93,7 +84,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x650867C7)
-F (../Core/Src/freertos.c)(0x650867C7)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\freertos.o --omf_browse logistic_robot_v1\freertos.crf --depend logistic_robot_v1\freertos.d)
+F (../Core/Src/freertos.c)(0x650ECE09)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\freertos.o --omf_browse logistic_robot_v1\freertos.crf --depend logistic_robot_v1\freertos.d)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x650867C7)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -142,6 +133,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x650867C7)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x650867C7)
 I (../application/commu_task.h)(0x650D950F)
 I (../application/struct_typedef.h)(0x650867C7)
+I (../application/chassis_task.h)(0x650ECE8B)
 F (../Core/Src/can.c)(0x650867C7)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\can.o --omf_browse logistic_robot_v1\can.crf --depend logistic_robot_v1\can.d)
 I (../Core/Inc/can.h)(0x650867C7)
 I (../Core/Inc/main.h)(0x650867C7)
@@ -1074,8 +1066,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x650867C7)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x650867C7)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x650867C7)
-F (..\application\chassis_task.c)(0x650AF8C9)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\chassis_task.o --omf_browse logistic_robot_v1\chassis_task.crf --depend logistic_robot_v1\chassis_task.d)
-I (..\application\chassis_task.h)(0x650867C7)
+F (..\application\chassis_task.c)(0x650ECE82)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\chassis_task.o --omf_browse logistic_robot_v1\chassis_task.crf --depend logistic_robot_v1\chassis_task.d)
+I (..\application\chassis_task.h)(0x650ECE8B)
 I (../Core/Inc/main.h)(0x650867C7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x650867C7)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x650867C7)
@@ -1181,7 +1173,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x650867C7)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x650867C7)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x650867C7)
 I (..\application\struct_typedef.h)(0x650867C7)
-F (..\application\commu_task.c)(0x650E91A0)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\commu_task.o --omf_browse logistic_robot_v1\commu_task.crf --depend logistic_robot_v1\commu_task.d)
+F (..\application\commu_task.c)(0x650EBBE5)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I ..\algorithm-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4-o logistic_robot_v1\commu_task.o --omf_browse logistic_robot_v1\commu_task.crf --depend logistic_robot_v1\commu_task.d)
 I (..\application\commu_task.h)(0x650D950F)
 I (..\application\struct_typedef.h)(0x650867C7)
 I (../Core/Inc/main.h)(0x650867C7)

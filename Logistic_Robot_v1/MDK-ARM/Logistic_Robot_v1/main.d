@@ -32,20 +32,6 @@ logistic_robot_v1\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_
 logistic_robot_v1\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 logistic_robot_v1\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 logistic_robot_v1\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-logistic_robot_v1\main.o: ../Core/Inc/FreeRTOSConfig.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
-logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 logistic_robot_v1\main.o: ../Core/Inc/can.h
 logistic_robot_v1\main.o: ../Core/Inc/dma.h
 logistic_robot_v1\main.o: ../Core/Inc/tim.h
@@ -53,8 +39,13 @@ logistic_robot_v1\main.o: ../Core/Inc/usart.h
 logistic_robot_v1\main.o: ../Core/Inc/gpio.h
 logistic_robot_v1\main.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdarg.h
 logistic_robot_v1\main.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdio.h
-logistic_robot_v1\main.o: ../board/bsp_usart.h
-logistic_robot_v1\main.o: ../board/struct_typedef.h
 logistic_robot_v1\main.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdlib.h
 logistic_robot_v1\main.o: ../application/commu_task.h
 logistic_robot_v1\main.o: ../application/struct_typedef.h
+logistic_robot_v1\main.o: ../board/bsp_usart.h
+logistic_robot_v1\main.o: ../board/struct_typedef.h
+logistic_robot_v1\main.o: ../application/chassis_task.h
+logistic_robot_v1\main.o: ../application/servo_task.h
+logistic_robot_v1\main.o: ../application/CAN_receive.h
+logistic_robot_v1\main.o: ../application/CAN_cmd_MS4015.h
+logistic_robot_v1\main.o: ../application/CAN_cmd_3508.h
