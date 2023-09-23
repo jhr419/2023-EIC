@@ -52,3 +52,4 @@ logistic_robot_v1\commu_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARM
 logistic_robot_v1\commu_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdio.h
 logistic_robot_v1\commu_task.o: ../board/bsp_usart.h
 logistic_robot_v1\commu_task.o: ../board/struct_typedef.h
+logistic_robot_v1\commu_task.o: ..\application\CAN_cmd_3508.h

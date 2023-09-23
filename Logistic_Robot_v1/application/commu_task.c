@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "bsp_usart.h"
+#include "CAN_cmd_3508.h"
 //按键中断开始后发送正确的stuffnum，上位机开始发送数据，比赛开始
 extern DMA_HandleTypeDef hdma_uart8_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
@@ -176,7 +177,7 @@ void commu_task(void const* argument){
 	//Update_Y(-54.0);
 	while(1){
 		
-		//usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
+		usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
 		osDelay(20);
 	}
 }
