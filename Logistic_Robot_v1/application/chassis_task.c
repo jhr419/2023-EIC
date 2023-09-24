@@ -13,9 +13,9 @@
 #define MAX_IOUT 1000.0
 #define MOTOR_DISTANCE_TO_CENTER 50.0f //需要改
 #define RIDIUS 30.0f									 //需要改
-#define	PID_3508_P	15.0
+#define	PID_3508_P	5.9
 #define PID_3508_I	0.5
-#define PID_3508_D	6.0
+#define PID_3508_D	4.0
 #define FILTER_NUM 50
 #define FILTER_FRAME_PERIOD 1
 
@@ -30,13 +30,10 @@ pid_t pid[4];
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {
-	//vx_err=100;
-	//vy_err=;
-	//vw_err=;
-	wheel_exp_rpm[0] = (-vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS);
-	wheel_exp_rpm[1] = ( vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS);
-	wheel_exp_rpm[2] = ( vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS);
-	wheel_exp_rpm[3] = (-vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS);
+	wheel_exp_rpm[0] = (int)((-vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
+	wheel_exp_rpm[1] = (int)(( vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
+	wheel_exp_rpm[2] = (int)(( vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
+	wheel_exp_rpm[3] = (int)((-vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
 }
 
 void chassis_init(void)
@@ -59,7 +56,6 @@ void chassis_pid_calc(fp32* wheel_exp_rpm)
 		//first_order_filter_cali(&rpm_filter, wheel_exp_rpm[i]);
 		
 		PID_calc(&pid[i], chassis_motor[i]->speed_rpm, wheel_exp_rpm[i]);
-		
 		wheel_set_rpm[i] = pid[i].out;
 	}
 	
@@ -74,10 +70,10 @@ void chassis_ctrl(void)
 void chassis_task(void const* argument){
 	chassis_init();
 	while(1){
-		//chassis_ctrl();
-		//usart_printf("%d,%f\r\n",chassis_motor[0]->speed_rpm,wheel_exp_rpm[0]);
+		chassis_ctrl();
+		//uart8_printf("%d,%f\r\n",chassis_motor[0]->speed_rpm,wheel_exp_rpm[0]);
 		//usart_printf("out %d\r\n",pid[0].out);
-		osDelay(1);
+		osDelay(5);
 		
 	}
 }

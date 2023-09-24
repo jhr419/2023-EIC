@@ -22,7 +22,8 @@ void uart8_printf(const char *fmt,...)
 
     va_end(ap);
 
-		HAL_UART_Transmit_DMA(&huart8, tx_buf, len);
+		HAL_UART_Transmit(&huart8, tx_buf, len, 100);
+    uart8_tx_dma_enable(tx_buf, len);
 
 }
 
@@ -59,11 +60,19 @@ void decode02(uint8_t* data)
 	my_move.vx_err.bytes[1]=data[5];
 	my_move.vx_err.bytes[2]=data[6];
 	my_move.vx_err.bytes[3]=data[7];
-	for(int i=0;i<4;i++)
-	{
-		my_move.vy_err.bytes[i]=data[8+i];
-	}
-	memcpy(&(my_move.vw_err),&(data[12]),4);
+	my_move.vy_err.bytes[0]=data[8];
+	my_move.vy_err.bytes[1]=data[9];
+	my_move.vy_err.bytes[2]=data[10];
+	my_move.vy_err.bytes[3]=data[11];
+	my_move.vw_err.bytes[0]=data[12];
+	my_move.vw_err.bytes[1]=data[13];
+	my_move.vw_err.bytes[2]=data[14];
+	my_move.vw_err.bytes[3]=data[15];
+//	for(int i=0;i<4;i++)
+//	{
+//		my_move.vy_err.bytes[i]=data[8+i];
+//	}
+//	memcpy(&(my_move.vw_err),&(data[12]),4);
 }
 void decode03(uint8_t* data)
 {
@@ -83,12 +92,11 @@ void decode_action(uint8_t* data){
 
 void my_uart8_enable_inpterr(){
     HAL_UART_Receive_DMA(&huart8,my_uart8_redata,60);
-    
 }
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(huart->Instance == UART8)
     {
-
+			//检测完毕
 			for(int i=0;i<60;i++)
 			{
 				if(i+27<60)
@@ -106,6 +114,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 		}
     if(huart->Instance == USART6)
     {
+//			for(int i=0;i<34;i++)
+//			{
+//				uart8_printf("%x ", my_uart6_redata[i]);
+//			}
+//			uart8_printf("\r\n");
 			for(int i=0;i<34;i++)
 			{
 				if(my_uart6_redata[i]==0xA5&&(my_uart6_redata[i+1]!=0x5A)&&(my_uart6_redata[i+2]+i+4<34)&&my_uart6_redata[my_uart6_redata[i+2]+i+4]==0x5A)
@@ -177,9 +190,10 @@ void commu_task(void const* argument){
 	//Update_Y(-54.0);
 	uint8_t tx_msg[19];
 	while(1){
-		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,0);
-		HAL_UART_Transmit_DMA(&huart6,tx_msg,19);
-		uart8_printf("%f,%f,%f\r\n",my_move.vx_err,my_move.vy_err,my_move.vw_err);
+		//uart8_printf("OK\r\n");
+		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,100);
+		HAL_UART_Transmit_DMA(&huart6, tx_msg, 19);
+		//uart8_printf("%f,%f,%f\r\n",my_move.vx_err.data,my_move.vy_err.data,my_move.vw_err.data);
 		//usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
 		osDelay(20);
 	}
