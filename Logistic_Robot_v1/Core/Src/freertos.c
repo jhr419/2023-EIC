@@ -49,9 +49,6 @@
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
-osThreadId commuTaskHandle;
-
-osThreadId chassisTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -108,12 +105,7 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-	
-	osThreadDef(commuTask, commu_task,osPriorityHigh,0,1024);
-	commuTaskHandle = osThreadCreate(osThread(commuTask),NULL);
 
-	osThreadDef(chassisTask, chassis_task,osPriorityHigh,0,1024);
-	chassisTaskHandle = osThreadCreate(osThread(chassisTask),NULL);
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
