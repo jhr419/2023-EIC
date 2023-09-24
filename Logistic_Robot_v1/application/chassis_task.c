@@ -1,14 +1,6 @@
 #include "chassis_task.h"
-#include "cmsis_os.h"
+
 #define PI 3.1415926
-
-#include "chassis_filter.h"
-#include "CAN_receive.h"
-#include "CAN_cmd_3508.h"
-#include "pid.h"
-#include "struct_typedef.h"
-#include "commu_task.h"
-
 #define MAX_OUT  12000.0
 #define MAX_IOUT 1000.0
 #define MOTOR_DISTANCE_TO_CENTER 50.0f //需要改
@@ -27,13 +19,23 @@ const fp32 pid_k[3]={PID_3508_P, PID_3508_I, PID_3508_D};
 first_order_filter_type_t rpm_filter;
 pid_t pid[4];
 
+/*
+	 	  ^
+	 	  |
+	 1##x##4
+	 #		 #
+<--y		 #
+	 #		 #
+	 2#####3
+*/
+
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {
-	wheel_exp_rpm[0] = (int)((-vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
-	wheel_exp_rpm[1] = (int)(( vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
-	wheel_exp_rpm[2] = (int)(( vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
-	wheel_exp_rpm[3] = (int)((-vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
+	wheel_exp_rpm[0] = (int)(( vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
+	wheel_exp_rpm[1] = (int)(( vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
+	wheel_exp_rpm[2] = (int)((-vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
+	wheel_exp_rpm[3] = (int)((-vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err) / ( 2 * PI * RIDIUS)*60);
 }
 
 void chassis_init(void)

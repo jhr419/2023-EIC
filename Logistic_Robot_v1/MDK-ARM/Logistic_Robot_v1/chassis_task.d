@@ -33,6 +33,12 @@ logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_
 logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+logistic_robot_v1\chassis_task.o: ../algorithm/chassis_filter.h
+logistic_robot_v1\chassis_task.o: ../application/struct_typedef.h
+logistic_robot_v1\chassis_task.o: ..\application\CAN_receive.h
+logistic_robot_v1\chassis_task.o: ..\application\CAN_cmd_3508.h
+logistic_robot_v1\chassis_task.o: ../algorithm/pid.h
+logistic_robot_v1\chassis_task.o: ..\application\commu_task.h
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 logistic_robot_v1\chassis_task.o: ../Core/Inc/FreeRTOSConfig.h
@@ -47,9 +53,3 @@ logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/inc
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-logistic_robot_v1\chassis_task.o: ../algorithm/chassis_filter.h
-logistic_robot_v1\chassis_task.o: ../application/struct_typedef.h
-logistic_robot_v1\chassis_task.o: ..\application\CAN_receive.h
-logistic_robot_v1\chassis_task.o: ..\application\CAN_cmd_3508.h
-logistic_robot_v1\chassis_task.o: ../algorithm/pid.h
-logistic_robot_v1\chassis_task.o: ..\application\commu_task.h

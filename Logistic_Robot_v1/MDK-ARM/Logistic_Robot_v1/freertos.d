@@ -49,3 +49,8 @@ logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include
 logistic_robot_v1\freertos.o: ../application/commu_task.h
 logistic_robot_v1\freertos.o: ../application/struct_typedef.h
 logistic_robot_v1\freertos.o: ../application/chassis_task.h
+logistic_robot_v1\freertos.o: ../algorithm/chassis_filter.h
+logistic_robot_v1\freertos.o: ../application/CAN_receive.h
+logistic_robot_v1\freertos.o: ../application/CAN_cmd_3508.h
+logistic_robot_v1\freertos.o: ../algorithm/pid.h
+logistic_robot_v1\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h

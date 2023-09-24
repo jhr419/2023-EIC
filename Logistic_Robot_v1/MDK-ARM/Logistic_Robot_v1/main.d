@@ -59,8 +59,11 @@ logistic_robot_v1\main.o: ../application/struct_typedef.h
 logistic_robot_v1\main.o: ../board/bsp_usart.h
 logistic_robot_v1\main.o: ../board/struct_typedef.h
 logistic_robot_v1\main.o: ../application/chassis_task.h
-logistic_robot_v1\main.o: ../application/servo_task.h
+logistic_robot_v1\main.o: ../algorithm/chassis_filter.h
 logistic_robot_v1\main.o: ../application/CAN_receive.h
-logistic_robot_v1\main.o: ../application/CAN_cmd_MS4015.h
 logistic_robot_v1\main.o: ../application/CAN_cmd_3508.h
+logistic_robot_v1\main.o: ../algorithm/pid.h
+logistic_robot_v1\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
+logistic_robot_v1\main.o: ../application/servo_task.h
+logistic_robot_v1\main.o: ../application/CAN_cmd_MS4015.h
 logistic_robot_v1\main.o: ../board/bsp_can.h
