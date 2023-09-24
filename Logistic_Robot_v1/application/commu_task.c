@@ -191,10 +191,10 @@ void commu_task(void const* argument){
 	uint8_t tx_msg[19];
 	while(1){
 		//uart8_printf("OK\r\n");
-		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,100);
-		HAL_UART_Transmit_DMA(&huart6, tx_msg, 19);
-		//uart8_printf("%f,%f,%f\r\n",my_move.vx_err.data,my_move.vy_err.data,my_move.vw_err.data);
-		//usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
+//		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,100);
+//		HAL_UART_Transmit_DMA(&huart6, tx_msg, 19);
+		//usart_printf("%f,%f,%f\r\n",my_move.vx_err.data,my_move.vy_err.data,my_move.vw_err.data);
+		usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
 		osDelay(20);
 	}
 }
