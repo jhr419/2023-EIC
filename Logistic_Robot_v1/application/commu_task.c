@@ -1,3 +1,13 @@
+/**
+ * encoding:GB2312
+ * @file commu_task.c
+ * @author Brandon
+ * @brief  收取全场定位数据并转发給上位机
+ * @history
+ *  Version    Date            Author          Modification
+ *  V1.0.0     2023-9-25     Brandon         1. 增加update函数
+ * 
+ */
 #include "commu_task.h"
 #include "main.h"
 #include "cmsis_os.h"
@@ -93,9 +103,11 @@ void decode_action(uint8_t* data){
 void my_uart8_enable_inpterr(){
     HAL_UART_Receive_DMA(&huart8,my_uart8_redata,60);
 }
+int action_count=0;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(huart->Instance == UART8)
     {
+			action_count=1;
 			//检测完毕
 			for(int i=0;i<60;i++)
 			{
@@ -165,36 +177,45 @@ void Stract(char str[],char source[],int num)
 		str[i++]=source[j];
 	}
 }
-static char c[8]="ACTY";
-void Update_Y(float NEW_Y){
-	int i=0;
-	
+void Update_position(char c,float NEW){
+	char Update[8]="ACT";
+	if(c=='x'||c=='X')
+		Update[3]='X';
+	else if(c=='y'||c=='Y')
+		Update[3]='Y';
 	
 	static union
 	{
-		float Y;
+		float f;
 		char data[4];
 	}NEW_set;
 	
-	NEW_set.Y=NEW_Y;
+	NEW_set.f=NEW;
 	
-  Stract(c,NEW_set.data,4);
-	HAL_UART_Transmit_DMA(&huart8,c, 8);
-	//usart_printf("")
+  Stract(Update,NEW_set.data,4);
+	
+	HAL_UART_Transmit_DMA(&huart8, (const uint8_t*)Update , 8);
 }
 void commu_task(void const* argument){
 	my_uart8_enable_inpterr();
 	my_uart6_enable_inpterr();
   
 	uart8_printf("ACT0");
-	//Update_Y(-54.0);
 	uint8_t tx_msg[19];
 	while(1){
-		//uart8_printf("OK\r\n");
-//		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,100);
-//		HAL_UART_Transmit_DMA(&huart6, tx_msg, 19);
+		if(action_count)
+		{
+			HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_SET);
+			action_count=0;
+			
+		}
+		//uart8_printf("%d\r\n",action_count);
+		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,100);
+		HAL_UART_Transmit(&huart6, tx_msg, 19,100);
+		usart6_tx_dma_enable(tx_msg,19);
 		//usart_printf("%f,%f,%f\r\n",my_move.vx_err.data,my_move.vy_err.data,my_move.vw_err.data);
 		usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
 		osDelay(20);
+		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);
 	}
 }

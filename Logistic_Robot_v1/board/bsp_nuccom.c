@@ -1,5 +1,5 @@
 /**
- * encoding:UTF-8
+ * encoding:GB2312
  * @file bsp_nuccom.c
  * @author Brandon
  * @brief  使能双dma
