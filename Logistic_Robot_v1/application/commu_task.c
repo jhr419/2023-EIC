@@ -6,16 +6,21 @@
  * @history
  *  Version    Date            Author          Modification
  *  V1.0.0     2023-9-25     Brandon         1. 增加update函数
- * 
+ *  V1.0.1     2023-9-26     Brandon         增加按键清零
  */
 #include "commu_task.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "math.h"
+#include "arm_math.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include "bsp_usart.h"
 #include "CAN_cmd_3508.h"
 //按键中断开始后发送正确的stuffnum，上位机开始发送数据，比赛开始
+#define ACTION_DISTANCE_ERROR -20.0 //全场定位中心与中心安装的差错长,之后再改
+#define ACTION_ANGLE_ERROR    0  //角度差错值
+
 extern DMA_HandleTypeDef hdma_uart8_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
 extern UART_HandleTypeDef huart6; 
@@ -89,15 +94,15 @@ void decode03(uint8_t* data)
 	my_arm.act_id=data[4];
 }
 
-car_data my_car_data;
+action_data my_action_data;
 uint8_t my_uart8_redata[100];
 void decode_action(uint8_t* data){
-	memcpy(&(my_car_data.yaw),&data[2],4);
-	memcpy(&(my_car_data.pitch),&data[6],4);
-	memcpy(&(my_car_data.roll),&data[10],4);
-	memcpy(&(my_car_data.x),&data[14],4);
-	memcpy(&(my_car_data.y),&data[18],4);
-	memcpy(&(my_car_data.w),&data[22],4);
+	memcpy(&(my_action_data.yaw),&data[2],4);
+	memcpy(&(my_action_data.pitch),&data[6],4);
+	memcpy(&(my_action_data.roll),&data[10],4);
+	memcpy(&(my_action_data.x),&data[14],4);
+	memcpy(&(my_action_data.y),&data[18],4);
+	memcpy(&(my_action_data.w),&data[22],4);
 }
 
 void my_uart8_enable_inpterr(){
@@ -194,15 +199,34 @@ void Update_position(char c,float NEW){
 	
   Stract(Update,NEW_set.data,4);
 	
-	HAL_UART_Transmit_DMA(&huart8, (const uint8_t*)Update , 8);
+	HAL_UART_Transmit(&huart8, (const uint8_t*)Update , 8,100);
+	uart8_tx_dma_enable((uint8_t *)Update,8);
 }
+car_data my_car_data;
+void action_to_car(){
+	my_car_data.x = my_action_data.x.data - ACTION_DISTANCE_ERROR * arm_cos_f32(my_action_data.yaw.data*2*PI/360);
+	my_car_data.y = my_action_data.y.data + ACTION_DISTANCE_ERROR * arm_sin_f32(my_action_data.yaw.data*2*PI/360);
+	my_car_data.yaw = my_action_data.yaw.data;
+}
+uint8_t exit_flag = 0;
+uint8_t rising_falling_flag ;
 void commu_task(void const* argument){
 	my_uart8_enable_inpterr();
 	my_uart6_enable_inpterr();
   
 	uart8_printf("ACT0");
+	Update_position('Y',ACTION_DISTANCE_ERROR);
 	uint8_t tx_msg[19];
 	while(1){
+			if(rising_falling_flag!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
+				rising_falling_flag =HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
+				if(HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)==1)
+				{
+				  uart8_printf("ACT0");
+					Update_position('Y',ACTION_DISTANCE_ERROR);
+				}
+			}
+		
 		if(action_count)
 		{
 			HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_SET);
@@ -210,11 +234,11 @@ void commu_task(void const* argument){
 			
 		}
 		//uart8_printf("%d\r\n",action_count);
-		encode(tx_msg,0x01,14,my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data,100);
+		encode(tx_msg,0x01,14,my_car_data.x,my_car_data.y,my_car_data.yaw,100);
 		HAL_UART_Transmit(&huart6, tx_msg, 19,100);
 		usart6_tx_dma_enable(tx_msg,19);
 		//usart_printf("%f,%f,%f\r\n",my_move.vx_err.data,my_move.vy_err.data,my_move.vw_err.data);
-		usart_printf("%f,%f,%f\r\n",my_car_data.x.data,my_car_data.y.data,my_car_data.yaw.data);
+		//usart_printf("%f,%f,%f\r\n",my_car_data.x,my_car_data,my_car_data);
 		osDelay(20);
 		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);
 	}

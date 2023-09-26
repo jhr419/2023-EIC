@@ -48,6 +48,11 @@ logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/inclu
 logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 logistic_robot_v1\commu_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+logistic_robot_v1\commu_task.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\math.h
+logistic_robot_v1\commu_task.o: C:\Users\xiaozhu\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\DSP\Include\arm_math.h
+logistic_robot_v1\commu_task.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+logistic_robot_v1\commu_task.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\string.h
+logistic_robot_v1\commu_task.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\float.h
 logistic_robot_v1\commu_task.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdarg.h
 logistic_robot_v1\commu_task.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdio.h
 logistic_robot_v1\commu_task.o: ../board/bsp_usart.h

@@ -15,8 +15,13 @@ typedef struct __PACKED
 	RxFP32Data x;
 	RxFP32Data y;
 	RxFP32Data w;
+}action_data;
+typedef struct _PACKED
+{
+	fp32 x;
+	fp32 y;
+	fp32 yaw;
 }car_data;
-
 typedef struct __PACKED
 {
  uint8_t sof;
