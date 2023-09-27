@@ -18,13 +18,21 @@
 #include "bsp_usart.h"
 #include "CAN_cmd_3508.h"
 //按键中断开始后发送正确的stuffnum，上位机开始发送数据，比赛开始
-#define ACTION_DISTANCE_ERROR -20.0 //全场定位中心与中心安装的差错长,之后再改
+#define ACTION_DISTANCE_ERROR -57.98275606 //全场定位中心与中心安装的差错长,之后再改
 #define ACTION_ANGLE_ERROR    0  //角度差错值
 
 extern DMA_HandleTypeDef hdma_uart8_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
 extern UART_HandleTypeDef huart6; 
 extern UART_HandleTypeDef huart8;
+
+void uart7_printf(const char *fmt,...)
+{
+	static uint8_t tx_buf[256] = {0};
+	static va_list ap;
+	static uint16_t len;
+	
+}
 
 void uart8_printf(const char *fmt,...)
 {
@@ -204,10 +212,17 @@ void Update_position(char c,float NEW){
 }
 car_data my_car_data;
 void action_to_car(){
-	my_car_data.x = my_action_data.x.data - ACTION_DISTANCE_ERROR * arm_cos_f32(my_action_data.yaw.data*2*PI/360);
-	my_car_data.y = my_action_data.y.data + ACTION_DISTANCE_ERROR * arm_sin_f32(my_action_data.yaw.data*2*PI/360);
+	my_car_data.x = my_action_data.x.data - ACTION_DISTANCE_ERROR * arm_sin_f32(my_action_data.yaw.data*2*PI/360);
+	my_car_data.y = my_action_data.y.data + ACTION_DISTANCE_ERROR * arm_cos_f32(my_action_data.yaw.data*2*PI/360);
 	my_car_data.yaw = my_action_data.yaw.data;
 }
+
+void cmd_packed_tx(UART_HandleTypeDef *huart, uint8_t* raw_data)
+{
+	HAL_UART_Transmit(huart, raw_data, sizeof(raw_data)/sizeof(uint8_t), 100);
+	usart6_tx_dma_enable(raw_data, sizeof(raw_data)/sizeof(uint8_t));
+}
+
 uint8_t exit_flag = 0;
 uint8_t rising_falling_flag ;
 void commu_task(void const* argument){
@@ -233,12 +248,11 @@ void commu_task(void const* argument){
 			action_count=0;
 			
 		}
-		//uart8_printf("%d\r\n",action_count);
+		
 		encode(tx_msg,0x01,14,my_car_data.x,my_car_data.y,my_car_data.yaw,100);
-		HAL_UART_Transmit(&huart6, tx_msg, 19,100);
-		usart6_tx_dma_enable(tx_msg,19);
-		//usart_printf("%f,%f,%f\r\n",my_move.vx_err.data,my_move.vy_err.data,my_move.vw_err.data);
-		//usart_printf("%f,%f,%f\r\n",my_car_data.x,my_car_data,my_car_data);
+		
+		cmd_packed_tx(&huart6, tx_msg);
+		
 		osDelay(20);
 		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);
 	}
