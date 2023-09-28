@@ -15,6 +15,9 @@
 extern UART_HandleTypeDef huart6;
 extern DMA_HandleTypeDef hdma_usart6_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
+extern UART_HandleTypeDef huart7;
+extern DMA_HandleTypeDef hdma_uart7_rx;
+extern DMA_HandleTypeDef hdma_uart7_tx;
 extern UART_HandleTypeDef huart8;
 extern DMA_HandleTypeDef hdma_uart8_rx;
 extern DMA_HandleTypeDef hdma_uart8_tx;
@@ -53,6 +56,15 @@ void usart6_tx_dma_enable(uint8_t *data, uint16_t len)
 	__HAL_DMA_SET_COUNTER(&hdma_usart6_tx , len);
 	
 	__HAL_DMA_ENABLE(&hdma_usart6_tx);
+}
+
+void uart7_init(uint8_t *rx1_buf, uint8_t *rx2_buf, uint16_t dma_buf_num)
+{
+	SET_BIT(huart7.Instance->CR3, USART_CR3_DMAT);	
+	SET_BIT(huart7.Instance->CR3, USART_CR3_DMAR);
+	
+	__HAL_DMA_DISABLE(&hdma_uart7_tx);
+	
 }
 
 void uart8_init(uint8_t *rx1_buf, uint8_t *rx2_buf, uint16_t dma_buf_num)
@@ -135,4 +147,22 @@ void uart8_tx_dma_enable(uint8_t *data, uint16_t len)
     __HAL_DMA_SET_COUNTER(&hdma_uart8_tx, len);
 
     __HAL_DMA_ENABLE(&hdma_uart8_tx);
+}
+
+void uart7_tx_dma_enable(uint8_t *data, uint16_t len)
+{
+    //disable DMA
+    //ʧЧDMA
+    __HAL_DMA_DISABLE(&hdma_uart7_tx);
+
+    while(hdma_uart7_tx.Instance->CR & DMA_SxCR_EN)
+    {
+        __HAL_DMA_DISABLE(&hdma_uart7_tx);
+    }
+		//
+    __HAL_DMA_CLEAR_FLAG(&hdma_uart7_tx,DMA_LISR_TCIF1);
+    hdma_uart7_tx.Instance->M0AR = (uint32_t)(data);
+    __HAL_DMA_SET_COUNTER(&hdma_uart7_tx, len);
+
+    __HAL_DMA_ENABLE(&hdma_uart7_tx);
 }

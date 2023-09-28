@@ -125,6 +125,7 @@ int main(void)
   MX_CAN1_Init();
   MX_TIM2_Init();
   MX_TIM8_Init();
+  MX_UART7_Init();
   /* USER CODE BEGIN 2 */
 	can_filter_init();
 	
@@ -145,6 +146,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		uart7_printf("ok\r\n");
 		HAL_Delay(20);
 	}
   /* USER CODE END 3 */

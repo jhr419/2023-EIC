@@ -48,7 +48,6 @@
 "logistic_robot_v1\bsp_can.o"
 "logistic_robot_v1\pid.o"
 "logistic_robot_v1\chassis_filter.o"
-"logistic_robot_v1\xy_cali.o"
 "D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib"
 --strict --scatter "Logistic_Robot_v1\Logistic_Robot_v1.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

@@ -7,12 +7,12 @@ logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_
 logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 logistic_robot_v1\chassis_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 logistic_robot_v1\chassis_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
-logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\v5package\ARM\CMSIS\5.6.0\CMSIS\Include\core_cm4.h
+logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h
 logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdint.h
-logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\v5package\ARM\CMSIS\5.6.0\CMSIS\Include\cmsis_version.h
-logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\v5package\ARM\CMSIS\5.6.0\CMSIS\Include\cmsis_compiler.h
-logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\v5package\ARM\CMSIS\5.6.0\CMSIS\Include\cmsis_armcc.h
-logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\v5package\ARM\CMSIS\5.6.0\CMSIS\Include\mpu_armv7.h
+logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h
+logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
+logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
+logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h
 logistic_robot_v1\chassis_task.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 logistic_robot_v1\chassis_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
@@ -47,7 +47,8 @@ logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/inc
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 logistic_robot_v1\chassis_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\v5package\ARM\CMSIS\5.6.0\CMSIS\Include\arm_math.h
+logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Include\arm_math.h
+logistic_robot_v1\chassis_task.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\string.h
 logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\math.h
 logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\float.h

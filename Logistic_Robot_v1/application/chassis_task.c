@@ -31,6 +31,8 @@ pid_t pid[4];
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {
+	vw_err = 1000;
+	
 	vx_err*=10;
 	vy_err*=10;
 	vw_err*=10;

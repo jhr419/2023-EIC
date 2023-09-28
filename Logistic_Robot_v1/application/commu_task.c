@@ -18,20 +18,31 @@
 #include "bsp_usart.h"
 #include "CAN_cmd_3508.h"
 //按键中断开始后发送正确的stuffnum，上位机开始发送数据，比赛开始
-#define ACTION_DISTANCE_ERROR -57.98275606 //全场定位中心与中心安装的差错长,之后再改
+#define ACTION_DISTANCE_ERROR -56.48275606 //全场定位中心与中心安装的差错长,之后再改
 #define ACTION_ANGLE_ERROR    0  //角度差错值
 
 extern DMA_HandleTypeDef hdma_uart8_rx;
+extern DMA_HandleTypeDef hdma_uart7_tx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
-extern UART_HandleTypeDef huart6; 
 extern UART_HandleTypeDef huart8;
+extern UART_HandleTypeDef huart7;
+extern UART_HandleTypeDef huart6; 
+
 
 void uart7_printf(const char *fmt,...)
 {
 	static uint8_t tx_buf[256] = {0};
 	static va_list ap;
 	static uint16_t len;
+	va_start(ap, fmt);
 	
+	len = vsprintf((char* )tx_buf, fmt, ap);
+	
+	va_end(ap);
+	
+//	HAL_UART_Transmit(&huart7, tx_buf, len, 100);
+//	uart7_tx_dma_enable(tx_buf, len);
+	HAL_UART_Transmit_DMA(&huart7,tx_buf,len);
 }
 
 void uart8_printf(const char *fmt,...)
@@ -212,8 +223,8 @@ void Update_position(char c,float NEW){
 }
 car_data my_car_data;
 void action_to_car(){
-	my_car_data.x = my_action_data.x.data - ACTION_DISTANCE_ERROR * arm_sin_f32(my_action_data.yaw.data*2*PI/360);
-	my_car_data.y = my_action_data.y.data + ACTION_DISTANCE_ERROR * arm_cos_f32(my_action_data.yaw.data*2*PI/360);
+	my_car_data.x = my_action_data.x.data + ACTION_DISTANCE_ERROR * arm_sin_f32(my_action_data.yaw.data*2*PI/360);
+	my_car_data.y = my_action_data.y.data - ACTION_DISTANCE_ERROR * arm_cos_f32(my_action_data.yaw.data*2*PI/360)+ACTION_DISTANCE_ERROR;
 	my_car_data.yaw = my_action_data.yaw.data;
 }
 
@@ -229,7 +240,7 @@ void commu_task(void const* argument){
 	my_uart8_enable_inpterr();
 	my_uart6_enable_inpterr();
   
-	uart8_printf("ACT0");
+  uart8_printf("ACT0");
 	Update_position('Y',ACTION_DISTANCE_ERROR);
 	uint8_t tx_msg[19];
 	while(1){
@@ -251,8 +262,10 @@ void commu_task(void const* argument){
 		
 		encode(tx_msg,0x01,14,my_car_data.x,my_car_data.y,my_car_data.yaw,100);
 		
-		cmd_packed_tx(&huart6, tx_msg);
-		
+		//cmd_packed_tx(&huart6, tx_msg);
+		action_to_car();
+		//usart_printf("ok\n");
+		usart_printf("%f,%f\n", my_car_data.x, my_car_data.y);
 		osDelay(20);
 		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);
 	}
