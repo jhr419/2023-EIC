@@ -1,8 +1,8 @@
 logistic_robot_v1\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
-logistic_robot_v1\event_groups.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdlib.h
+logistic_robot_v1\event_groups.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdlib.h
 logistic_robot_v1\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-logistic_robot_v1\event_groups.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stddef.h
-logistic_robot_v1\event_groups.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\stdint.h
+logistic_robot_v1\event_groups.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stddef.h
+logistic_robot_v1\event_groups.o: D:\Develop\Keil V5\ARM\ARMCC\Bin\..\include\stdint.h
 logistic_robot_v1\event_groups.o: ../Core/Inc/FreeRTOSConfig.h
 logistic_robot_v1\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 logistic_robot_v1\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

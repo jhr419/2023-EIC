@@ -15,7 +15,7 @@
 #define RAD_TO_DEGREE 2*PI/360
 #define RIDIUS 30.0f									 //需要改
 #define	PID_3508_P	5.9
-#define PID_3508_I	0.5
+#define PID_3508_I	0.6
 #define PID_3508_D	4.0
 #define FILTER_NUM 50
 #define FILTER_FRAME_PERIOD 1
@@ -31,7 +31,7 @@ pid_t pid[4];
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {
-	vw_err = 1000;
+	//vw_err = 1000;
 	
 	vx_err*=10;
 	vy_err*=10;

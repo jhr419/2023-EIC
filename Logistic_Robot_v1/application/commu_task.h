@@ -7,6 +7,13 @@ typedef union __PACKED
 	fp32 data;
 	uint8_t bytes[4];
 } RxFP32Data;
+typedef enum
+{
+	ARM1_GRAP = 1,
+	ARM2_GRAP,
+	ARM2_PLACE1,
+	ARM2_PLACE2
+}act_id_e;
 typedef struct __PACKED
 {
 	RxFP32Data yaw;
@@ -21,7 +28,8 @@ typedef struct _PACKED
 	fp32 x;
 	fp32 y;
 	fp32 yaw;
-}car_data;
+	int16_t stuff_num;
+}car_data_s;
 typedef struct __PACKED
 {
  uint8_t sof;
