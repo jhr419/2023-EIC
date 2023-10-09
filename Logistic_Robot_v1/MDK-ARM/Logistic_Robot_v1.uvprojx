@@ -1257,6 +1257,11 @@
               <FileType>1</FileType>
               <FilePath>..\application\CAN_cmd_3508.c</FilePath>
             </File>
+            <File>
+              <FileName>servo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\servo.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
