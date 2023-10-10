@@ -1,9 +1,9 @@
 #include "CAN_cmd_3508.h"
 #include "CAN_receive.h"
 #include "main.h"
-#define CHASSIS_CAN hcan1
+#define CHASSIS_CAN hcan2
 
-extern CAN_HandleTypeDef hcan1;
+extern CAN_HandleTypeDef hcan2;
 
 extern CAN_TxHeaderTypeDef  chassis_tx_message;
 extern uint8_t              chassis_can_send_data[8];

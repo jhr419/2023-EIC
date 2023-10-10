@@ -17,23 +17,22 @@ Library Manager: ArmAr.exe V5.06 update 5 (build 528)
 Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
 CPU DLL:         SARMCM3.DLL V5.24.1
 Dialog DLL:      DCM.DLL V1.16.0.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
+Target DLL:      CMSIS_AGDI.dll V1.28.3.0
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
 D:\codefiles\2023Engineering innovation competition scheme\2023-EIC\Logistic_Robot_v1\MDK-ARM\Logistic_Robot_v1.uvprojx
-Project File Date:  10/10/2023
+Project File Date:  10/11/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin'
 Build target 'Logistic_Robot_v1'
-compiling gpio.c...
-compiling commu_task.c...
-..\application\commu_task.h(65): warning:  #1295-D: Deprecated declaration my_uart6_enable_inpterr - give arg types
+compiling main.c...
+../application/commu_task.h(65): warning:  #1295-D: Deprecated declaration my_uart6_enable_inpterr - give arg types
   extern void my_uart6_enable_inpterr();
-..\application\commu_task.c: 1 warning, 0 errors
+../Core/Src/main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=24812 RO-data=1224 RW-data=204 ZI-data=20596  
+Program Size: Code=25328 RO-data=1224 RW-data=212 ZI-data=20644  
 FromELF: creating hex file...
 "Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 1 Warning(s).
 
@@ -60,11 +59,11 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:DSP:Library:1.7.0
-      Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
       Include file:  CMSIS\DSP\Include\arm_math.h
+      Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

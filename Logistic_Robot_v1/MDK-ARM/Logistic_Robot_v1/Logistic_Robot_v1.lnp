@@ -44,6 +44,8 @@
 "logistic_robot_v1\can_receive.o"
 "logistic_robot_v1\can_cmd_3508.o"
 "logistic_robot_v1\servo.o"
+"logistic_robot_v1\can_cmd_2006.o"
+"logistic_robot_v1\ms4015.o"
 "logistic_robot_v1\bsp_usart.o"
 "logistic_robot_v1\bsp_nuccom.o"
 "logistic_robot_v1\bsp_can.o"

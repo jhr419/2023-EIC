@@ -1,5 +1,5 @@
 #ifndef CAN_CMD_MS4015_H
-#define CAN_CMD_MS4015_RECEIVE_H
+#define CAN_CMD_MS4015_H
 
 #include "struct_typedef.h"
 

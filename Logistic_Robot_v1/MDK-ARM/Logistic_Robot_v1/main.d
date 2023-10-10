@@ -61,7 +61,8 @@ logistic_robot_v1\main.o: ../board/struct_typedef.h
 logistic_robot_v1\main.o: ../application/chassis_task.h
 logistic_robot_v1\main.o: ../application/servo_task.h
 logistic_robot_v1\main.o: ../application/CAN_receive.h
-logistic_robot_v1\main.o: ../application/CAN_cmd_MS4015.h
+logistic_robot_v1\main.o: ../application/MS4015.h
 logistic_robot_v1\main.o: ../application/CAN_cmd_3508.h
+logistic_robot_v1\main.o: ../application/CAN_cmd_2006.h
 logistic_robot_v1\main.o: ../board/bsp_can.h
 logistic_robot_v1\main.o: ../application/servo.h

@@ -238,7 +238,7 @@ void commu_task(void const* argument){
 	while(1){
 		if(rising_falling_flag!=HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)){
 			rising_falling_flag =HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
-			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==1)
+			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0)
 			{
 				uart8_printf("ACT0");
 				my_car_data.stuff_num=0;
@@ -256,7 +256,8 @@ void commu_task(void const* argument){
 		}
 		
 		action_to_car();
-		//uart7_printf("%f,%f,%f,%f,%f,%f\n",my_car_data.x, my_car_data.y,my_action_data.yaw.data,my_move.vx_err.data, my_move.vy_err.data, my_move.vw_err.data);
+		uart7_printf("%f,%f,%f,%f,%f\n", my_car_data.x, my_car_data.y, my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
+		//uart7_printf("%d", );
 		osDelay(20);
 		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);
 	}

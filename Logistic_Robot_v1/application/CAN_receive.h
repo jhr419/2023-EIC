@@ -12,6 +12,15 @@
         (ptr)->temperate = (data)[6];                                   \
     }
 
+#define get_motor_2006_measure(ptr, data)   														\
+    {                                       														\
+        (ptr)->last_ecd = (ptr)->ecd;                                   \
+        (ptr)->ecd = (uint16_t)((data)[0] << 8 | (data)[1]);            \
+        (ptr)->speed_rpm = (uint16_t)((data)[2] << 8 | (data)[3]);      \
+        (ptr)->given_current = (uint16_t)((data)[4] << 8 | (data)[5]);  \
+        (ptr)->temperate = (data)[6];                                   \
+    }
+		
 #define get_motor_4015_measure(ptr, data)   														\
     {                                       														\
         (ptr)->temperate = (int8_t)   (data)[1];                    		\
@@ -49,6 +58,9 @@ typedef enum
     CAN_3508_M4_ID = 0x204,
 		
 		CAN_2006_M1_ID = 0x205,
+		CAN_2006_M2_ID = 0x206,
+	  CAN_2006_M3_ID = 0x207,
+	  CAN_2006_M4_ID = 0x208,
 }can_msg_id_e;
 
 typedef struct 
@@ -86,7 +98,18 @@ typedef struct
     int16_t last_ecd;
 }motor_3508_measure_t;
 
+typedef struct
+{
+		uint16_t ecd;
+    int16_t speed_rpm;
+    int16_t given_current;
+    uint8_t temperate;
+    int16_t last_ecd;
+}motor_2006_measure_t;
+
+
 extern const motor_3508_measure_t *get_motor_3508_measure_point(uint8_t i);
+extern const motor_2006_measure_t *get_motor_2006_measure_point(uint8_t i);
 
 extern const motor_4015_measure_t *get_motor_4015_measure_point(void);
 extern const motor_4015_pid_t *get_motor_4015_pid_point(void);

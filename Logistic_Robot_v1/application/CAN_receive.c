@@ -5,7 +5,7 @@
 extern CAN_HandleTypeDef hcan1;
 
 static motor_3508_measure_t		motor_3508[4];
-static motor_2006_measure_t		motor_2006;
+static motor_2006_measure_t		motor_2006[4];
 
 static motor_4015_measure_t 	motor_4015;
 static motor_4015_pid_t 			motor_4015_pid;
@@ -14,8 +14,10 @@ static motor_4015_ecd_data_t 	motor_4015_ecd_data;
 
 CAN_TxHeaderTypeDef  chassis_tx_message;
 uint8_t              chassis_can_send_data[8];
+
 CAN_TxHeaderTypeDef  motor_2006_tx_message;
 uint8_t              motor_2006_can_send_data[8];
+
 CAN_TxHeaderTypeDef  motor_tx_message;
 uint8_t              motor_can_send_data[8];
 
@@ -53,6 +55,18 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             break;
         }
 				
+				case CAN_2006_M1_ID:
+        case CAN_2006_M2_ID:
+        case CAN_2006_M3_ID:
+        case CAN_2006_M4_ID:
+        {
+            static uint8_t i = 0;
+            //get motor id
+            i = rx_header.StdId - CAN_2006_M1_ID;
+            get_motor_2006_measure(&motor_2006[i], rx_data);
+            break;
+        }
+				
         default:
         {
             break;
@@ -71,7 +85,15 @@ const motor_3508_measure_t *get_motor_3508_measure_point(uint8_t i)
     return &motor_3508[(i & 0x03)];
 }
 
+/*------------------------------------------------------------------------*/
+/*
+	2006指针
+*/
 
+const motor_2006_measure_t *get_motor_2006_measure_point(uint8_t i)
+{
+    return &motor_2006[(i & 0x03)];
+}
 
 /*------------------------------------------------------------------------*/
 /*

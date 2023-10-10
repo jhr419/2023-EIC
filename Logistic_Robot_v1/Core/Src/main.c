@@ -37,8 +37,9 @@
 #include "chassis_task.h"
 #include "servo_task.h"
 #include "CAN_receive.h"
-#include "CAN_cmd_MS4015.h"
+#include "MS4015.h"
 #include "CAN_cmd_3508.h"
+#include "CAN_cmd_2006.h"
 #include "bsp_can.h"
 #include "servo.h"
 extern UART_HandleTypeDef huart6;
@@ -131,6 +132,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	can_filter_init();
 	servo_init(); 
+	CAN_angle_angleControl(0);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -145,14 +147,14 @@ int main(void)
 
 	while(1){
 
-	//CAN_cmd_chassis(12200,0,0,0);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//		single_servo_ctrl(&servo[0], 500);
-//		HAL_Delay(2000);
-//		single_servo_ctrl(&servo[0], 2500);
-//		HAL_Delay(2000);
+//		CAN_angle_angleControl(0);
+//		HAL_Delay(1000);
+//		
+		
+//		HAL_Delay(1000);
 
 	}
   /* USER CODE END 3 */

@@ -25,14 +25,14 @@ static fp32 wheel_set_rpm[4];
 extern move_cmd_t my_move;
 const motor_3508_measure_t*	chassis_motor[4];
 const fp32 pid_k[3]={PID_3508_P, PID_3508_I, PID_3508_D};
-first_order_filter_type_t rpm_filter;
 pid_t pid[4];
 
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {
-	//vw_err = 1000;
-	
+	//vw_err = 500;
+	//vx_err = 500;
+	//vy_err = 500;
 	vx_err*=10;
 	vy_err*=10;
 	vw_err*=10;
@@ -50,7 +50,6 @@ void chassis_init(void)
 		wheel_set_rpm[i] = 0.0;
 		chassis_motor[i] = get_motor_3508_measure_point(i);
 	}
-	first_order_filter_init(&rpm_filter, FILTER_FRAME_PERIOD, FILTER_NUM);
 }
 
 void chassis_pid_calc(fp32* wheel_exp_rpm)
