@@ -1248,6 +1248,16 @@
               <FileType>1</FileType>
               <FilePath>..\application\servo.c</FilePath>
             </File>
+            <File>
+              <FileName>CAN_cmd_MS4015.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\CAN_cmd_MS4015.c</FilePath>
+            </File>
+            <File>
+              <FileName>CAN_cmd_2006.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\CAN_cmd_2006.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

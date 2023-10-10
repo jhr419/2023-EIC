@@ -47,6 +47,8 @@ typedef enum
     CAN_3508_M2_ID = 0x202,
     CAN_3508_M3_ID = 0x203,
     CAN_3508_M4_ID = 0x204,
+		
+		CAN_2006_M1_ID = 0x205,
 }can_msg_id_e;
 
 typedef struct 

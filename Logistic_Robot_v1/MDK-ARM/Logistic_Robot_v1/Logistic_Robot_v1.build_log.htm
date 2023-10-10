@@ -27,7 +27,15 @@ Project File Date:  10/10/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin'
 Build target 'Logistic_Robot_v1'
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 0 Warning(s).
+compiling gpio.c...
+compiling commu_task.c...
+..\application\commu_task.h(65): warning:  #1295-D: Deprecated declaration my_uart6_enable_inpterr - give arg types
+  extern void my_uart6_enable_inpterr();
+..\application\commu_task.c: 1 warning, 0 errors
+linking...
+Program Size: Code=24812 RO-data=1224 RW-data=204 ZI-data=20596  
+FromELF: creating hex file...
+"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -52,11 +60,11 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:DSP:Library:1.7.0
-      Include file:  CMSIS\DSP\Include\arm_math.h
       Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
+      Include file:  CMSIS\DSP\Include\arm_math.h
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

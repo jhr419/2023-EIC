@@ -55,7 +55,7 @@ void uart7_printf(const char *fmt,...)
 	va_end(ap);
 	
 	HAL_UART_Transmit(&huart7, tx_buf, len, 100);
-    uart7_tx_dma_enable(tx_buf, len);
+  uart7_tx_dma_enable(tx_buf, len);
 }
 
 void uart8_printf(const char *fmt,...)
@@ -71,9 +71,7 @@ void uart8_printf(const char *fmt,...)
 
 		HAL_UART_Transmit(&huart8, tx_buf, len, 100);
     uart8_tx_dma_enable(tx_buf, len);
-
 }
-
 
 
 
@@ -220,8 +218,8 @@ void Update_position(char c,float NEW){
 }
 
 void action_to_car(){
-	my_car_data.x = my_action_data.x.data + ACTION_DISTANCE_ERROR * arm_sin_f32(my_action_data.yaw.data*2*PI/360);
-	my_car_data.y = my_action_data.y.data - ACTION_DISTANCE_ERROR * arm_cos_f32(my_action_data.yaw.data*2*PI/360)+ACTION_DISTANCE_ERROR;
+	my_car_data.x = my_action_data.x.data;
+	my_car_data.y = my_action_data.y.data;
 	my_car_data.yaw = my_action_data.yaw.data;
 }
 
@@ -238,9 +236,9 @@ void commu_task(void const* argument){
 	uint8_t tx_msg[19];
 	
 	while(1){
-		if(rising_falling_flag!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
-			rising_falling_flag =HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
-			if(HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)==1)
+		if(rising_falling_flag!=HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)){
+			rising_falling_flag =HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
+			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==1)
 			{
 				uart8_printf("ACT0");
 				my_car_data.stuff_num=0;

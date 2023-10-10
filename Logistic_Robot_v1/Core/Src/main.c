@@ -127,17 +127,18 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM8_Init();
   MX_UART7_Init();
+  MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
 	can_filter_init();
-	
+	servo_init(); 
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-//  MX_FREERTOS_Init();
+  MX_FREERTOS_Init();
 
-//  /* Start scheduler */
-//  osKernelStart();
-	servo_init();
+  /* Start scheduler */
+  osKernelStart();
+
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -148,10 +149,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		single_servo_ctrl(&servo[0], 50);
-		HAL_Delay(500);
-		single_servo_ctrl(&servo[0], 150);
-		HAL_Delay(500);
+//		single_servo_ctrl(&servo[0], 500);
+//		HAL_Delay(2000);
+//		single_servo_ctrl(&servo[0], 2500);
+//		HAL_Delay(2000);
+
 	}
   /* USER CODE END 3 */
 }

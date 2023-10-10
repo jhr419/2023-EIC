@@ -3,11 +3,7 @@
 #include "tim.h"
 #include "main.h"
 
-#define MAX_ANGLE_COMPARE
-#define MIN_ANGLE_COMPARE
-#define UESR_HTIM1 htim2
-#define UESR_HTIM2 htim8
-#define COMPARE_PER_ANGLE (fp32)(2500-500)/270
+
 
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim8;
@@ -50,6 +46,7 @@ void single_servo_ctrl(servo_t* servo, uint16_t angle)
 {
 	TIM_HandleTypeDef htim = servo->htim;
 	uint32_t channel = servo->channel;
-	__HAL_TIM_SetCompare(&htim, channel, COMPARE_PER_ANGLE * angle);
+	uint32_t pwm = COMPARE_PER_ANGLE * angle;
+	__HAL_TIM_SetCompare(&htim, channel, pwm);
 }
 
