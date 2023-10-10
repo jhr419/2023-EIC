@@ -40,6 +40,7 @@
 #include "CAN_cmd_MS4015.h"
 #include "CAN_cmd_3508.h"
 #include "bsp_can.h"
+#include "servo.h"
 extern UART_HandleTypeDef huart6;
 void usart_printf(const char *fmt,...)
 {
@@ -76,7 +77,7 @@ void usart_printf(const char *fmt,...)
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern servo_t servo[8];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -132,22 +133,25 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
+//  MX_FREERTOS_Init();
 
-  /* Start scheduler */
-  osKernelStart();
-
+//  /* Start scheduler */
+//  osKernelStart();
+	servo_init();
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
 	while(1){
 
 	//CAN_cmd_chassis(12200,0,0,0);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		uart7_printf("ok\r\n");
-		HAL_Delay(20);
+		single_servo_ctrl(&servo[0], 50);
+		HAL_Delay(500);
+		single_servo_ctrl(&servo[0], 150);
+		HAL_Delay(500);
 	}
   /* USER CODE END 3 */
 }

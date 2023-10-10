@@ -1,77 +1,55 @@
 #include "servo.h"
 #include "string.h"
+#include "tim.h"
 #include "main.h"
 
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 705);		//中 //205 为45度 
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 910);		
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 1115);	//左极限
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, 295);		//右极限
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 700);		//下极限
-//	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 300);		//上极限
-#define MAX_ANGLE 180
-#define MIN_ANGLE 0
-#define PWM_VALUE_PER_X_ANGLE (float)(205/45)
-#define PWM_VALUE_PER_Y_ANGLE (float)(400/90)
-extern float aX_data_temp;
-extern float aY_data_temp;
-extern float aZ_data_temp;
-extern float wX_data_temp;
-extern float wY_data_temp;
-extern float wZ_data_temp; 
-extern float PitchY_data_temp;
-extern float YawZ_data_temp;
+#define MAX_ANGLE_COMPARE
+#define MIN_ANGLE_COMPARE
+#define UESR_HTIM1 htim2
+#define UESR_HTIM2 htim8
+#define COMPARE_PER_ANGLE (fp32)(2500-500)/270
 
-float x_angle;
-float y_angle;
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim8;
 
-void servo_pid_init(void)
+servo_t servo[8];
+
+void servo_init(void)
 {
-	 
+	HAL_TIM_Base_Start(&htim2);
+	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
+	
+	HAL_TIM_Base_Start(&htim8);
+	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_4);
+	
+	for(int i=0;i<4;i++)
+	{
+		servo[i].htim = UESR_HTIM1;
+		servo[i].id = i+1;
+		servo[i+4].htim = UESR_HTIM2;
+		servo[i+4].id = i+5;
+	}
+	
+	servo[0].channel = TIM_CHANNEL_1;
+	servo[1].channel = TIM_CHANNEL_2;
+	servo[2].channel = TIM_CHANNEL_3;
+	servo[3].channel = TIM_CHANNEL_4;
+	servo[4].channel = TIM_CHANNEL_1;
+	servo[5].channel = TIM_CHANNEL_2;
+	servo[6].channel = TIM_CHANNEL_3;
+	servo[7].channel = TIM_CHANNEL_4;
 }
 
-float angle_limiter(float x)
+void single_servo_ctrl(servo_t* servo, uint16_t angle)
 {
-	if(x >= MAX_ANGLE)
-		return MAX_ANGLE;
-	else if(x <= MIN_ANGLE)
-		return MIN_ANGLE;
-	return x;
+	TIM_HandleTypeDef htim = servo->htim;
+	uint32_t channel = servo->channel;
+	__HAL_TIM_SetCompare(&htim, channel, COMPARE_PER_ANGLE * angle);
 }
 
-float x_angle_range(float x)
-{
-	if(x >180 && x<=360)
-		return x-360;
-	return x;
-}
-
-float y_angle_range(float y)
-{
-	if(y<=0)
-		return 0;
-	if(y>=90&&y<=180)
-		return 90;
-	if(y>180&&y<=360)
-		return 0;
-	return y;
-}
-void x_anlge_ctrl(float angle)
-{
-	uint16_t compare_temp;
-	compare_temp = angle *  PWM_VALUE_PER_X_ANGLE;
-	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_3, compare_temp+320);
-}
-void y_anlge_ctrl(float angle)
-{
-	uint16_t compare_temp;
-	compare_temp = angle *  PWM_VALUE_PER_Y_ANGLE;
-	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_4, 700 - compare_temp);
-}
-void ctrl_servo(void)
-{
-	x_angle = x_angle_range(YawZ_data_temp)+90.0;
-	y_angle = PitchY_data_temp;
-	x_anlge_ctrl(x_angle);
-	y_anlge_ctrl(y_angle);
-}
