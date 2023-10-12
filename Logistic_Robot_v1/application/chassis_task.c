@@ -2,6 +2,8 @@
 #include "cmsis_os.h"
 #include "arm_math.h"
 
+#include "MS4015.h"
+#include "servo.h"
 #include "chassis_filter.h"
 #include "CAN_receive.h"
 #include "CAN_cmd_3508.h"
@@ -20,6 +22,8 @@
 #define FILTER_NUM 50
 #define FILTER_FRAME_PERIOD 1
 
+extern servo_t servo[8];
+
 static fp32 wheel_exp_rpm[4];
 static fp32 wheel_set_rpm[4];
 extern move_cmd_t my_move;
@@ -30,6 +34,13 @@ pid_t pid[4];
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {
+			single_servo_ctrl(&servo[0], 600);//×¼±¸
+		single_servo_ctrl(&servo[1],00);
+		single_servo_ctrl(&servo[2],600);
+  	single_servo_ctrl(&servo[3],1000);
+		//CAN_angle_angleControl(CAN_M2_ID ,-180);
+					//CAN_angle_angleControl(CAN_M1_ID, 0);
+					CAN_angleControl(CAN_M2_ID, -10);
 	//vw_err = 500;
 	//vx_err = 500;
 	//vy_err = 500;

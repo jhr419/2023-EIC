@@ -8,10 +8,10 @@ extern CAN_HandleTypeDef hcan1;
 extern CAN_TxHeaderTypeDef  motor_tx_message;
 extern uint8_t              motor_can_send_data[8];
 
-void CAN_read_pid(void)//0x30
+void CAN_read_pid(uint32_t id)//0x30
 {
 		uint32_t send_mail_box;
-    motor_tx_message.StdId = CAN_M1_ID;
+    motor_tx_message.StdId = id;
     motor_tx_message.IDE   = CAN_ID_STD;
     motor_tx_message.RTR   = CAN_RTR_DATA;
     motor_tx_message.DLC   = 0x08;
@@ -27,10 +27,10 @@ void CAN_read_pid(void)//0x30
     HAL_CAN_AddTxMessage(&MOTOR_CAN, &motor_tx_message, motor_can_send_data, &send_mail_box);
 }
 
-void CAN_set_pid_ROM(uint8_t* pid)//0x32
+void CAN_set_pid_ROM(uint32_t id, uint8_t* pid)//0x32
 {
 		uint32_t send_mail_box;
-    motor_tx_message.StdId = CAN_M1_ID;
+    motor_tx_message.StdId = id;
     motor_tx_message.IDE   = CAN_ID_STD;
     motor_tx_message.RTR   = CAN_RTR_DATA;
     motor_tx_message.DLC   = 0x08;
@@ -45,10 +45,10 @@ void CAN_set_pid_ROM(uint8_t* pid)//0x32
     motor_can_send_data[7] = pid[5];
     HAL_CAN_AddTxMessage(&MOTOR_CAN, &motor_tx_message, motor_can_send_data, &send_mail_box);
 }
-void CAN_read_ecdData(void)//0x90
+void CAN_read_ecdData(uint32_t id)//0x90
 {
     uint32_t send_mail_box;
-    motor_tx_message.StdId = CAN_M1_ID;
+    motor_tx_message.StdId = id;
     motor_tx_message.IDE   = CAN_ID_STD;
     motor_tx_message.RTR   = CAN_RTR_DATA;
     motor_tx_message.DLC   = 0x08;
@@ -64,49 +64,10 @@ void CAN_read_ecdData(void)//0x90
     HAL_CAN_AddTxMessage(&MOTOR_CAN, &motor_tx_message, motor_can_send_data, &send_mail_box);
 }
 
-//iqControl -2000~2000
-void CAN_iqControl(int16_t iqControl)//0xA1
-{
-    uint32_t send_mail_box;
-    motor_tx_message.StdId = CAN_M1_ID;
-    motor_tx_message.IDE   = CAN_ID_STD;
-    motor_tx_message.RTR   = CAN_RTR_DATA;
-    motor_tx_message.DLC   = 0x08;
-
-    motor_can_send_data[0] = 0xA1;
-    motor_can_send_data[1] = 0x00;
-    motor_can_send_data[2] = 0x00;
-    motor_can_send_data[3] = 0x00;
-    motor_can_send_data[4] = *(uint8_t*)(&iqControl);
-    motor_can_send_data[5] = *((uint8_t*)(&iqControl)+1);
-    motor_can_send_data[6] = 0x00;
-    motor_can_send_data[7] = 0x00;
-    HAL_CAN_AddTxMessage(&MOTOR_CAN, &motor_tx_message, motor_can_send_data, &send_mail_box);
-}
-
-void CAN_speedControl(int32_t speedControl)
+void CAN_angleControl(uint32_t id, int16_t angle)
 {
 		uint32_t send_mail_box;
-    motor_tx_message.StdId = CAN_M1_ID;
-    motor_tx_message.IDE   = CAN_ID_STD;
-    motor_tx_message.RTR   = CAN_RTR_DATA;
-    motor_tx_message.DLC   = 0x08;
-
-    motor_can_send_data[0] = 0xA2;
-    motor_can_send_data[1] = 0x00;
-    motor_can_send_data[2] = 0x00;
-    motor_can_send_data[3] = 0x00;
-    motor_can_send_data[4] = *(uint8_t*)(&speedControl);
-    motor_can_send_data[5] = *((uint8_t*)(&speedControl)+1);
-    motor_can_send_data[6] = *((uint8_t*)(&speedControl)+2);
-    motor_can_send_data[7] = *((uint8_t*)(&speedControl)+3);
-    HAL_CAN_AddTxMessage(&MOTOR_CAN, &motor_tx_message, motor_can_send_data, &send_mail_box);
-}
-
-void CAN_angle_angleControl(int16_t angleControl)
-{
-		uint32_t send_mail_box;
-    motor_tx_message.StdId = CAN_M1_ID;
+    motor_tx_message.StdId = id;
     motor_tx_message.IDE   = CAN_ID_STD;
     motor_tx_message.RTR   = CAN_RTR_DATA;
     motor_tx_message.DLC   = 0x08;
@@ -115,17 +76,18 @@ void CAN_angle_angleControl(int16_t angleControl)
     motor_can_send_data[1] = 0x00;
     motor_can_send_data[2] = 0x00;
     motor_can_send_data[3] = 0x00;
-    motor_can_send_data[4] = *(uint8_t*)(&angleControl);
-    motor_can_send_data[5] = *((uint8_t*)(&angleControl)+1);
+    motor_can_send_data[4] = *(uint8_t*)(&angle);
+    motor_can_send_data[5] = *((uint8_t*)(&angle)+1);
     motor_can_send_data[6] = 0x00;
     motor_can_send_data[7] = 0x00;
     HAL_CAN_AddTxMessage(&MOTOR_CAN, &motor_tx_message, motor_can_send_data, &send_mail_box);
 }
 
-void CAN_delta_angleControl(int32_t angleControl)
+void CAN_delta_angleControl(uint32_t id, int32_t delta_angle)
 {
+		delta_angle *=100;
 		uint32_t send_mail_box;
-    motor_tx_message.StdId = CAN_M1_ID;
+    motor_tx_message.StdId = id;
     motor_tx_message.IDE   = CAN_ID_STD;
     motor_tx_message.RTR   = CAN_RTR_DATA;
     motor_tx_message.DLC   = 0x08;
@@ -134,9 +96,11 @@ void CAN_delta_angleControl(int32_t angleControl)
     motor_can_send_data[1] = 0x00;
     motor_can_send_data[2] = 0x00;
     motor_can_send_data[3] = 0x00;
-    motor_can_send_data[4] = *(uint8_t*)(&angleControl);
-    motor_can_send_data[5] = *((uint8_t*)(&angleControl)+1);
-    motor_can_send_data[6] = *((uint8_t*)(&angleControl)+2);
-    motor_can_send_data[7] = *((uint8_t*)(&angleControl)+3);
+    motor_can_send_data[4] = *(uint8_t*)(&delta_angle);
+    motor_can_send_data[5] = *((uint8_t*)(&delta_angle)+1);
+    motor_can_send_data[6] = *((uint8_t*)(&delta_angle)+2);
+    motor_can_send_data[7] = *((uint8_t*)(&delta_angle)+3);
     HAL_CAN_AddTxMessage(&MOTOR_CAN, &motor_tx_message, motor_can_send_data, &send_mail_box);
 }
+
+

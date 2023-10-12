@@ -52,8 +52,10 @@ logistic_robot_v1\chassis_task.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\string.h
 logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\math.h
 logistic_robot_v1\chassis_task.o: D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin\..\include\float.h
+logistic_robot_v1\chassis_task.o: ..\application\MS4015.h
+logistic_robot_v1\chassis_task.o: ..\application\struct_typedef.h
+logistic_robot_v1\chassis_task.o: ..\application\servo.h
 logistic_robot_v1\chassis_task.o: ../algorithm/chassis_filter.h
-logistic_robot_v1\chassis_task.o: ../application/struct_typedef.h
 logistic_robot_v1\chassis_task.o: ..\application\CAN_receive.h
 logistic_robot_v1\chassis_task.o: ..\application\CAN_cmd_3508.h
 logistic_robot_v1\chassis_task.o: ../algorithm/pid.h

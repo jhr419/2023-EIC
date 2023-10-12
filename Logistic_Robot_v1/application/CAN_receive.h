@@ -50,6 +50,7 @@
 typedef enum
 {
     CAN_M1_ID  = 0x141,
+		CAN_M2_ID  = 0x142,
 	
 		CAN_CHASSIS_ALL_ID = 0x200,
     CAN_3508_M1_ID = 0x201,

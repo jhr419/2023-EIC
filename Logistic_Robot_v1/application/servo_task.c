@@ -45,25 +45,25 @@ void servo_task(void const* argument){
 				case ARM1_GRAP:
 				{
 					cmd_arm1_grap();
-					CAN_delta_angleControl(12000);
+					//CAN_delta_angleControl(12000);
 					break;
 				}
 				case ARM2_GRAP:
 				{
 					cmd_arm2_grap();
-					CAN_delta_angleControl(12000);
+					//CAN_delta_angleControl(12000);
 					break;
 				}
 				case ARM2_PLACE1:
 				{
 				  cmd_arm2_place1();
-					CAN_delta_angleControl(12000);
+					//CAN_delta_angleControl(12000);
 					break;
 				}
 				case ARM2_PLACE2:
 				{
 					cmd_arm2_place2();
-					CAN_delta_angleControl(12000);
+					//CAN_delta_angleControl(12000);
 					break;
 				}
 				
