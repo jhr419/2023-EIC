@@ -2,9 +2,10 @@
 北京邮电大学鸿雁战队2023工程创新与实践大赛电控代码仓库
 ## 功能介绍
 ### 通信接口说明
-usart6 - 与NUC的收发和交流
-uart8 - 与action的收发和交流
-uart7 - 调试使用接口
+---
+usart6 - 与NUC的收发和交流\
+uart8 - 与action的收发和交流\
+uart7 - 调试使用接口\
 can - 和电机交互
 ---
 ## Work To be done & optimized
