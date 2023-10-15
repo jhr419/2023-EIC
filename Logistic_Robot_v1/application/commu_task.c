@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include "bsp_usart.h"
 #include "CAN_cmd_3508.h"
+#include "CAN_cmd_2006.h"
 //按键中断开始后发送正确的stuffnum，上位机开始发送数据，比赛开始
 #define ACTION_DISTANCE_ERROR -56.48275606 //全场定位中心与中心安装的差错长,之后再改
 #define ACTION_ANGLE_ERROR    0  //角度差错值
@@ -242,6 +243,7 @@ void commu_task(void const* argument){
 			{
 				uart8_printf("ACT0");
 				my_car_data.stuff_num=0;
+				set_M2006_rotate_rounds(20);
 				Update_position('Y',ACTION_DISTANCE_ERROR);
 			}
 		}

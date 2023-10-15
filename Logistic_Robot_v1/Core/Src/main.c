@@ -132,29 +132,22 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	can_filter_init();
 	servo_init(); 
-	CAN_angleControl(CAN_M1_ID, 0);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-//  MX_FREERTOS_Init();
+  MX_FREERTOS_Init();
 
 //  /* Start scheduler */
-//  osKernelStart();
+  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+	
 	while(1){
-
+		//CAN_cmd_chassis(5000,10000,1000,1000);
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
-		CAN_delta_angleControl(CAN_M1_ID, 120);
-		CAN_delta_angleControl(CAN_M2_ID, 180)
-		;
-		HAL_Delay(2000);
-
 	}
   /* USER CODE END 3 */
 }

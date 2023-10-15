@@ -6,7 +6,7 @@
 #include "struct_typedef.h"
 extern car_data_s  my_car_data;
 extern arm_cmd_t 	my_arm;
-static uint8_t last_arm_cmd;
+//static uint8_t last_arm_cmd;
 void cmd_arm1_grap()
 {
 	//先糊弄一下，之后改
@@ -71,7 +71,7 @@ void servo_task(void const* argument){
 					break;
 			}
 			my_arm.act_id = 0;
-//			last_arm_cmd = my_arm.act_id;
+  		//last_arm_cmd = my_arm.act_id;
 	  }
 		osDelay(20);
 	}

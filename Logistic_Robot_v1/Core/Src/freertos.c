@@ -28,6 +28,7 @@
 #include "commu_task.h"
 #include "chassis_task.h"
 #include "servo_task.h"
+#include "CAN_cmd_2006.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,6 +51,7 @@
 osThreadId commuTaskHandle;
 osThreadId servoTaskHandle;
 osThreadId chassisTaskHandle;
+osThreadId m2006TaskHandle;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 
@@ -106,8 +108,6 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -117,8 +117,11 @@ void MX_FREERTOS_Init(void) {
 	osThreadDef(chassisTask, chassis_task,osPriorityHigh,0,1024);
 	chassisTaskHandle = osThreadCreate(osThread(chassisTask),NULL);
 	
-	osThreadDef(servoTask, servo_task,osPriorityHigh,0,1024);
+	osThreadDef(servoTask, servo_task,osPriorityHigh,0,512);
 	servoTaskHandle = osThreadCreate(osThread(servoTask),NULL);
+	
+	osThreadDef(m2006Task, m2006_task,osPriorityHigh,0,1024);
+	m2006TaskHandle = osThreadCreate(osThread(m2006Task),NULL);
   /* USER CODE END RTOS_THREADS */
 
 }
