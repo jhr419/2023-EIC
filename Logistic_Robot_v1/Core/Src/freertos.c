@@ -28,7 +28,8 @@
 #include "commu_task.h"
 #include "chassis_task.h"
 #include "servo_task.h"
-#include "CAN_cmd_2006.h"
+#include "CAN_cmd_all.h"
+#include "gear_motor_ctrl.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

@@ -1,15 +1,12 @@
 #include "chassis_task.h"
 #include "cmsis_os.h"
 #include "arm_math.h"
-
-#include "MS4015.h"
-#include "servo.h"
 #include "chassis_filter.h"
+#include "CAN_cmd_all.h"
 #include "CAN_receive.h"
-#include "CAN_cmd_3508.h"
-#include "pid.h"
-#include "struct_typedef.h"
 #include "commu_task.h"
+#include "servo.h"
+#include "pid.h"
 
 #define MAX_OUT  12000.0
 #define MAX_IOUT 1000.0
@@ -23,14 +20,12 @@
 #define FILTER_FRAME_PERIOD 1
 
 extern servo_t servo[8];
-
 static fp32 wheel_exp_rpm[4];
 static fp32 wheel_set_rpm[4];
 extern move_cmd_t my_move;
 const motor_3508_measure_t*	chassis_motor[4];
 const fp32 pid_k[3]={PID_3508_P, PID_3508_I, PID_3508_D};
 pid_t pid[4];
-
 
 void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
 {

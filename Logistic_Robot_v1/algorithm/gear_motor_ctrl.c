@@ -7,8 +7,7 @@
  *  Version    Date            Author          Modification
  *  V1.0.0     10.15           Brandon         done
  */
-#include "CAN_cmd_2006.h"
-#include "CAN_cmd_3508.h"
+#include "CAN_cmd_all.h"
 #include "main.h"
 #include "cmsis_os.h"
 #include "commu_task.h"
@@ -33,24 +32,6 @@ float pid_m2006[3]={5,0,0};
 
 #define MILESTONE_NEAR_THRESHHOLD 2000
 
-void CAN_cmd_2006(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4)
-{
-    uint32_t send_mail_box;
-    motor_2006_tx_message.StdId = 0x1FF;
-    motor_2006_tx_message.IDE = CAN_ID_STD;
-    motor_2006_tx_message.RTR = CAN_RTR_DATA;
-    motor_2006_tx_message.DLC = 0x08;
-    motor_2006_can_send_data[0] = motor1 >> 8;
-    motor_2006_can_send_data[1] = motor1;
-    motor_2006_can_send_data[2] = motor2 >> 8;
-    motor_2006_can_send_data[3] = motor2;
-    motor_2006_can_send_data[4] = motor3 >> 8;
-    motor_2006_can_send_data[5] = motor3;
-    motor_2006_can_send_data[6] = motor4 >> 8;
-    motor_2006_can_send_data[7] = motor4;
-
-    HAL_CAN_AddTxMessage(&hcan1, &motor_2006_tx_message, motor_2006_can_send_data, &send_mail_box);
-}
 
 struct milestoneStack_s {
     uint8_t head;
@@ -186,14 +167,16 @@ void set_M2006_speed()
 }
 void set_M2006_current(){
 	int current=PID_calc(&M2006Ctrl.pid,*M2006Ctrl.now_speed,M2006Ctrl.set_speed);
-	CAN_cmd_chassis(current,0,0,0);
+	CAN_cmd_2006(current,0,0,0);
 }
 void m2006_task(void const* argument)
 {
 	osDelay(300);
 	initM2006ECDRoundsMonitor();
+	set_M2006_rotate_rounds(2);
 	while(1)
 	{
+		uart8_printf("%d\r\n",M2006Ctrl.nowRounds);
 		monitorM2006ECDRound();
 		refresh_M2006_ctrl();
 		set_M2006_speed();

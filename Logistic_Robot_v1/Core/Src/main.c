@@ -37,9 +37,8 @@
 #include "chassis_task.h"
 #include "servo_task.h"
 #include "CAN_receive.h"
-#include "MS4015.h"
-#include "CAN_cmd_3508.h"
-#include "CAN_cmd_2006.h"
+#include "CAN_cmd_all.h"
+#include "gear_motor_ctrl.h"
 #include "bsp_can.h"
 #include "servo.h"
 extern UART_HandleTypeDef huart6;
@@ -137,17 +136,16 @@ int main(void)
   /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
 
-//  /* Start scheduler */
+  /* Start scheduler */
   osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	
 	while(1){
-		//CAN_cmd_chassis(5000,10000,1000,1000);
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
+		
 	}
   /* USER CODE END 3 */
 }
