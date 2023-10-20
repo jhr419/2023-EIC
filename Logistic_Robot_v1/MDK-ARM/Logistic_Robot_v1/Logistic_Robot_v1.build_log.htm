@@ -27,11 +27,23 @@ Project File Date:  10/20/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Develop\Keil V5\ARM\ARMCC\Bin'
 Build target 'Logistic_Robot_v1'
+compiling main.c...
+../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
+  extern void startM2006Monitor();
+../Core/Src/main.c: 1 warning, 0 errors
+compiling freertos.c...
+../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
+  extern void startM2006Monitor();
+../Core/Src/freertos.c: 1 warning, 0 errors
 compiling gear_motor_ctrl.c...
+compiling commu_task.c...
+../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
+  extern void startM2006Monitor();
+..\application\commu_task.c: 1 warning, 0 errors
 linking...
-Program Size: Code=26080 RO-data=1224 RW-data=268 ZI-data=21316  
+Program Size: Code=26060 RO-data=1224 RW-data=268 ZI-data=21316  
 FromELF: creating hex file...
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 0 Warning(s).
+"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -60,7 +72,7 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:DSP:Library:1.7.0
       Include file:  CMSIS\DSP\Include\arm_math.h
       Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

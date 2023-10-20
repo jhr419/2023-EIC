@@ -81,6 +81,10 @@ static void initM2006ECDRoundsMonitor()  //³õÊ¼»¯²¦µ¯ÂÖÈ¦Êý¼à¿Ø
 		M2006Ctrl[i].mode=M2006_STOP;
 	}
 }   
+void startM2006Monitor()
+{
+	initM2006ECDRoundsMonitor();
+}
 static void monitorM2006ECDRound(void)
 {
 	for(int i=0;i<4;i++)
@@ -186,8 +190,6 @@ void set_M2006_current(){
 }
 void m2006_task(void const* argument)
 {
-	initM2006ECDRoundsMonitor();
-	set_M2006_rotate_rounds(0,2);
 	while(1)
 	{
 		usart_printf("%d,%d\r\n",M2006Ctrl[0].nowRounds,M2006Ctrl[0].targetRounds);

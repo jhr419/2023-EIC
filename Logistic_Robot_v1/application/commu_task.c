@@ -17,6 +17,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "bsp_usart.h"
+#include "gear_motor_ctrl.h"
 #include "CAN_cmd_all.h"
 //按键中断开始后发送正确的stuffnum，上位机开始发送数据，比赛开始
 #define ACTION_DISTANCE_ERROR -56.48275606 //全场定位中心与中心安装的差错长,之后再改
@@ -33,6 +34,7 @@ car_data_s 		my_car_data;//相对车中心的位姿
 
 uint8_t exit_flag = 0;
 uint8_t rising_falling_flag ;
+uint8_t rising_falling_flag1 ;
 int action_count=0;
 
 extern DMA_HandleTypeDef hdma_uart8_rx;
@@ -245,7 +247,13 @@ void commu_task(void const* argument){
 				Update_position('Y',ACTION_DISTANCE_ERROR);
 			}
 		}
-		
+		if(rising_falling_flag1!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
+			rising_falling_flag1 =HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin);
+			if(HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)==1)
+			{
+				startM2006Monitor();
+			}
+		}
 		if(action_count)
 		{
 			HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_SET);
