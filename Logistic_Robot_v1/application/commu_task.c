@@ -242,7 +242,6 @@ void commu_task(void const* argument){
 			{
 				uart8_printf("ACT0");
 				my_car_data.stuff_num=0;
-				set_M2006_rotate_rounds(20);
 				Update_position('Y',ACTION_DISTANCE_ERROR);
 			}
 		}

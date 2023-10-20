@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "logistic_robot_v1\startup_stm32f427xx.o"
 "logistic_robot_v1\main.o"
 "logistic_robot_v1\gpio.o"
@@ -27,7 +27,6 @@
 "logistic_robot_v1\stm32f4xx_hal_tim_ex.o"
 "logistic_robot_v1\stm32f4xx_hal_uart.o"
 "logistic_robot_v1\system_stm32f4xx.o"
-"logistic_robot_v1\can_cmd_ms4015.o"
 "logistic_robot_v1\croutine.o"
 "logistic_robot_v1\event_groups.o"
 "logistic_robot_v1\list.o"
@@ -50,7 +49,7 @@
 "logistic_robot_v1\pid.o"
 "logistic_robot_v1\chassis_filter.o"
 "logistic_robot_v1\gear_motor_ctrl.o"
-"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib"
+"..\..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib"
 --strict --scatter "Logistic_Robot_v1\Logistic_Robot_v1.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -2,7 +2,7 @@
  * encoding:GB2312
  * @file M2006_task.c
  * @author Brandon
- * @brief  收取全场定位数据并转发給上位机
+ * @brief  搞定多圈旋转问题
  * @history
  *  Version    Date            Author          Modification
  *  V1.0.0     10.15           Brandon         done
@@ -14,6 +14,7 @@
 #include "pid.h"
 #include "CAN_receive.h"
 //需要中断触发，触发时机：在收到机械臂二抓取和放置的同时进行操作，在其他任务中給工作量
+//需要锁死在一个ECD，进入stop模式的时候正好锁住ECD
 extern CAN_HandleTypeDef hcan2;
 extern CAN_HandleTypeDef hcan1;
 
@@ -22,11 +23,11 @@ extern CAN_TxHeaderTypeDef  motor_2006_tx_message;
 extern uint8_t              motor_2006_can_send_data[8];
 
 //控制变量，有待修改
-#define Rotate_To_Go 12
+#define Reduction_ratio_M2006 1/36 
 #define SPEED_M2006 1000
 #define MAX_OUT		12000.0
 #define MAX_IOUT  1200.0
-float pid_m2006[3]={5,0,0};
+
 #define MILESTONE_NUMBER 3
 #define ECD_FULL_ROUND 8192
 
@@ -65,36 +66,41 @@ static uint16_t ECDFormat(int16_t rawECD)     //test done
     return (uint16_t)rawECD;
 }
 extern arm_cmd_t 	my_arm;
-//这个酌情修改，可能是数组
-struct M2006Control_s M2006Ctrl;
+//开启四个M2006控制
+struct M2006Control_s M2006Ctrl[4];
+float pid_m2006[4][3]={{5,0,0},{5,0,0}};
 static void initM2006ECDRoundsMonitor()  //初始化拨弹轮圈数监控
 {
-	  PID_init(&M2006Ctrl.pid, PID_POSITION, pid_m2006, MAX_OUT , MAX_IOUT);
+	for(int i=0;i<4;i++)
+	{
+	  PID_init(&M2006Ctrl[i].pid, PID_POSITION, pid_m2006[i], MAX_OUT , MAX_IOUT);
 	//获取那个电机的数值指针
-		M2006Ctrl.now_speed=(int16_t *)&(get_motor_2006_measure_point(0)->speed_rpm);
-    M2006Ctrl.ECDPoint=&(get_motor_2006_measure_point(0)->ecd);
-    M2006Ctrl.initECD=*(M2006Ctrl.ECDPoint);
-		M2006Ctrl.mode=M2006_STOP;
-    
+		M2006Ctrl[i].now_speed=(int16_t *)&(get_motor_2006_measure_point(i)->speed_rpm);
+    M2006Ctrl[i].ECDPoint=&(get_motor_2006_measure_point(i)->ecd);
+    M2006Ctrl[i].initECD=*(M2006Ctrl[i].ECDPoint);
+		M2006Ctrl[i].mode=M2006_STOP;
+	}
 }   
 static void monitorM2006ECDRound(void)
 {
+	for(int i=0;i<4;i++)
+	{
     uint8_t j;
     // 更新ECD
-    M2006Ctrl.nowECD=*(M2006Ctrl.ECDPoint);
+    M2006Ctrl[i].nowECD=*(M2006Ctrl[i].ECDPoint);
     for(j=0;j<MILESTONE_NUMBER;j++)    //枚举每一个里程碑所在位置
     {
         fp32 relativeRealECD;
-        relativeRealECD=ECDFormat((int16_t)M2006Ctrl.nowECD-(int16_t)M2006Ctrl.initECD);
+        relativeRealECD=ECDFormat((int16_t)M2006Ctrl[i].nowECD-(int16_t)M2006Ctrl[i].initECD);
         //失败原因是0的比较出现了问题
         
         if(ECDFormat(relativeRealECD-j*ECD_FULL_ROUND/MILESTONE_NUMBER)<MILESTONE_NEAR_THRESHHOLD)
                 //当前位置落在相应里程碑点所在区域内
         {
-            if(j!=(M2006Ctrl.mstack.stack[M2006Ctrl.mstack.head]))
+            if(j!=(M2006Ctrl[i].mstack.stack[M2006Ctrl[i].mstack.head]))
                //不等说明到达了一个新位置，将此新位置加入栈中
             {
-                M2006Ctrl.mstack.head++;
+                M2006Ctrl[i].mstack.head++;
                 #ifdef WATCH_ARRAY_OUT
                 if(c->mstack.head>=MILESTONE_NUMBER)
                 {
@@ -103,80 +109,88 @@ static void monitorM2006ECDRound(void)
                 }
                     
                 #endif
-                M2006Ctrl.mstack.stack[M2006Ctrl.mstack.head]=j;
+                M2006Ctrl[i].mstack.stack[M2006Ctrl[i].mstack.head]=j;
             }
         }
     }
-    if(((M2006Ctrl.mstack.head)-2)>=0)
+    if(((M2006Ctrl[i].mstack.head)-2)>=0)
     {
-        if(M2006Ctrl.mstack.stack[M2006Ctrl.mstack.head]==M2006Ctrl.mstack.stack[M2006Ctrl.mstack.head-2])
-            (M2006Ctrl.mstack.head)-=2;
+        if(M2006Ctrl[i].mstack.stack[M2006Ctrl[i].mstack.head]==M2006Ctrl[i].mstack.stack[M2006Ctrl[i].mstack.head-2])
+            (M2006Ctrl[i].mstack.head)-=2;
     }
-    if(((M2006Ctrl.mstack.head)-3)>=0)
+    if(((M2006Ctrl[i].mstack.head)-3)>=0)
     {
-        if(M2006Ctrl.mstack.stack[M2006Ctrl.mstack.head]==M2006Ctrl.mstack.stack[M2006Ctrl.mstack.head-3])
+        if(M2006Ctrl[i].mstack.stack[M2006Ctrl[i].mstack.head]==M2006Ctrl[i].mstack.stack[M2006Ctrl[i].mstack.head-3])
         {//到达了一圈
-            if(M2006Ctrl.mstack.stack[1]==1)//正向旋转（逆时针）
-                M2006Ctrl.nowRounds +=1;
+            if(M2006Ctrl[i].mstack.stack[1]==1)//正向旋转（逆时针）
+                M2006Ctrl[i].nowRounds +=1;
             else
-                M2006Ctrl.nowRounds -=1;
-            M2006Ctrl.mstack.head=0;     // 清空栈，回到初始为0的时候
+                M2006Ctrl[i].nowRounds -=1;
+            M2006Ctrl[i].mstack.head=0;     // 清空栈，回到初始为0的时候
         }
     }
+	}
 }
 void refresh_M2006_ctrl(){
-	if(M2006Ctrl.nowRounds>M2006Ctrl.targetRounds)
-		M2006Ctrl.mode=M2006_ROTATE_BACKWARD;
-	if(M2006Ctrl.nowRounds<M2006Ctrl.targetRounds)
-		M2006Ctrl.mode=M2006_ROTATE_FORWARD;
-	if(M2006Ctrl.nowRounds==M2006Ctrl.targetRounds)
+	for(int i=0;i<4;i++)
 	{
-		M2006Ctrl.mode=M2006_STOP;
-		M2006Ctrl.targetRounds = M2006Ctrl.nowRounds;
-	}
+		if(M2006Ctrl[i].nowRounds>M2006Ctrl[i].targetRounds)
+			M2006Ctrl[i].mode=M2006_ROTATE_BACKWARD;
+		if(M2006Ctrl[i].nowRounds<M2006Ctrl[i].targetRounds)
+			M2006Ctrl[i].mode=M2006_ROTATE_FORWARD;
+		if(M2006Ctrl[i].nowRounds==M2006Ctrl[i].targetRounds)
+		{
+			M2006Ctrl[i].mode=M2006_STOP;
+			M2006Ctrl[i].targetRounds = M2006Ctrl[i].nowRounds;
+		}
+  }
 }
 //输入参数k 为当前状态下旋转的目标，这是一个外部函数，用于servo_task，在接收前转换
-void set_M2006_rotate_rounds(int k)
+void set_M2006_rotate_rounds(int i,int k)
 {
-	if(M2006Ctrl.mode==M2006_STOP)
-	{
-		M2006Ctrl.targetRounds=M2006Ctrl.nowRounds+k;
-		if(k>0)
-			M2006Ctrl.mode=M2006_ROTATE_FORWARD;
-		else if(k<0)
-			M2006Ctrl.mode=M2006_ROTATE_BACKWARD;
-		else
-			M2006Ctrl.mode=M2006_STOP;
-	}
+		if(M2006Ctrl[i].mode==M2006_STOP)
+		{
+			M2006Ctrl[i].targetRounds=M2006Ctrl[i].nowRounds+k;
+			if(k>0)
+				M2006Ctrl[i].mode=M2006_ROTATE_FORWARD;
+			else if(k<0)
+				M2006Ctrl[i].mode=M2006_ROTATE_BACKWARD;
+			else
+				M2006Ctrl[i].mode=M2006_STOP;
+		}
 }
 //一定要用pid因为有负载保持
 void set_M2006_speed()
 {
-	if(M2006Ctrl.mode==M2006_ROTATE_FORWARD)
+	for(int i=0;i<4;i++)
 	{
-		M2006Ctrl.set_speed=SPEED_M2006;
-	}
-	else if (M2006Ctrl.mode==M2006_ROTATE_BACKWARD)
-	{
-		M2006Ctrl.set_speed=-SPEED_M2006;
-	}
-	else if (M2006Ctrl.mode==M2006_STOP)
-	{
-		M2006Ctrl.set_speed=0;
-	}
+		if(M2006Ctrl[i].mode==M2006_ROTATE_FORWARD)
+		{
+			M2006Ctrl[i].set_speed=SPEED_M2006;
+		}
+		else if (M2006Ctrl[i].mode==M2006_ROTATE_BACKWARD)
+		{
+			M2006Ctrl[i].set_speed=-SPEED_M2006;
+		}
+		else if (M2006Ctrl[i].mode==M2006_STOP)
+		{
+			M2006Ctrl[i].set_speed=0;
+		}
+  }
 }
 void set_M2006_current(){
-	int current=PID_calc(&M2006Ctrl.pid,*M2006Ctrl.now_speed,M2006Ctrl.set_speed);
-	CAN_cmd_2006(current,0,0,0);
+	int current[4];
+	for(int i=0;i<4;i++)
+		current[i]=PID_calc(&M2006Ctrl[i].pid,*M2006Ctrl[i].now_speed,M2006Ctrl[i].set_speed);
+	CAN_cmd_2006(current[0],current[1],current[2],current[3]);
 }
 void m2006_task(void const* argument)
 {
-	osDelay(300);
 	initM2006ECDRoundsMonitor();
-	set_M2006_rotate_rounds(2);
+	set_M2006_rotate_rounds(0,2);
 	while(1)
 	{
-		uart8_printf("%d\r\n",M2006Ctrl.nowRounds);
+		usart_printf("%d,%d\r\n",M2006Ctrl[0].nowRounds,M2006Ctrl[0].targetRounds);
 		monitorM2006ECDRound();
 		refresh_M2006_ctrl();
 		set_M2006_speed();
