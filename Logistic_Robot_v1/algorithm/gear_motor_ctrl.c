@@ -7,6 +7,7 @@
  *  Version    Date            Author          Modification
  *  V1.0.0     10.15           Brandon         done
  */
+#include "gear_motor_ctrl.h"
 #include "CAN_cmd_all.h"
 #include "main.h"
 #include "cmsis_os.h"
