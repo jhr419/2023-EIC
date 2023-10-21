@@ -47,6 +47,9 @@ logistic_robot_v1\servo_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/inclu
 logistic_robot_v1\servo_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 logistic_robot_v1\servo_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 logistic_robot_v1\servo_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-logistic_robot_v1\servo_task.o: ..\application\commu_task.h
+logistic_robot_v1\servo_task.o: ..\application\servo.h
 logistic_robot_v1\servo_task.o: ..\application\struct_typedef.h
+logistic_robot_v1\servo_task.o: ..\application\commu_task.h
 logistic_robot_v1\servo_task.o: ..\application\CAN_cmd_all.h
+logistic_robot_v1\servo_task.o: ..\application\CAN_receive.h
+logistic_robot_v1\servo_task.o: ../algorithm/gear_motor_ctrl.h

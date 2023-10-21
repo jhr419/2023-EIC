@@ -17,6 +17,8 @@ typedef struct
 	uint8_t id;
 }servo_t;
 
+extern servo_t servo[8];
+extern servo_t* get_servo_point(int i);
 void servo_init(void);
 void single_servo_ctrl(servo_t* servo, uint16_t pwm);
 void arm_ready(void);

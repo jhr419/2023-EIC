@@ -14,7 +14,6 @@
                 "d:\\codefiles\\2023Engineering innovation competition scheme\\2023-EIC\\Logistic_Robot_v1\\algorithm",
                 "d:\\codefiles\\2023Engineering innovation competition scheme\\2023-EIC\\Logistic_Robot_v1\\application",
                 "d:\\codefiles\\2023Engineering innovation competition scheme\\2023-EIC\\Logistic_Robot_v1\\board",
-                "D:\\engineeringsoftware\\keil5\\v5package\\ARM\\CMSIS\\5.6.0\\CMSIS\\Include",
                 "D:\\engineering software\\keil5\\keil5 5.24\\ARM\\ARMCC\\include",
                 "D:\\engineering software\\keil5\\keil5 5.24\\ARM\\ARMCC\\include\\rw",
                 "d:\\codefiles\\2023Engineering innovation competition scheme\\2023-EIC\\Logistic_Robot_v1\\MDK-ARM",
@@ -26,6 +25,7 @@
             "defines": [
                 "USE_HAL_DRIVER",
                 "STM32F427xx",
+                "ARM_MATH_CM4",
                 "__CC_ARM",
                 "__arm__",
                 "__align(x)=",

@@ -7,7 +7,6 @@
  *  Version    Date            Author          Modification
  *  V1.0.0     10.15           Brandon         done
  */
-#include "gear_motor_ctrl.h"
 #include "CAN_cmd_all.h"
 #include "main.h"
 #include "cmsis_os.h"
@@ -25,7 +24,7 @@ extern uint8_t              motor_2006_can_send_data[8];
 
 //控制变量，有待修改
 #define Reduction_ratio_M2006 1/36 
-#define SPEED_M2006 1000
+#define SPEED_M2006 2000
 #define MAX_OUT		12000.0
 #define MAX_IOUT  1200.0
 
@@ -193,7 +192,6 @@ void m2006_task(void const* argument)
 {
 	while(1)
 	{
-		usart_printf("%d,%d\r\n",M2006Ctrl[0].nowRounds,M2006Ctrl[0].targetRounds);
 		monitorM2006ECDRound();
 		refresh_M2006_ctrl();
 		set_M2006_speed();

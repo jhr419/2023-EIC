@@ -42,6 +42,9 @@ void servo_init(void)
 	servo[7].channel = TIM_CHANNEL_4;
 }
 
+servo_t* get_servo_point(int i){
+	return &servo[i];
+}
 void single_servo_ctrl(servo_t* servo, uint16_t pwm)
 {
 	TIM_HandleTypeDef htim = servo->htim;

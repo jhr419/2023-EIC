@@ -21,50 +21,92 @@ Target DLL:      CMSIS_AGDI.dll V1.32.0.0
 Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
-<<<<<<< Updated upstream
-C:\Users\xiaozhu\Desktop\2023 EIC\2023-EIC\Logistic_Robot_v1\MDK-ARM\Logistic_Robot_v1.uvprojx
-=======
-D:\codefiles\2023Engineering innovation competition scheme\2023-EIC\Logistic_Robot_v1\MDK-ARM\Logistic_Robot_v1.uvprojx
->>>>>>> Stashed changes
+C:\Users\xiaozhu\Desktop\2023 EIC\backup\2023-EIC-71f719c5718f9d24add9a463811c861d6767e7f7\Logistic_Robot_v1\MDK-ARM\Logistic_Robot_v1.uvprojx
 Project File Date:  10/20/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Develop\Keil V5\ARM\ARMCC\Bin'
 Build target 'Logistic_Robot_v1'
-<<<<<<< Updated upstream
-compiling main.c...
-../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
-  extern void startM2006Monitor();
-../Core/Src/main.c: 1 warning, 0 errors
-compiling freertos.c...
-../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
-  extern void startM2006Monitor();
-../Core/Src/freertos.c: 1 warning, 0 errors
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
 compiling gear_motor_ctrl.c...
+compiling chassis_task.c...
 compiling commu_task.c...
+..\application\servo_task.h(29): warning:  #1295-D: Deprecated declaration cmd_arm_rst - give arg types
+  void cmd_arm_rst();
+..\application\servo_task.h(30): warning:  #1295-D: Deprecated declaration cmd_arm_to_code - give arg types
+  void cmd_arm_to_code();
+..\application\servo_task.h(31): warning:  #1295-D: Deprecated declaration cmd_arm_to_stuff - give arg types
+  void cmd_arm_to_stuff();
+..\application\servo_task.h(32): warning:  #1295-D: Deprecated declaration cmd_arm_grab_material - give arg types
+  void cmd_arm_grab_material();
+..\application\servo_task.h(33): warning:  #1295-D: Deprecated declaration cmd_arm_place_ground - give arg types
+  void cmd_arm_place_ground();
+..\application\servo_task.h(34): warning:  #1295-D: Deprecated declaration cmd_arm_grab_ground - give arg types
+  void cmd_arm_grab_ground();
+..\application\servo_task.h(35): warning:  #1295-D: Deprecated declaration cmd_arm_place_stuff - give arg types
+  void cmd_arm_place_stuff();
 ../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
   extern void startM2006Monitor();
-..\application\commu_task.c: 1 warning, 0 errors
+..\application\commu_task.c(241): warning:  #177-D: variable "initangle"  was declared but never referenced
+  	int initangle=120;
+..\application\commu_task.c: 9 warnings, 0 errors
+compiling freertos.c...
+../application/servo_task.h(29): warning:  #1295-D: Deprecated declaration cmd_arm_rst - give arg types
+  void cmd_arm_rst();
+../application/servo_task.h(30): warning:  #1295-D: Deprecated declaration cmd_arm_to_code - give arg types
+  void cmd_arm_to_code();
+../application/servo_task.h(31): warning:  #1295-D: Deprecated declaration cmd_arm_to_stuff - give arg types
+  void cmd_arm_to_stuff();
+../application/servo_task.h(32): warning:  #1295-D: Deprecated declaration cmd_arm_grab_material - give arg types
+  void cmd_arm_grab_material();
+../application/servo_task.h(33): warning:  #1295-D: Deprecated declaration cmd_arm_place_ground - give arg types
+  void cmd_arm_place_ground();
+../application/servo_task.h(34): warning:  #1295-D: Deprecated declaration cmd_arm_grab_ground - give arg types
+  void cmd_arm_grab_ground();
+../application/servo_task.h(35): warning:  #1295-D: Deprecated declaration cmd_arm_place_stuff - give arg types
+  void cmd_arm_place_stuff();
+../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
+  extern void startM2006Monitor();
+../Core/Src/freertos.c: 8 warnings, 0 errors
+compiling servo_task.c...
+..\application\servo_task.h(29): warning:  #1295-D: Deprecated declaration cmd_arm_rst - give arg types
+  void cmd_arm_rst();
+..\application\servo_task.h(30): warning:  #1295-D: Deprecated declaration cmd_arm_to_code - give arg types
+  void cmd_arm_to_code();
+..\application\servo_task.h(31): warning:  #1295-D: Deprecated declaration cmd_arm_to_stuff - give arg types
+  void cmd_arm_to_stuff();
+..\application\servo_task.h(32): warning:  #1295-D: Deprecated declaration cmd_arm_grab_material - give arg types
+  void cmd_arm_grab_material();
+..\application\servo_task.h(33): warning:  #1295-D: Deprecated declaration cmd_arm_place_ground - give arg types
+  void cmd_arm_place_ground();
+..\application\servo_task.h(34): warning:  #1295-D: Deprecated declaration cmd_arm_grab_ground - give arg types
+  void cmd_arm_grab_ground();
+..\application\servo_task.h(35): warning:  #1295-D: Deprecated declaration cmd_arm_place_stuff - give arg types
+  void cmd_arm_place_stuff();
+../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
+  extern void startM2006Monitor();
+..\application\servo_task.c: 8 warnings, 0 errors
+compiling main.c...
+../application/servo_task.h(29): warning:  #1295-D: Deprecated declaration cmd_arm_rst - give arg types
+  void cmd_arm_rst();
+../application/servo_task.h(30): warning:  #1295-D: Deprecated declaration cmd_arm_to_code - give arg types
+  void cmd_arm_to_code();
+../application/servo_task.h(31): warning:  #1295-D: Deprecated declaration cmd_arm_to_stuff - give arg types
+  void cmd_arm_to_stuff();
+../application/servo_task.h(32): warning:  #1295-D: Deprecated declaration cmd_arm_grab_material - give arg types
+  void cmd_arm_grab_material();
+../application/servo_task.h(33): warning:  #1295-D: Deprecated declaration cmd_arm_place_ground - give arg types
+  void cmd_arm_place_ground();
+../application/servo_task.h(34): warning:  #1295-D: Deprecated declaration cmd_arm_grab_ground - give arg types
+  void cmd_arm_grab_ground();
+../application/servo_task.h(35): warning:  #1295-D: Deprecated declaration cmd_arm_place_stuff - give arg types
+  void cmd_arm_place_stuff();
+../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
+  extern void startM2006Monitor();
+../Core/Src/main.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=26060 RO-data=1224 RW-data=268 ZI-data=21316  
+Program Size: Code=26144 RO-data=1224 RW-data=268 ZI-data=21084  
 FromELF: creating hex file...
-<<<<<<< Updated upstream
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 3 Warning(s).
-=======
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 0 Warning(s).
-=======
-compiling motor_ctrl.c...
-..\application\motor_ctrl.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\application\motor_ctrl.c(3): error:  #13: expected a file name
-  #include ""
-..\application\motor_ctrl.c: 1 warning, 1 error
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 1 Error(s), 1 Warning(s).
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 33 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -93,18 +135,7 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:DSP:Library:1.7.0
       Include file:  CMSIS\DSP\Include\arm_math.h
       Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
-<<<<<<< Updated upstream
 Build Time Elapsed:  00:00:04
-=======
-<<<<<<< Updated upstream
-Build Time Elapsed:  00:00:03
-=======
-
-   * Component: ARM::CMSIS:CORE:5.3.0
-Target not created.
-Build Time Elapsed:  00:00:07
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 </pre>
 </body>
 </html>

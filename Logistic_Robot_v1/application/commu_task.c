@@ -5,10 +5,11 @@
  * @brief  收取全场定位数据并转发給上位机
  * @history
  *  Version    Date            Author          Modification
- *  V1.0.0     2023-9-25     Brandon         增加update函数
- *  V1.0.1     2023-9-26     Brandon         增加按键清零
+ *  V1.0.0     2023-9-2
+ Brandon         增加按键清零
  *  V2.0.0     2023-9-28     Brandon         中心矫正初版完成
  */
+
 #include "commu_task.h"
 #include "main.h"
 #include "cmsis_os.h"
@@ -16,6 +17,7 @@
 #include "arm_math.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include "servo_task.h"
 #include "bsp_usart.h"
 #include "gear_motor_ctrl.h"
 #include "CAN_cmd_all.h"
@@ -236,15 +238,16 @@ void commu_task_init()
 void commu_task(void const* argument){
 	commu_task_init();
 	uint8_t tx_msg[19];
-	
+	int initangle=120;
 	while(1){
 		if(rising_falling_flag!=HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)){
 			rising_falling_flag =HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
 			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0)
 			{
-				uart8_printf("ACT0");
+        uart8_printf("ACT0");
 				my_car_data.stuff_num=0;
 				Update_position('Y',ACTION_DISTANCE_ERROR);
+				cmd_arm_grab_ground();
 			}
 		}
 		if(rising_falling_flag1!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
@@ -252,6 +255,7 @@ void commu_task(void const* argument){
 			if(HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)==1)
 			{
 				startM2006Monitor();
+				cmd_arm_place_stuff();
 			}
 		}
 		if(action_count)
@@ -264,7 +268,7 @@ void commu_task(void const* argument){
 		}
 		
 		action_to_car();
-		uart7_printf("%f,%f,%f,%f,%f\n", my_car_data.x, my_car_data.y, my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
+		//uart7_printf("%f,%f,%f,%f,%f\n", my_car_data.x, my_car_data.y, my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
 		//uart7_printf("%d", );
 		osDelay(20);
 		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);

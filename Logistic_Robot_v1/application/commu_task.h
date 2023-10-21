@@ -9,10 +9,14 @@ typedef union __PACKED
 } RxFP32Data;
 typedef enum
 {
-	ARM1_GRAP = 1,
-	ARM2_GRAP,
-	ARM2_PLACE1,
-	ARM2_PLACE2
+ARM_RST = 0x01,
+ARM_TO_CODE = 0x02,
+ARM_TO_STUFF = 0x03,
+ARM_GRAB_MATERIAL = 0x04,
+ARM_PLACE_GROUND = 0x05,
+ARM_GRAB_GROUND = 0x06,
+ARM_PLACE_STUFF = 0x07,
+ARM_END =0x08
 }act_id_e;
 typedef struct __PACKED
 {

@@ -1,7 +1,6 @@
 logistic_robot_v1\gear_motor_ctrl.o: ..\algorithm\gear_motor_ctrl.c
-logistic_robot_v1\gear_motor_ctrl.o: ..\algorithm\gear_motor_ctrl.h
-logistic_robot_v1\gear_motor_ctrl.o: ../application/struct_typedef.h
 logistic_robot_v1\gear_motor_ctrl.o: ../application/CAN_cmd_all.h
+logistic_robot_v1\gear_motor_ctrl.o: ../application/struct_typedef.h
 logistic_robot_v1\gear_motor_ctrl.o: ../Core/Inc/main.h
 logistic_robot_v1\gear_motor_ctrl.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 logistic_robot_v1\gear_motor_ctrl.o: ../Core/Inc/stm32f4xx_hal_conf.h
