@@ -5,5 +5,6 @@
 extern void m2006_task(void const* argument);
 extern void set_M2006_rotate_rounds(int i,int k);
 extern void startM2006Monitor();
+extern void refresh_M2006_ctrl();
 
 #endif
