@@ -1248,6 +1248,11 @@
               <FileType>1</FileType>
               <FilePath>..\application\motor_ctrl.c</FilePath>
             </File>
+            <File>
+              <FileName>tasks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\tasks.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
