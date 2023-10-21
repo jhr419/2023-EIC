@@ -8,7 +8,7 @@
 #include "servo.h"
 #include "pid.h"
 
-#define MAX_OUT  12000.0
+#define MAX_OUT  9000.0
 #define MAX_IOUT 1000.0
 #define MOTOR_DISTANCE_TO_CENTER 50.0f //需要改
 #define RAD_TO_DEGREE 2*PI/360
