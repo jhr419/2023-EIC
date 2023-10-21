@@ -1257,6 +1257,11 @@
               <FileType>1</FileType>
               <FilePath>..\application\CAN_cmd_all.c</FilePath>
             </File>
+            <File>
+              <FileName>remote_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\remote_control.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1276,6 +1281,11 @@
               <FileName>bsp_can.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\board\bsp_can.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_rc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\board\bsp_rc.c</FilePath>
             </File>
           </Files>
         </Group>

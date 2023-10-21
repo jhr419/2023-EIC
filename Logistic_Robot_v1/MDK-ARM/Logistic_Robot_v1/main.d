@@ -65,3 +65,5 @@ logistic_robot_v1\main.o: ../application/CAN_cmd_all.h
 logistic_robot_v1\main.o: ../algorithm/gear_motor_ctrl.h
 logistic_robot_v1\main.o: ../board/bsp_can.h
 logistic_robot_v1\main.o: ../application/servo.h
+logistic_robot_v1\main.o: ../application/remote_control.h
+logistic_robot_v1\main.o: ../board/bsp_rc.h

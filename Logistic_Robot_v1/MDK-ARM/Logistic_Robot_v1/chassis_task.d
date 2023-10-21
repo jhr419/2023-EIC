@@ -58,4 +58,8 @@ logistic_robot_v1\chassis_task.o: ..\application\CAN_cmd_all.h
 logistic_robot_v1\chassis_task.o: ..\application\CAN_receive.h
 logistic_robot_v1\chassis_task.o: ..\application\commu_task.h
 logistic_robot_v1\chassis_task.o: ..\application\servo.h
+logistic_robot_v1\chassis_task.o: ../algorithm/gear_motor_ctrl.h
 logistic_robot_v1\chassis_task.o: ../algorithm/pid.h
+logistic_robot_v1\chassis_task.o: ..\application\remote_control.h
+logistic_robot_v1\chassis_task.o: ../board/bsp_rc.h
+logistic_robot_v1\chassis_task.o: ../board/struct_typedef.h

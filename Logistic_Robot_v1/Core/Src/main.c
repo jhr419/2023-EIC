@@ -41,6 +41,7 @@
 #include "gear_motor_ctrl.h"
 #include "bsp_can.h"
 #include "servo.h"
+#include "remote_control.h"
 extern UART_HandleTypeDef huart6;
 void usart_printf(const char *fmt,...)
 {
@@ -128,9 +129,11 @@ int main(void)
   MX_TIM8_Init();
   MX_UART7_Init();
   MX_CAN2_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	can_filter_init();
 	servo_init(); 
+	remote_control_init();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -144,6 +147,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while(1){
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
 		
 	}
