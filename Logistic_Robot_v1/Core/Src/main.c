@@ -131,6 +131,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	can_filter_init();
 	servo_init(); 
+	CAN_angleControl(CAN_M1_ID, 0);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -145,7 +146,8 @@ int main(void)
 	while(1){
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-		
+		CAN_delta_angleControl(CAN_M1_ID, 120);
+		HAL_Delay(500);
 	}
   /* USER CODE END 3 */
 }

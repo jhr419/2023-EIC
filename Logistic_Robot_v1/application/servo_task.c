@@ -139,18 +139,18 @@ void cmd_arm_grab_ground()
 	HAL_Delay(1000);
 	//转
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_IN);
-	HAL_Delay(1000);
+	HAL_Delay(1500);
 	//降
 	set_M2006_rotate_rounds(1,ROUNDS_PLACE_PLATE);
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 	//放
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	HAL_Delay(800);
 	//升
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_PLATE);
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 	//转盘子
-	
+	CAN_delta_angleControl(CAN_M1_ID, 120);
 	//转
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
 	my_car_data.stuff_num++;
@@ -178,12 +178,12 @@ void cmd_arm_place_stuff()
 	HAL_Delay(1000);
 		//降
 	set_M2006_rotate_rounds(1,ROUNDS_PLACE_STUFF);
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 	//放
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	HAL_Delay(800);
 	//转盘子
-	
+	CAN_delta_angleControl(CAN_M1_ID, 120);
 	//升
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_STUFF);
 	my_car_data.stuff_num--;
@@ -214,31 +214,31 @@ void servo_task(void const* argument){
 				case ARM_GRAB_MATERIAL:
 				{
 					cmd_arm_grab_material();
-					//CAN_delta_angleControl(12000);
+					CAN_delta_angleControl(CAN_M1_ID, 120);
 					break;
 				}
 				case ARM_PLACE_GROUND:
 				{
 					cmd_arm_place_ground();
-					//CAN_delta_angleControl(12000);
+					CAN_delta_angleControl(CAN_M1_ID, 120);
 					break;
 				}
 				case ARM_GRAB_GROUND:
 				{
 					cmd_arm_grab_ground();
-					//CAN_delta_angleControl(12000);
+					CAN_delta_angleControl(CAN_M1_ID, 120);
 					break;
 				}
 				case ARM_PLACE_STUFF:
 				{
 					cmd_arm_place_stuff();
-					//CAN_delta_angleControl(12000);
+					CAN_delta_angleControl(CAN_M1_ID, 120);
 					break;
 				}
 				case ARM_END:
 				{
 					cmd_arm_place_stuff();
-					//CAN_delta_angleControl(12000);
+					CAN_delta_angleControl(CAN_M1_ID, 120);
 					break;
 				}
 				default :

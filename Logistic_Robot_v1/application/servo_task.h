@@ -15,15 +15,15 @@
 #define ANGLE_CLAW_OPEN 90
 #define ANGLE_CLAW_CLOSE 120
 
-#define ROUNDS_PLACE_PLATE  -11
+#define ROUNDS_PLACE_PLATE  -9
 #define ROUNDS_TOP_TO_BOTTOM -43
 #define ROUNDS_BOTTOM_TO_TOP 48
 #define ROUNDS_PLACE_GROUND -43
-#define ROUNDS_PLACE_STUFF -24
+#define ROUNDS_PLACE_STUFF -21
 #define ROUNDS_GRAB_STUFF_MATERIAL -21
 #define ROUNDS_GRAB_STUFF_GROUND  -45
-#define ROUNDS_TURN_IN 18
-#define ROUNDS_TURN_OUT -18
+#define ROUNDS_TURN_IN 17
+#define ROUNDS_TURN_OUT -17
 
 void servo_task(void const* argument);
 void cmd_arm_rst();
