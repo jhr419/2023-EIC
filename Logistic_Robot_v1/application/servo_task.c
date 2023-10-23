@@ -27,9 +27,7 @@ ARM_PLACE_STUFF = 0x07
 */
 void cmd_arm_rst()
 {
-	startM2006Monitor();
-	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
-	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
+	set_M2006_rotate_rounds(0,ROUNDS_TURN_IN);
 }
 
 /*
@@ -39,8 +37,10 @@ ARM_TO_CODE
 */
 void cmd_arm_to_code()
 {
+	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
+	HAL_Delay(1000);
 	set_M2006_rotate_rounds(1,ROUNDS_TOP_TO_BOTTOM);
-	servo_angle_ctrl(&servo[1],ANGLE_CAMERA_TO_CODE);
+
 }
 
 /*

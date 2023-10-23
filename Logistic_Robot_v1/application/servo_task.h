@@ -9,8 +9,8 @@
 //放地上，42圈+1圈
 //张开角度 90°闭合角度1 120°
 //对stuff角度 120 对二维码角度 102.5° 
-#define ANGLE_CAMERA_TO_CODE 103
-#define ANGLE_CAMERA_TO_STUFF 120
+#define ANGLE_CAMERA_TO_CODE 85
+#define ANGLE_CAMERA_TO_STUFF 115
 
 #define ANGLE_CLAW_OPEN 90
 #define ANGLE_CLAW_CLOSE 120

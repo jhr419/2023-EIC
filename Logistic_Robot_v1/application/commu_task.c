@@ -14,6 +14,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "math.h"
+#include "servo.h"
 #include "arm_math.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -247,7 +248,6 @@ void commu_task(void const* argument){
         uart8_printf("ACT0");
 				my_car_data.stuff_num=0;
 				Update_position('Y',ACTION_DISTANCE_ERROR);
-				cmd_arm_grab_ground();
 			}
 		}
 		if(rising_falling_flag1!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
@@ -255,7 +255,7 @@ void commu_task(void const* argument){
 			if(HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)==1)
 			{
 				startM2006Monitor();
-				cmd_arm_place_stuff();
+				servo_angle_ctrl(&servo[1],ANGLE_CAMERA_TO_CODE);
 			}
 		}
 		if(action_count)
