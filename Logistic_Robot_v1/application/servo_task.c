@@ -11,6 +11,8 @@
 extern car_data_s  my_car_data;
 extern arm_cmd_t 	my_arm;
 extern servo_t servo[8];
+
+static uint8_t cmd_num=0;
 //static uint8_t last_arm_cmd;
 /*
 ARM_RST = 0x01,
@@ -28,6 +30,7 @@ ARM_PLACE_STUFF = 0x07
 void cmd_arm_rst()
 {
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_IN);
+	cmd_num = 1;
 }
 
 /*
@@ -37,10 +40,12 @@ ARM_TO_CODE
 */
 void cmd_arm_to_code()
 {
+	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
 	HAL_Delay(1000);
 	set_M2006_rotate_rounds(1,ROUNDS_TOP_TO_BOTTOM);
 
+	cmd_num = 2;
 }
 
 /*
@@ -51,6 +56,8 @@ void cmd_arm_to_stuff()
 {
 	servo_angle_ctrl(&servo[1],ANGLE_CAMERA_TO_STUFF);
 	set_M2006_rotate_rounds(1,ROUNDS_BOTTOM_TO_TOP);
+	
+	cmd_num = 3;
 }
 
 /*
@@ -85,6 +92,8 @@ void cmd_arm_grab_material()
 	//×ª
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
 	my_car_data.stuff_num++;
+	
+	cmd_num = 4;
 }
 
 /*
@@ -118,7 +127,7 @@ void cmd_arm_place_ground()
 	//×ªÅÌ×Ó
 	
 	//Éý
-		set_M2006_rotate_rounds(1,-ROUNDS_PLACE_GROUND);
+	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_GROUND);
 	my_car_data.stuff_num--;
 }
 

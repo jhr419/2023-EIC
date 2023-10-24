@@ -70,15 +70,15 @@ void angle_m6020_to_next(void)
 }
 
 
-fp32 PID_6020_calc(pid_t *pid, fp32 ref, fp32 set)
+fp32 PID_ECD_calc(pid_t *pid, fp32 ref, fp32 set)
 {
 	PID_calc(pid, ref, ecd_limit(ref, set));
 }
 
 void give_pid_current_6020()
 {
-	PID_6020_calc(&pid_angle_6020, motor_6020->ecd, ecd[cnt]);
+	PID_ECD_calc(&pid_angle_6020, motor_6020->ecd, ecd[cnt]);
 	PID_calc(&pid_speed_6020, motor_6020->speed_rpm, pid_angle_6020.out);
 	CAN_cmd_6020(pid_speed_6020.out,pid_speed_6020.out,pid_speed_6020.out,pid_speed_6020.out);
-	uart8_printf("%d,%d\r\n", ecd[cnt], motor_6020->ecd);
+	//uart8_printf("%d,%d\r\n", ecd[cnt], motor_6020->ecd);
 }

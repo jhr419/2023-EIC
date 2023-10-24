@@ -10,6 +10,7 @@
 #include "CAN_cmd_all.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "motor_ctrl.h"
 #include "commu_task.h"
 #include "pid.h"
 #include "CAN_receive.h"
@@ -25,6 +26,8 @@ extern uint8_t              motor_2006_can_send_data[8];
 //控制变量，有待修改
 #define Reduction_ratio_M2006 1/36 
 #define SPEED_M2006 2000
+#define MAX_SPEED_M2006 1000
+#define MAX_IOUT_SPEED_M2006 500
 #define MAX_OUT		12000.0
 #define MAX_IOUT  1200.0
 
@@ -48,13 +51,15 @@ struct M2006Control_s{
     struct milestoneStack_s mstack; //里程碑栈
     const uint16_t * ECDPoint;           //电机ECD所在位置
     uint16_t    initECD;                //初始ECD
+	  uint16_t    targetECD;              //目标ECD
     uint16_t    nowECD;                 //现在的ECD
     int16_t     nowRounds;              //现在转过的圈数
 		int16_t     targetRounds;           //目标转到的圈数
 		int16_t	    set_speed;								//目标转速
 		int16_t*    now_speed;								//当前转速
 		enum M2006Mode mode;								//当前2006的模式
-		pid_t       pid;
+		pid_t       pid;                    //速度PID
+	  pid_t       angle_pid;               //角度PID
 };
 
 static uint16_t ECDFormat(int16_t rawECD)     //test done
@@ -68,17 +73,20 @@ static uint16_t ECDFormat(int16_t rawECD)     //test done
 extern arm_cmd_t 	my_arm;
 //开启四个M2006控制
 struct M2006Control_s M2006Ctrl[4];
-float pid_m2006[4][3]={{5,0,0},{5,0,0}};
+float pid_m2006[2][3]={{5,0,0},{5,0,0}};
+float angle_pid_m2006[2][3]={{1,0,0.1},{1,0,0.1}};
 static void initM2006ECDRoundsMonitor()  //初始化拨弹轮圈数监控
 {
 	for(int i=0;i<4;i++)
 	{
 	  PID_init(&M2006Ctrl[i].pid, PID_POSITION, pid_m2006[i], MAX_OUT , MAX_IOUT);
+		PID_init(&M2006Ctrl[i].angle_pid, PID_POSITION, angle_pid_m2006[i], MAX_SPEED_M2006 , MAX_IOUT_SPEED_M2006);
 	//获取那个电机的数值指针
 		M2006Ctrl[i].now_speed=(int16_t *)&(get_motor_2006_measure_point(i)->speed_rpm);
     M2006Ctrl[i].ECDPoint=&(get_motor_2006_measure_point(i)->ecd);
     M2006Ctrl[i].initECD=*(M2006Ctrl[i].ECDPoint);
 		M2006Ctrl[i].mode=M2006_STOP;
+		M2006Ctrl[i].targetECD = ecd_format(M2006Ctrl[i].initECD+4096);
 	}
 }   
 void startM2006Monitor()
@@ -178,7 +186,7 @@ void set_M2006_speed()
 		}
 		else if (M2006Ctrl[i].mode==M2006_STOP)
 		{
-			M2006Ctrl[i].set_speed=0;
+			M2006Ctrl[i].set_speed=(int)PID_ECD_calc(&M2006Ctrl[i].angle_pid,*M2006Ctrl[i].ECDPoint,M2006Ctrl[i].targetECD);
 		}
   }
 }
