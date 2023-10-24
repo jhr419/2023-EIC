@@ -4,6 +4,7 @@
 #include "chassis_filter.h"
 #include "CAN_cmd_all.h"
 #include "CAN_receive.h"
+#include "motor_ctrl.h"
 #include "commu_task.h"
 #include "servo.h"
 #include "pid.h"
@@ -75,6 +76,9 @@ void chassis_task(void const* argument){
 	chassis_init();
 	while(1){
 		chassis_ctrl();
+		//计算6020电流
+		give_pid_current_6020();
+
 		osDelay(5);
 		
 	}

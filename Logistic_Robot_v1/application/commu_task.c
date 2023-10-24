@@ -21,6 +21,7 @@
 #include "servo_task.h"
 #include "bsp_usart.h"
 #include "gear_motor_ctrl.h"
+#include "motor_ctrl.h"
 #include "CAN_cmd_all.h"
 //按键中断开始后发送正确的stuffnum，上位机开始发送数据，比赛开始
 #define ACTION_DISTANCE_ERROR -56.48275606 //全场定位中心与中心安装的差错长,之后再改
@@ -256,6 +257,7 @@ void commu_task(void const* argument){
 			{
 				startM2006Monitor();
 				servo_angle_ctrl(&servo[1],ANGLE_CAMERA_TO_CODE);
+				angle_m6020_to_next();
 			}
 		}
 		if(action_count)
@@ -268,7 +270,7 @@ void commu_task(void const* argument){
 		}
 		
 		action_to_car();
-		//uart7_printf("%f,%f,%f,%f,%f\n", my_car_data.x, my_car_data.y, my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
+		uart7_printf("%f,%f,%f,%f,%f\n", my_car_data.x, my_car_data.y, my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
 		//uart7_printf("%d", );
 		osDelay(20);
 		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);

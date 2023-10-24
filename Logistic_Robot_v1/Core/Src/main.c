@@ -41,6 +41,9 @@
 #include "gear_motor_ctrl.h"
 #include "bsp_can.h"
 #include "servo.h"
+#include "motor_ctrl.h"
+
+extern uint8_t cnt;
 extern UART_HandleTypeDef huart6;
 void usart_printf(const char *fmt,...)
 {
@@ -78,6 +81,8 @@ void usart_printf(const char *fmt,...)
 
 /* USER CODE BEGIN PV */
 extern servo_t servo[8];
+extern const motor_6020_measure_t*	motor_6020;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,7 +104,7 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	uint8_t rising_falling_flag1 ;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -132,6 +137,7 @@ int main(void)
 	can_filter_init();
 	servo_init(); 
 	CAN_angleControl(CAN_M1_ID, 0);
+	angle_m6020_init();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -146,8 +152,7 @@ int main(void)
 	while(1){
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-		CAN_delta_angleControl(CAN_M1_ID, 120);
-		HAL_Delay(500);
+
 	}
   /* USER CODE END 3 */
 }
