@@ -27,10 +27,11 @@ static fp32 wheel_set_rpm[4];
 extern move_cmd_t my_move;
 const motor_3508_measure_t*	chassis_motor[4];
 const fp32 pid_k[3]={PID_3508_P, PID_3508_I, PID_3508_D};
-pid_t chassis_v_pid[2];
+pid_t chassis_v_pid[3];
 pid_t chassis_w_pid;
 const fp32 pid_chassis_v[3]={100.0, 0.0, 5800.0};
 const fp32 pid_chassis_w[3]={500.0, 0.0, 5000.0};
+const fp32 pid_chassis_dist[3] = {500.0,10.0,100.0};
 fp32 v[3];
 fp32 v_tmp[3];
 fp32 point_decoded[2];
@@ -41,6 +42,7 @@ void chassis_pid_init(void)
 {
 	PID_init(&chassis_v_pid[0], PID_POSITION, pid_chassis_v, 6000, MAX_IOUT);
 	PID_init(&chassis_v_pid[1], PID_POSITION, pid_chassis_v, 6000, MAX_IOUT);
+	PID_init(&chassis_v_pid[2], PID_POSITION, pid_chassis_dist, 6000, MAX_IOUT);
 	PID_init(&chassis_w_pid, PID_POSITION, pid_chassis_w, 6000, MAX_IOUT);
 }
 
@@ -97,17 +99,31 @@ fp32 PID_angle_calc(pid_t *pid, fp32 ref, fp32 set)
 
 fp32* goal_to_v(move_cmd_t* move)
 {
-	PID_calc(&chassis_v_pid[0], my_action_data.x.data, 	  move->x_goal.data);
-	PID_calc(&chassis_v_pid[1], my_action_data.y.data, 		move->y_goal.data);
-	PID_angle_calc(&chassis_w_pid, 	  my_action_data.yaw.data,  move->w_goal.data);
+//	PID_calc(&chassis_v_pid[0], my_action_data.x.data, 	  move->x_goal.data);
+//	PID_calc(&chassis_v_pid[1], my_action_data.y.data, 		move->y_goal.data);
+//	v_tmp[0] = deadbond(chassis_v_pid[0].error[0] , 3.0, chassis_v_pid[0].out);
+//	v_tmp[1] = deadbond(chassis_v_pid[1].error[0] , 3.0, chassis_v_pid[1].out);
+////	//计算角度变化量
+  PID_angle_calc(&chassis_w_pid, 	  my_action_data.yaw.data,  move->w_goal.data);
+//	
+	//计算位置变化量
+	fp32 dx,dy,dist;
+	dx = my_action_data.x.data-move->x_goal.data;
+	dy = my_action_data.y.data-move->y_goal.data;
+	//计算出绝对距离
+	arm_sqrt_f32(dx*dx+dy*dy,&dist);
+	deadbond(dist,10.0,dist);
+	PID_calc(&chassis_v_pid[2],dist,0);
+	fp32 v_out = deadbond(chassis_v_pid[2].error[0],50.0,chassis_v_pid[2].out); 
+	v_tmp[0] = v_out * dx / dist;
+	v_tmp[1] = v_out * dy / dist;
 	
-	v_tmp[0] = deadbond(chassis_v_pid[0].error[0] , 3.0, chassis_v_pid[0].out);
-	v_tmp[1] = deadbond(chassis_v_pid[1].error[0] , 3.0, chassis_v_pid[1].out);
+
 	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * PI / 180.0);
 	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * PI / 180.0);
 	v[2] = deadbond(chassis_w_pid.error[0], 2.0, chassis_w_pid.out);	
 	
-	
+
 //	v[0] = 0;
 //	v[1] = 0;
 //	v[2] = 0;
@@ -171,7 +187,7 @@ void chassis_task(void const* argument){
 		//计算6020电流
 		give_pid_current_6020();
 
-		osDelay(5);
+		osDelay(1);
 		
 	}
 }

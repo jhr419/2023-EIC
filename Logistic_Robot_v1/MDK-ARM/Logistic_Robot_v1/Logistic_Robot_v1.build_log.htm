@@ -30,63 +30,41 @@ Build target 'Logistic_Robot_v1'
 compiling chassis_task.c...
 ..\application\motor_ctrl.h(8): warning:  #1295-D: Deprecated declaration give_pid_current_6020 - give arg types
   extern void give_pid_current_6020();
-..\application\chassis_task.c(72): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if(set - ref > ref - set + 360.0)
 ..\application\chassis_task.c(74): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			return set - 360.0;//error = set - MAX_MOTOR_ECD - ref
+  		if(set - ref > ref - set + 360.0)
 ..\application\chassis_task.c(76): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return set - 360.0;//error = set - MAX_MOTOR_ECD - ref
+..\application\chassis_task.c(78): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		else if(set - ref < ref - set + 360.0)
-..\application\chassis_task.c(82): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if(ref - set > set - ref + 360.0)
 ..\application\chassis_task.c(84): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			return set + 360.0;//error = 
+  		if(ref - set > set - ref + 360.0)
 ..\application\chassis_task.c(86): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return set + 360.0;//error = 
+..\application\chassis_task.c(88): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		else if(ref - set < set - ref + 360.0)
-..\application\chassis_task.c(91): warning:  #940-D: missing return statement at end of non-void function "angle_limit" 
+..\application\chassis_task.c(93): warning:  #940-D: missing return statement at end of non-void function "angle_limit" 
   }
-..\application\chassis_task.c(96): warning:  #940-D: missing return statement at end of non-void function "PID_angle_calc" 
+..\application\chassis_task.c(98): warning:  #940-D: missing return statement at end of non-void function "PID_angle_calc" 
   }
-..\application\chassis_task.c(106): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\application\chassis_task.c(122): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * 
 I / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * PI / 180.0);
-..\application\chassis_task.c(106): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\application\chassis_task.c(122): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * 
 I / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * 
 I / 180.0);
-..\application\chassis_task.c(107): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\application\chassis_task.c(123): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * 
 I / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * PI / 180.0);
-..\application\chassis_task.c(107): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\application\chassis_task.c(123): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * 
 I / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * 
 I / 180.0);
 ..\application\chassis_task.c: 13 warnings, 0 errors
-compiling commu_task.c...
-..\application\servo_task.h(29): warning:  #1295-D: Deprecated declaration cmd_arm_rst - give arg types
-  void cmd_arm_rst();
-..\application\servo_task.h(30): warning:  #1295-D: Deprecated declaration cmd_arm_to_code - give arg types
-  void cmd_arm_to_code();
-..\application\servo_task.h(31): warning:  #1295-D: Deprecated declaration cmd_arm_to_stuff - give arg types
-  void cmd_arm_to_stuff();
-..\application\servo_task.h(32): warning:  #1295-D: Deprecated declaration cmd_arm_grab_material - give arg types
-  void cmd_arm_grab_material();
-..\application\servo_task.h(33): warning:  #1295-D: Deprecated declaration cmd_arm_place_ground - give arg types
-  void cmd_arm_place_ground();
-..\application\servo_task.h(34): warning:  #1295-D: Deprecated declaration cmd_arm_grab_ground - give arg types
-  void cmd_arm_grab_ground();
-..\application\servo_task.h(35): warning:  #1295-D: Deprecated declaration cmd_arm_place_stuff - give arg types
-  void cmd_arm_place_stuff();
-../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
-  extern void startM2006Monitor();
-..\application\motor_ctrl.h(8): warning:  #1295-D: Deprecated declaration give_pid_current_6020 - give arg types
-  extern void give_pid_current_6020();
-..\application\commu_task.c(250): warning:  #177-D: variable "initangle"  was declared but never referenced
-  	int initangle=120;
-..\application\commu_task.c: 10 warnings, 0 errors
 linking...
-Program Size: Code=33444 RO-data=1564 RW-data=288 ZI-data=21752  
+Program Size: Code=33384 RO-data=1568 RW-data=288 ZI-data=21824  
 FromELF: creating hex file...
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 23 Warning(s).
+"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -115,7 +93,7 @@ Package Vendor: Keil
       Include file:  CMSIS\DSP\Include\arm_math.h
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
