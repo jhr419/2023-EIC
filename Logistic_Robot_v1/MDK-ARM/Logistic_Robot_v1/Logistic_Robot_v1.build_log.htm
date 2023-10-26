@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ¦ÌVision V5.24.2.0
 Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: 12 TH, 12, LIC=03C6R-K82SL-MME9I-T9MPA-X8RH5-RHFT0
+License Information: 12 TH, 12, LIC=SDA0P-MC3RF-WFCI7-ENGMK-SH4E3-ZK8MB
  
 Tool Versions:
 Toolchain:       MDK-ARM Plus  Version: 5.24.1
@@ -27,15 +27,41 @@ Project File Date:  10/25/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\Bin'
 Build target 'Logistic_Robot_v1'
-compiling motor_ctrl.c...
+compiling chassis_task.c...
 ..\application\motor_ctrl.h(8): warning:  #1295-D: Deprecated declaration give_pid_current_6020 - give arg types
   extern void give_pid_current_6020();
-..\application\motor_ctrl.c(51): warning:  #940-D: missing return statement at end of non-void function "ecd_limit" 
+..\application\chassis_task.c(72): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if(set - ref > ref - set + 360.0)
+..\application\chassis_task.c(74): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return set - 360.0;//error = set - MAX_MOTOR_ECD - ref
+..\application\chassis_task.c(76): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		else if(set - ref < ref - set + 360.0)
+..\application\chassis_task.c(82): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if(ref - set > set - ref + 360.0)
+..\application\chassis_task.c(84): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return set + 360.0;//error = 
+..\application\chassis_task.c(86): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		else if(ref - set < set - ref + 360.0)
+..\application\chassis_task.c(91): warning:  #940-D: missing return statement at end of non-void function "angle_limit" 
   }
-..\application\motor_ctrl.c(76): warning:  #940-D: missing return statement at end of non-void function "PID_ECD_calc" 
+..\application\chassis_task.c(96): warning:  #940-D: missing return statement at end of non-void function "PID_angle_calc" 
   }
-..\application\motor_ctrl.c: 3 warnings, 0 errors
-compiling servo_task.c...
+..\application\chassis_task.c(106): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * 
+I / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * PI / 180.0);
+..\application\chassis_task.c(106): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * 
+I / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * 
+I / 180.0);
+..\application\chassis_task.c(107): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * 
+I / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * PI / 180.0);
+..\application\chassis_task.c(107): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * 
+I / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * 
+I / 180.0);
+..\application\chassis_task.c: 13 warnings, 0 errors
+compiling commu_task.c...
 ..\application\servo_task.h(29): warning:  #1295-D: Deprecated declaration cmd_arm_rst - give arg types
   void cmd_arm_rst();
 ..\application\servo_task.h(30): warning:  #1295-D: Deprecated declaration cmd_arm_to_code - give arg types
@@ -52,13 +78,15 @@ compiling servo_task.c...
   void cmd_arm_place_stuff();
 ../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
   extern void startM2006Monitor();
-..\application\servo_task.c(15): warning:  #550-D: variable "cmd_num"  was set but never used
-  static uint8_t cmd_num=0;
-..\application\servo_task.c: 9 warnings, 0 errors
+..\application\motor_ctrl.h(8): warning:  #1295-D: Deprecated declaration give_pid_current_6020 - give arg types
+  extern void give_pid_current_6020();
+..\application\commu_task.c(250): warning:  #177-D: variable "initangle"  was declared but never referenced
+  	int initangle=120;
+..\application\commu_task.c: 10 warnings, 0 errors
 linking...
-Program Size: Code=27392 RO-data=1248 RW-data=288 ZI-data=21512  
+Program Size: Code=33444 RO-data=1564 RW-data=288 ZI-data=21752  
 FromELF: creating hex file...
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 12 Warning(s).
+"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 23 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -83,11 +111,11 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:DSP:Library:1.7.0
-      Include file:  CMSIS\DSP\Include\arm_math.h
       Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
+      Include file:  CMSIS\DSP\Include\arm_math.h
 
    * Component: ARM::CMSIS:CORE:5.3.0
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

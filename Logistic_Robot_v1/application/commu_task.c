@@ -36,6 +36,11 @@ move_cmd_t 	my_move;//上位机給车的移动数据
 arm_cmd_t 	my_arm;//上位机給车的指令
 car_data_s 		my_car_data;//相对车中心的位姿
 
+extern pid_t chassis_v_pid[2];
+extern pid_t chassis_w_pid;
+extern fp32 v[3];
+extern fp32 point_decoded[2];
+
 uint8_t exit_flag = 0;
 uint8_t rising_falling_flag ;
 uint8_t rising_falling_flag1 ;
@@ -106,18 +111,18 @@ void  encode(uint8_t* a,uint8_t cmd,uint16_t length,float x, float y, float angl
 }
 void decode02(uint8_t* data)
 {
-	my_move.vx_err.bytes[0]=data[4];
-	my_move.vx_err.bytes[1]=data[5];
-	my_move.vx_err.bytes[2]=data[6];
-	my_move.vx_err.bytes[3]=data[7];
-	my_move.vy_err.bytes[0]=data[8];
-	my_move.vy_err.bytes[1]=data[9];
-	my_move.vy_err.bytes[2]=data[10];
-	my_move.vy_err.bytes[3]=data[11];
-	my_move.vw_err.bytes[0]=data[12];
-	my_move.vw_err.bytes[1]=data[13];
-	my_move.vw_err.bytes[2]=data[14];
-	my_move.vw_err.bytes[3]=data[15];
+	my_move.x_goal.bytes[0]=data[4];
+	my_move.x_goal.bytes[1]=data[5];
+	my_move.x_goal.bytes[2]=data[6];
+	my_move.x_goal.bytes[3]=data[7];
+	my_move.y_goal.bytes[0]=data[8];
+	my_move.y_goal.bytes[1]=data[9];
+	my_move.y_goal.bytes[2]=data[10];
+	my_move.y_goal.bytes[3]=data[11];
+	my_move.w_goal.bytes[0]=data[12];
+	my_move.w_goal.bytes[1]=data[13];
+	my_move.w_goal.bytes[2]=data[14];
+	my_move.w_goal.bytes[3]=data[15];
 }
 void decode03(uint8_t* data)
 {
@@ -222,10 +227,12 @@ void Update_position(char c,float NEW){
 	HAL_UART_Transmit(&huart8, (const uint8_t*)Update , 8,100);
 	uart8_tx_dma_enable((uint8_t *)Update,8);
 }
-
+//这里无用
 void action_to_car(){
+//	my_car_data.x = my_action_data.x.data*arm_cos_f32(my_action_data.yaw.data * PI / 180.0) - my_action_data.y.data*arm_sin_f32(my_action_data.yaw.data * PI / 180.0);
+//	my_car_data.y = my_action_data.x.data*arm_sin_f32(my_action_data.yaw.data * PI / 180.0) + my_action_data.y.data*arm_cos_f32(my_action_data.yaw.data * PI / 180.0);
 	my_car_data.x = my_action_data.x.data;
-	my_car_data.y = my_action_data.y.data;
+	my_car_data.y =	my_action_data.y.data;
 	my_car_data.yaw = my_action_data.yaw.data;
 }
 
@@ -248,7 +255,6 @@ void commu_task(void const* argument){
 			{
         uart8_printf("ACT0");
 				my_car_data.stuff_num=0;
-				Update_position('Y',ACTION_DISTANCE_ERROR);
 			}
 		}
 		if(rising_falling_flag1!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
@@ -270,7 +276,14 @@ void commu_task(void const* argument){
 		}
 		
 		action_to_car();
-		uart7_printf("%f,%f,%f,%f,%f\n", my_car_data.x, my_car_data.y, my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
+
+		uart7_printf("\n");
+		uart7_printf("goal: %f, %f, %f\n",my_move.x_goal.data ,my_move.y_goal.data, my_move.w_goal.data);
+//		uart7_printf("act:  %f, %f, %f\n",my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
+//		uart7_printf("car:  %f, %f, %f\n",my_car_data.x, my_car_data.y, my_car_data.yaw);
+//		uart7_printf("err:  %f, %f, %f\n",chassis_v_pid[0].error[0],chassis_v_pid[1].error[0], chassis_w_pid.error[0]);
+//		uart7_printf("v:    %f, %f\n",point_decoded[0], point_decoded[1]);
+		
 		//uart7_printf("%d", );
 		osDelay(20);
 		HAL_GPIO_WritePin(ACTION_LED_GPIO_Port, ACTION_LED_Pin,GPIO_PIN_RESET);

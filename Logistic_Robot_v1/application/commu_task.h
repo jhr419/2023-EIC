@@ -51,9 +51,9 @@ typedef struct __PACKED
 
 typedef struct __PACKED
 {
- RxFP32Data vx_err;
- RxFP32Data vy_err;
- RxFP32Data vw_err;
+ RxFP32Data x_goal;
+ RxFP32Data y_goal;
+ RxFP32Data w_goal;
 } move_cmd_t;
 
 typedef struct __PACKED

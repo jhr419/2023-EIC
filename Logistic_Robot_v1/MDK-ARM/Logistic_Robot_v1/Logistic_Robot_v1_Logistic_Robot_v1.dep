@@ -55,7 +55,7 @@ I (../Core/Inc/gpio.h)(0x650867C7)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (../application/commu_task.h)(0x65345832)
+I (../application/commu_task.h)(0x65392B98)
 I (../application/struct_typedef.h)(0x65256F18)
 I (../board/bsp_usart.h)(0x651414B9)
 I (../board/struct_typedef.h)(0x650867C7)
@@ -149,7 +149,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x64CA459B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x64CA459B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x64CA459B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x64CA459B)
-I (../application/commu_task.h)(0x65345832)
+I (../application/commu_task.h)(0x65392B98)
 I (../application/struct_typedef.h)(0x65256F18)
 I (../application/chassis_task.h)(0x65256F18)
 I (../application/servo_task.h)(0x65380451)
@@ -1174,12 +1174,12 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x64CA459B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x64CA459B)
 I (..\application\servo.h)(0x65345832)
 I (..\application\struct_typedef.h)(0x65256F18)
-I (..\application\commu_task.h)(0x65345832)
+I (..\application\commu_task.h)(0x65392B98)
 I (..\application\CAN_cmd_all.h)(0x6536A047)
 I (..\application\CAN_receive.h)(0x65369FC0)
 I (../algorithm/gear_motor_ctrl.h)(0x65345832)
-F (..\application\commu_task.c)(0x6537D90E)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I D:/engineeringsoftware/keil5/v5package/ARM/CMSIS/5.6.0/CMSIS/Include-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx-o logistic_robot_v1\commu_task.o --omf_browse logistic_robot_v1\commu_task.crf --depend logistic_robot_v1\commu_task.d)
-I (..\application\commu_task.h)(0x65345832)
+F (..\application\commu_task.c)(0x6539C1DD)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I D:/engineeringsoftware/keil5/v5package/ARM/CMSIS/5.6.0/CMSIS/Include-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx-o logistic_robot_v1\commu_task.o --omf_browse logistic_robot_v1\commu_task.crf --depend logistic_robot_v1\commu_task.d)
+I (..\application\commu_task.h)(0x65392B98)
 I (..\application\struct_typedef.h)(0x65256F18)
 I (../Core/Inc/main.h)(0x65254346)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x64CA45BE)
@@ -1242,7 +1242,7 @@ I (../algorithm/gear_motor_ctrl.h)(0x65345832)
 I (..\application\motor_ctrl.h)(0x6537FFC3)
 I (../algorithm/pid.h)(0x650ED615)
 I (..\application\CAN_cmd_all.h)(0x6536A047)
-F (..\application\chassis_task.c)(0x6537DA4D)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I D:/engineeringsoftware/keil5/v5package/ARM/CMSIS/5.6.0/CMSIS/Include-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx-o logistic_robot_v1\chassis_task.o --omf_browse logistic_robot_v1\chassis_task.crf --depend logistic_robot_v1\chassis_task.d)
+F (..\application\chassis_task.c)(0x653A1289)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I D:/engineeringsoftware/keil5/v5package/ARM/CMSIS/5.6.0/CMSIS/Include-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx-o logistic_robot_v1\chassis_task.o --omf_browse logistic_robot_v1\chassis_task.crf --depend logistic_robot_v1\chassis_task.d)
 I (..\application\chassis_task.h)(0x65256F18)
 I (../Core/Inc/main.h)(0x65254346)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x64CA45BE)
@@ -1301,8 +1301,9 @@ I (..\application\CAN_cmd_all.h)(0x6536A047)
 I (..\application\CAN_receive.h)(0x65369FC0)
 I (..\application\motor_ctrl.h)(0x6537FFC3)
 I (../algorithm/pid.h)(0x650ED615)
-I (..\application\commu_task.h)(0x65345832)
+I (..\application\commu_task.h)(0x65392B98)
 I (..\application\servo.h)(0x65345832)
+I (D:\engineering software\keil5\keil5 5.24\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 F (..\application\CAN_receive.c)(0x65369F89)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I D:/engineeringsoftware/keil5/v5package/ARM/CMSIS/5.6.0/CMSIS/Include-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx-o logistic_robot_v1\can_receive.o --omf_browse logistic_robot_v1\can_receive.crf --depend logistic_robot_v1\can_receive.d)
 I (..\application\CAN_receive.h)(0x65369FC0)
 I (..\application\struct_typedef.h)(0x65256F18)
@@ -1412,7 +1413,7 @@ I (../algorithm/pid.h)(0x650ED615)
 I (../application/struct_typedef.h)(0x65256F18)
 I (..\application\CAN_receive.h)(0x65369FC0)
 I (..\application\CAN_cmd_all.h)(0x6536A047)
-I (..\application\commu_task.h)(0x65345832)
+I (..\application\commu_task.h)(0x65392B98)
 F (..\board\bsp_usart.c)(0x65255D26)(--c99 -c --cpu Cortex-M4.fp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../algorithm -I ../application -I ../board -I D:/engineeringsoftware/keil5/v5package/ARM/CMSIS/5.6.0/CMSIS/Include-I.\RTE\_Logistic_Robot_v1-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Include"-I"D:\engineering software\keil5\keil5 5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F427xx -DUSE_HAL_DRIVER -DSTM32F427xx-o logistic_robot_v1\bsp_usart.o --omf_browse logistic_robot_v1\bsp_usart.crf --depend logistic_robot_v1\bsp_usart.d)
 I (../Core/Inc/main.h)(0x65254346)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x64CA45BE)
@@ -1639,6 +1640,6 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x64CA459B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x64CA459B)
 I (../application/motor_ctrl.h)(0x6537FFC3)
 I (../algorithm/pid.h)(0x650ED615)
-I (../application/commu_task.h)(0x65345832)
+I (../application/commu_task.h)(0x65392B98)
 I (../application/CAN_receive.h)(0x65369FC0)
 F (D:\engineering software\keil5\keil5 5.24\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib)(0x5D2590B6)()
