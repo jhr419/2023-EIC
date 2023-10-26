@@ -248,13 +248,54 @@ void commu_task(void const* argument){
 	commu_task_init();
 	uint8_t tx_msg[19];
 	int initangle=120;
+	int a=2;
 	while(1){
 		if(rising_falling_flag!=HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)){
 			rising_falling_flag =HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
 			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0)
 			{
-        uart8_printf("ACT0");
-				my_car_data.stuff_num=0;
+//        uart8_printf("ACT0");
+//				my_car_data.stuff_num=0;
+				switch(a){
+				case ARM_TO_CODE:
+				{
+					cmd_arm_to_code();
+					break;
+				}
+				case ARM_TO_STUFF:
+				{
+				  cmd_arm_to_stuff();
+					break;
+				}
+				case ARM_GRAB_MATERIAL:
+				{
+					cmd_arm_grab_material();
+					break;
+				}
+				case ARM_PLACE_GROUND:
+				{
+					cmd_arm_place_ground();
+					break;
+				}
+				case ARM_GRAB_GROUND:
+				{
+					cmd_arm_grab_ground();
+					break;
+				}
+				case ARM_PLACE_STUFF:
+				{
+					cmd_arm_place_stuff();
+					break;
+				}
+				case ARM_END:
+				{
+					cmd_arm_place_stuff();
+					break;
+				}
+				default :
+					break;
+			  }
+				a++;
 			}
 		}
 		if(rising_falling_flag1!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
@@ -263,7 +304,7 @@ void commu_task(void const* argument){
 			{
 				startM2006Monitor();
 				servo_angle_ctrl(&servo[1],ANGLE_CAMERA_TO_CODE);
-				angle_m6020_to_next();
+				//set_M2006_rotate_rounds(1,ROUNDS_TOP_TO_BOTTOM);
 			}
 		}
 		if(action_count)

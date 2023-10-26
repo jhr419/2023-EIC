@@ -109,7 +109,6 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
 	osThreadDef(commuTask, commu_task,osPriorityHigh,0,1024);
@@ -118,11 +117,13 @@ void MX_FREERTOS_Init(void) {
 	osThreadDef(chassisTask, chassis_task,osPriorityHigh,0,1024);
 	chassisTaskHandle = osThreadCreate(osThread(chassisTask),NULL);
 	
+	osThreadDef(m2006Task, m2006_task,osPriorityHigh,0,1024);
+	m2006TaskHandle = osThreadCreate(osThread(m2006Task),NULL);
+	
 	osThreadDef(servoTask, servo_task,osPriorityHigh,0,512);
 	servoTaskHandle = osThreadCreate(osThread(servoTask),NULL);
 	
-	osThreadDef(m2006Task, m2006_task,osPriorityHigh,0,1024);
-	m2006TaskHandle = osThreadCreate(osThread(m2006Task),NULL);
+
   /* USER CODE END RTOS_THREADS */
 
 }

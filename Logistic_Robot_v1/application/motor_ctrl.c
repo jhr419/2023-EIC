@@ -5,7 +5,7 @@
 #include "CAN_cmd_all.h"
 #include "commu_task.h"
 
-#define INIT_ECD 0
+#define INIT_ECD 1100
 		
 const motor_6020_measure_t*	motor_6020;
 pid_t pid_angle_6020;

@@ -86,7 +86,7 @@ static void initM2006ECDRoundsMonitor()  //³õÊ¼»¯²¦µ¯ÂÖÈ¦Êý¼à¿Ø
     M2006Ctrl[i].ECDPoint=&(get_motor_2006_measure_point(i)->ecd);
     M2006Ctrl[i].initECD=*(M2006Ctrl[i].ECDPoint);
 		M2006Ctrl[i].mode=M2006_STOP;
-		M2006Ctrl[i].targetECD = ecd_format(M2006Ctrl[i].initECD+4096);
+		M2006Ctrl[i].targetECD = ecd_format(M2006Ctrl[i].initECD);
 	}
 }   
 void startM2006Monitor()

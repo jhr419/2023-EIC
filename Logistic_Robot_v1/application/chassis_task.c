@@ -112,7 +112,7 @@ fp32* goal_to_v(move_cmd_t* move)
 	dy = my_action_data.y.data-move->y_goal.data;
 	//计算出绝对距离
 	arm_sqrt_f32(dx*dx+dy*dy,&dist);
-	deadbond(dist,10.0,dist);
+	deadbond(dist,5.0,dist);
 	PID_calc(&chassis_v_pid[2],dist,0);
 	fp32 v_out = deadbond(chassis_v_pid[2].error[0],50.0,chassis_v_pid[2].out); 
 	v_tmp[0] = v_out * dx / dist;

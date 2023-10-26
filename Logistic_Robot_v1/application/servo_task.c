@@ -6,6 +6,7 @@
 #include "CAN_cmd_all.h"
 #include "CAN_receive.h"
 #include "struct_typedef.h"
+#include "motor_ctrl.h"
 #include "gear_motor_ctrl.h"
 #include "CAN_cmd_all.h"
 extern car_data_s  my_car_data;
@@ -81,16 +82,17 @@ void cmd_arm_grab_material()
 	HAL_Delay(1000);
 	//降
 	set_M2006_rotate_rounds(1,ROUNDS_PLACE_PLATE);
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 	//放
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	HAL_Delay(800);
 	//升
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_PLATE);
-	CAN_angleControl(CAN_M1_ID,120);
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 	//转
+	angle_m6020_to_next();
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
+	
 	my_car_data.stuff_num++;
 	
 	cmd_num = 4;
@@ -124,10 +126,11 @@ void cmd_arm_place_ground()
 	//放
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	HAL_Delay(800);
-	//转盘子
-	
-	//升
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_GROUND);
+	//转盘子
+	angle_m6020_to_next();
+	//升
+	
 	my_car_data.stuff_num--;
 }
 
@@ -139,7 +142,7 @@ void cmd_arm_grab_ground()
 {
 	//下降
 	set_M2006_rotate_rounds(1,ROUNDS_GRAB_STUFF_GROUND);
-	HAL_Delay(1000);
+	HAL_Delay(1500);
 	//抓取
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_CLOSE);
 	HAL_Delay(800);
@@ -159,7 +162,7 @@ void cmd_arm_grab_ground()
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_PLATE);
 	HAL_Delay(1000);
 	//转盘子
-	CAN_delta_angleControl(CAN_M1_ID, 120);
+	angle_m6020_to_next();
 	//转
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
 	my_car_data.stuff_num++;
@@ -192,7 +195,7 @@ void cmd_arm_place_stuff()
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	HAL_Delay(800);
 	//转盘子
-	CAN_delta_angleControl(CAN_M1_ID, 120);
+	angle_m6020_to_next();
 	//升
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_STUFF);
 	my_car_data.stuff_num--;
