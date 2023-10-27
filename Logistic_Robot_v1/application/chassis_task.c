@@ -10,8 +10,8 @@
 #include "pid.h"
 #include "stdlib.h"
 
-#define MAX_OUT  6000.0
-#define MAX_IOUT 1000.0
+#define MAX_OUT  8000.0
+#define MAX_IOUT 4000.0
 #define MOTOR_DISTANCE_TO_CENTER 50.0f //需要改
 #define RAD_TO_DEGREE 2*PI/360
 #define RIDIUS 30.0f									 //需要改
@@ -30,8 +30,9 @@ const fp32 pid_k[3]={PID_3508_P, PID_3508_I, PID_3508_D};
 pid_t chassis_v_pid[3];
 pid_t chassis_w_pid;
 const fp32 pid_chassis_v[3]={100.0, 0.0, 5800.0};
-const fp32 pid_chassis_w[3]={500.0, 0.0, 5000.0};
-const fp32 pid_chassis_dist[3] = {500.0,10.0,100.0};
+const fp32 pid_chassis_w[3]={300.0, 0.0, 50.0};
+//500 50 100
+const fp32 pid_chassis_dist[3] = {20.0,0.003,0.001};
 fp32 v[3];
 fp32 v_tmp[3];
 fp32 point_decoded[2];
@@ -97,7 +98,7 @@ fp32 PID_angle_calc(pid_t *pid, fp32 ref, fp32 set)
 	PID_calc(pid, ref, angle_limit(ref, set));
 }
 
-fp32* goal_to_v(move_cmd_t* move)
+void goal_to_v(move_cmd_t* move)
 {
 //	PID_calc(&chassis_v_pid[0], my_action_data.x.data, 	  move->x_goal.data);
 //	PID_calc(&chassis_v_pid[1], my_action_data.y.data, 		move->y_goal.data);
@@ -110,34 +111,48 @@ fp32* goal_to_v(move_cmd_t* move)
 	fp32 dx,dy,dist;
 	dx = my_action_data.x.data-move->x_goal.data;
 	dy = my_action_data.y.data-move->y_goal.data;
+
 	//计算出绝对距离
 	arm_sqrt_f32(dx*dx+dy*dy,&dist);
-	deadbond(dist,5.0,dist);
+	dist=deadbond(dist,10,dist);
+	
 	PID_calc(&chassis_v_pid[2],dist,0);
-	fp32 v_out = deadbond(chassis_v_pid[2].error[0],50.0,chassis_v_pid[2].out); 
+	
+	fp32 v_out = deadbond(chassis_v_pid[2].out,500.0,chassis_v_pid[2].out); 
+ if(dist<=10)
+ {
+	 v_tmp[0] = 0;
+	 v_tmp[1] = 0;
+ }
+ else
+ {
 	v_tmp[0] = v_out * dx / dist;
 	v_tmp[1] = v_out * dy / dist;
+ }
 	
-
+//	uart7_printf("%f,%f,%f\r\n",chassis_v_pid[2].Ki,chassis_v_pid[2].Iout,chassis_v_pid[2].out);
 	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * PI / 180.0);
 	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * PI / 180.0);
-	v[2] = deadbond(chassis_w_pid.error[0], 2.0, chassis_w_pid.out);	
+	
+	v[2] = deadbond(chassis_w_pid.out, 500.0, chassis_w_pid.out);	
+	 
+  
 	
 
-//	v[0] = 0;
-//	v[1] = 0;
-//	v[2] = 0;
-	return v;
 }
-void chassis_v_to_mecanum_speed(fp32 vx_err, fp32 vy_err, fp32 vw_err)
+void chassis_v_to_mecanum_speed()
 {
-	//vw_err = 500;
 	//vx_err = 500;
 	//vy_err = 500;
-	wheel_exp_rpm[0] = (int)((vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
-	wheel_exp_rpm[1] = (int)(( vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
-	wheel_exp_rpm[2] = (int)(( -vx_err + vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
-	wheel_exp_rpm[3] = (int)((-vx_err - vy_err - MOTOR_DISTANCE_TO_CENTER * vw_err * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
+//	vw_err = 600;
+	uart7_printf("%f,%f,%f\r\n",chassis_w_pid.out,chassis_w_pid.error[0],v[2]);
+	if(my_car_data.stuff_num!=100)
+	{
+		wheel_exp_rpm[0] = (int)((v[0] - v[1] - MOTOR_DISTANCE_TO_CENTER * v[2] * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
+		wheel_exp_rpm[1] = (int)(( v[0] + v[1] - MOTOR_DISTANCE_TO_CENTER * v[2] * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
+		wheel_exp_rpm[2] = (int)(( -v[0] + v[1] - MOTOR_DISTANCE_TO_CENTER * v[2] * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
+		wheel_exp_rpm[3] = (int)((-v[0] - v[1] - MOTOR_DISTANCE_TO_CENTER * v[2] * RAD_TO_DEGREE) / ( 2 * PI * RIDIUS)*60);
+	}
 }
 
 void chassis_init(void)
@@ -153,15 +168,10 @@ void chassis_init(void)
 
 void chassis_pid_calc(fp32* wheel_exp_rpm)
 {
-	fp32* v;
-	v = goal_to_v(&my_move);
+  goal_to_v(&my_move);
+//	uart7_printf("%f,%f,%f\r\n",v[0],v[1],v[2]);
 	
-	chassis_v_to_mecanum_speed(v[0], v[1], v[2]);
-	if(my_car_data.stuff_num == 100)
-	{
-		chassis_v_to_mecanum_speed(0,0,0);
-	}
-	//usart_printf("%f\r\n",wheel_exp_rpm[0]);
+	chassis_v_to_mecanum_speed();
 	for(int i=0; i<4; i++)
 	{
 		//first_order_filter_cali(&rpm_filter, wheel_exp_rpm[i]);

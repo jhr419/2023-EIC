@@ -27,32 +27,38 @@ Project File Date:  10/27/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Develop\Keil V5\ARM\ARMCC\Bin'
 Build target 'Logistic_Robot_v1'
-compiling servo_task.c...
-..\application\servo_task.h(29): warning:  #1295-D: Deprecated declaration cmd_arm_rst - give arg types
-  void cmd_arm_rst();
-..\application\servo_task.h(30): warning:  #1295-D: Deprecated declaration cmd_arm_to_code - give arg types
-  void cmd_arm_to_code();
-..\application\servo_task.h(31): warning:  #1295-D: Deprecated declaration cmd_arm_to_stuff - give arg types
-  void cmd_arm_to_stuff();
-..\application\servo_task.h(32): warning:  #1295-D: Deprecated declaration cmd_arm_grab_material - give arg types
-  void cmd_arm_grab_material();
-..\application\servo_task.h(33): warning:  #1295-D: Deprecated declaration cmd_arm_place_ground - give arg types
-  void cmd_arm_place_ground();
-..\application\servo_task.h(34): warning:  #1295-D: Deprecated declaration cmd_arm_grab_ground - give arg types
-  void cmd_arm_grab_ground();
-..\application\servo_task.h(35): warning:  #1295-D: Deprecated declaration cmd_arm_place_stuff - give arg types
-  void cmd_arm_place_stuff();
+compiling chassis_task.c...
 ..\application\motor_ctrl.h(8): warning:  #1295-D: Deprecated declaration give_pid_current_6020 - give arg types
   extern void give_pid_current_6020();
-../algorithm/gear_motor_ctrl.h(7): warning:  #1295-D: Deprecated declaration startM2006Monitor - give arg types
-  extern void startM2006Monitor();
-..\application\servo_task.c(16): warning:  #550-D: variable "cmd_num"  was set but never used
-  static uint8_t cmd_num=0;
-..\application\servo_task.c: 10 warnings, 0 errors
+..\application\chassis_task.c(75): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if(set - ref > ref - set + 360.0)
+..\application\chassis_task.c(77): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return set - 360.0;//error = set - MAX_MOTOR_ECD - ref
+..\application\chassis_task.c(79): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		else if(set - ref < ref - set + 360.0)
+..\application\chassis_task.c(85): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if(ref - set > set - ref + 360.0)
+..\application\chassis_task.c(87): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return set + 360.0;//error = 
+..\application\chassis_task.c(89): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		else if(ref - set < set - ref + 360.0)
+..\application\chassis_task.c(94): warning:  #940-D: missing return statement at end of non-void function "angle_limit" 
+  }
+..\application\chassis_task.c(99): warning:  #940-D: missing return statement at end of non-void function "PID_angle_calc" 
+  }
+..\application\chassis_task.c(134): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * PI / 180.0);
+..\application\chassis_task.c(134): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[0] = v_tmp[0]*cos(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*sin(my_action_data.yaw.data * PI / 180.0);
+..\application\chassis_task.c(135): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * PI / 180.0);
+..\application\chassis_task.c(135): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	v[1] =-v_tmp[0]*sin(my_action_data.yaw.data * PI / 180.0) + v_tmp[1]*cos(my_action_data.yaw.data * PI / 180.0);
+..\application\chassis_task.c: 13 warnings, 0 errors
 linking...
-Program Size: Code=33432 RO-data=1568 RW-data=288 ZI-data=21824  
+Program Size: Code=33376 RO-data=1568 RW-data=288 ZI-data=21824  
 FromELF: creating hex file...
-"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 10 Warning(s).
+"Logistic_Robot_v1\Logistic_Robot_v1.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -81,7 +87,7 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:DSP:Library:1.7.0
       Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
       Include file:  CMSIS\DSP\Include\arm_math.h
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

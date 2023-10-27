@@ -127,6 +127,7 @@ void cmd_arm_place_ground()
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	HAL_Delay(800);
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_GROUND);
+	HAL_Delay(1000);
 	//×ªÅÌ×Ó
 	angle_m6020_to_next();
 	//Éý
@@ -225,32 +226,31 @@ void servo_task(void const* argument){
 				}
 				case ARM_GRAB_MATERIAL:
 				{
-					cmd_arm_grab_material();
-					CAN_delta_angleControl(CAN_M1_ID, 120);
+					if(my_car_data.stuff_num<3)
+						cmd_arm_grab_material();
 					break;
 				}
 				case ARM_PLACE_GROUND:
 				{
-					cmd_arm_place_ground();
-					CAN_delta_angleControl(CAN_M1_ID, 120);
+					if(my_car_data.stuff_num>0)
+						cmd_arm_place_ground();
 					break;
 				}
 				case ARM_GRAB_GROUND:
 				{
-					cmd_arm_grab_ground();
-					CAN_delta_angleControl(CAN_M1_ID, 120);
+					if(my_car_data.stuff_num<3)
+						cmd_arm_grab_ground();
 					break;
 				}
 				case ARM_PLACE_STUFF:
 				{
-					cmd_arm_place_stuff();
-					CAN_delta_angleControl(CAN_M1_ID, 120);
+					if(my_car_data.stuff_num>0)
+					 cmd_arm_place_stuff();
 					break;
 				}
 				case ARM_END:
 				{
 					cmd_arm_place_stuff();
-					CAN_delta_angleControl(CAN_M1_ID, 120);
 					break;
 				}
 				default :

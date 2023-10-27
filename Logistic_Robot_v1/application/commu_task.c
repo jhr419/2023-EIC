@@ -249,53 +249,54 @@ void commu_task(void const* argument){
 	uint8_t tx_msg[19];
 	int initangle=120;
 	int a=2;
+	servo_angle_ctrl(&servo[0],ANGLE_CLAW_CLOSE);
 	while(1){
 		if(rising_falling_flag!=HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)){
 			rising_falling_flag =HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
 			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0)
 			{
-//        uart8_printf("ACT0");
-//				my_car_data.stuff_num=0;
-				switch(a){
-				case ARM_TO_CODE:
-				{
-					cmd_arm_to_code();
-					break;
-				}
-				case ARM_TO_STUFF:
-				{
-				  cmd_arm_to_stuff();
-					break;
-				}
-				case ARM_GRAB_MATERIAL:
-				{
-					cmd_arm_grab_material();
-					break;
-				}
-				case ARM_PLACE_GROUND:
-				{
-					cmd_arm_place_ground();
-					break;
-				}
-				case ARM_GRAB_GROUND:
-				{
-					cmd_arm_grab_ground();
-					break;
-				}
-				case ARM_PLACE_STUFF:
-				{
-					cmd_arm_place_stuff();
-					break;
-				}
-				case ARM_END:
-				{
-					cmd_arm_place_stuff();
-					break;
-				}
-				default :
-					break;
-			  }
-				a++;
+        uart8_printf("ACT0");
+				my_car_data.stuff_num=0;
+//				switch(a){
+//				case ARM_TO_CODE:
+//				{
+//					cmd_arm_to_code();
+//					break;
+//				}
+//				case ARM_TO_STUFF:
+//				{
+//				  cmd_arm_to_stuff();
+//					break;
+//				}
+//				case ARM_GRAB_MATERIAL:
+//				{
+//					cmd_arm_grab_material();
+//					break;
+//				}
+//				case ARM_PLACE_GROUND:
+//				{
+//					cmd_arm_place_ground();
+//					break;
+//				}
+//				case ARM_GRAB_GROUND:
+//				{
+//					cmd_arm_grab_ground();
+//					break;
+//				}
+//				case ARM_PLACE_STUFF:
+//				{
+//					cmd_arm_place_stuff();
+//					break;
+//				}
+//				case ARM_END:
+//				{
+//					cmd_arm_place_stuff();
+//					break;
+//				}
+//				default :
+//					break;
+//			  }
+//				a++;
 			}
 		}
 		if(rising_falling_flag1!=HAL_GPIO_ReadPin(KEY_GPIO_Port, KEY_Pin)){
@@ -318,8 +319,8 @@ void commu_task(void const* argument){
 		
 		action_to_car();
 
-		uart7_printf("\n");
-		uart7_printf("goal: %f, %f, %f\n",my_move.x_goal.data ,my_move.y_goal.data, my_move.w_goal.data);
+//		uart7_printf("\n");
+//		uart7_printf("goal: %f, %f, %f\n",my_move.x_goal.data ,my_move.y_goal.data, my_move.w_goal.data);
 //		uart7_printf("act:  %f, %f, %f\n",my_action_data.x.data, my_action_data.y.data, my_action_data.yaw.data);
 //		uart7_printf("car:  %f, %f, %f\n",my_car_data.x, my_car_data.y, my_car_data.yaw);
 //		uart7_printf("err:  %f, %f, %f\n",chassis_v_pid[0].error[0],chassis_v_pid[1].error[0], chassis_w_pid.error[0]);
