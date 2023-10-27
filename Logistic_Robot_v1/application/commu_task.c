@@ -253,7 +253,7 @@ void commu_task(void const* argument){
 	while(1){
 		if(rising_falling_flag!=HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)){
 			rising_falling_flag =HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
-			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0)
+			if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==1)
 			{
         uart8_printf("ACT0");
 				my_car_data.stuff_num=0;

@@ -151,7 +151,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while(1){
     /* USER CODE END WHILE */
-
+		//CAN_cmd_6020(2000,2000,2000,2000);
+	//CAN_cmd_chassis(5000,5000,5000,5000);
     /* USER CODE BEGIN 3 */
 
 	}
