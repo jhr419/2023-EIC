@@ -102,6 +102,10 @@ fp32 PID_calc(pid_t *pid, fp32 ref, fp32 set)
         pid->Dout = pid->Kd * pid->Dbuf[0];
         LimitMax(pid->Iout, pid->max_iout);
         pid->out = pid->Pout + pid->Iout + pid->Dout;
+				if (pid->Iout*pid->error[0] < 0)
+				{
+					pid->Iout = 0;
+				}
         LimitMax(pid->out, pid->max_out);
     }
     else if (pid->mode == PID_DELTA)
