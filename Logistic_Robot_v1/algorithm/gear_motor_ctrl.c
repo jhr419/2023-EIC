@@ -25,10 +25,10 @@ extern uint8_t              motor_2006_can_send_data[8];
 
 //控制变量，有待修改
 #define Reduction_ratio_M2006 1/36 
-#define SPEED_M2006 2000
+#define SPEED_M2006 1500
 #define MAX_SPEED_M2006 1000
 #define MAX_IOUT_SPEED_M2006 500
-#define MAX_OUT		12000.0
+#define MAX_OUT		9000.0
 #define MAX_IOUT  1200.0
 
 #define MILESTONE_NUMBER 3

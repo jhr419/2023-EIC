@@ -221,7 +221,7 @@ void chassis_pid_calc(fp32* wheel_exp_rpm)
 	{
 		//first_order_filter_cali(&rpm_filter, wheel_exp_rpm[i]);
 		
-		PID_limit_calc(&pid[i], chassis_motor[i]->speed_rpm, wheel_exp_rpm[i]);
+		PID_calc(&pid[i], chassis_motor[i]->speed_rpm, wheel_exp_rpm[i]);
 		wheel_set_rpm[i] = pid[i].out;
 	}
 	

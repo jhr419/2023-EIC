@@ -110,7 +110,7 @@ void cmd_arm_place_ground()
 	HAL_Delay(1000);
 		//下降
 	set_M2006_rotate_rounds(1,ROUNDS_PLACE_PLATE);
-	HAL_Delay(1000);
+	HAL_Delay(4000);
 		//抓取
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_CLOSE);
 	HAL_Delay(800);
@@ -122,7 +122,7 @@ void cmd_arm_place_ground()
 	HAL_Delay(1000);
 		//降
 	set_M2006_rotate_rounds(1,ROUNDS_PLACE_GROUND);
-	HAL_Delay(2000);
+	HAL_Delay(4000);
 	//放
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	HAL_Delay(800);
@@ -143,13 +143,13 @@ void cmd_arm_grab_ground()
 {
 	//下降
 	set_M2006_rotate_rounds(1,ROUNDS_GRAB_STUFF_GROUND);
-	HAL_Delay(1500);
+	HAL_Delay(2000);
 	//抓取
 	servo_angle_ctrl(&servo[0],ANGLE_CLAW_CLOSE);
 	HAL_Delay(800);
 	//上
 	set_M2006_rotate_rounds(1,-ROUNDS_GRAB_STUFF_GROUND);
-	HAL_Delay(1000);
+	HAL_Delay(2000);
 	//转
 	set_M2006_rotate_rounds(0,ROUNDS_TURN_IN);
 	HAL_Delay(1500);
@@ -200,63 +200,145 @@ void cmd_arm_place_stuff()
 	//升
 	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_STUFF);
 	my_car_data.stuff_num--;
+
 }
 
+void cmd_arm_end(){
+	set_M2006_rotate_rounds(0,ROUNDS_TURN_IN);
+}
+//以下复赛
+/*
+指令9
+暂存区取物块
+*/
+void cmd_arm_grab_p1()
+{
+	cmd_arm_grab_ground();
+}
+/*
+指令10
+精加工区放置
+*/
+void cmd_arm_place_p2()
+{
+	cmd_arm_place_ground();
+}
+/*
+指令11
+精加工区拿取
+*/
+void cmd_arm_grab_p2()
+{
+	cmd_arm_grab_ground();
+}
+
+/*
+指令12
+成品区放置
+*/
+void cmd_arm_place_p3()
+{
+	set_M2006_rotate_rounds(0,ROUNDS_TURN_IN);
+	HAL_Delay(1000);
+	//下降
+	set_M2006_rotate_rounds(1,ROUNDS_PLACE_PLATE);
+	HAL_Delay(2000);
+	//抓取
+	servo_angle_ctrl(&servo[0],ANGLE_CLAW_CLOSE);
+	HAL_Delay(800);
+	//上
+	set_M2006_rotate_rounds(1,-ROUNDS_PLACE_PLATE);
+	HAL_Delay(2000);
+	//转
+	set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
+	HAL_Delay(1000);
+	//降//重点修改
+	set_M2006_rotate_rounds(1,ROUNDS_GRAB_STUFF_MATERIAL);
+	HAL_Delay(2000);
+	//放
+	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
+	HAL_Delay(800);
+	//转盘子
+	angle_m6020_to_next();
+	//升
+	set_M2006_rotate_rounds(1,-ROUNDS_GRAB_STUFF_MATERIAL);
+
+	HAL_Delay(2000);
+	my_car_data.stuff_num--;
+}
 void servo_task(void const* argument){
-	
+	uint8_t last_cmd;
 	while(1){
 		
-		if(my_arm.act_id!=0)
+		if(my_arm.act_id!=last_cmd)
 		{
-			switch(my_arm.act_id){
-				case ARM_RST:
+			switch(my_arm.act_id)
+			{
+				case ARM_TO_TARGET:
 				{
-					cmd_arm_rst();
+					servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
+					set_M2006_rotate_rounds(0,ROUNDS_TURN_OUT);
 					break;
 				}
-				case ARM_TO_CODE:
-				{
-					cmd_arm_to_code();
-					break;
-				}
-				case ARM_TO_STUFF:
-				{
-				  cmd_arm_to_stuff();
-					break;
-				}
-				case ARM_GRAB_MATERIAL:
-				{
-					if(my_car_data.stuff_num<3)
-						cmd_arm_grab_material();
-					break;
-				}
-				case ARM_PLACE_GROUND:
-				{
-					if(my_car_data.stuff_num>0)
-						cmd_arm_place_ground();
-					break;
-				}
-				case ARM_GRAB_GROUND:
-				{
-					if(my_car_data.stuff_num<3)
+//P1 grab			
+				case ARM_GRAB_GROUND1:
+					if(my_car_data.stuff_num == 0)
 						cmd_arm_grab_ground();
 					break;
-				}
-				case ARM_PLACE_STUFF:
-				{
-					if(my_car_data.stuff_num>0)
-					 cmd_arm_place_stuff();
+				case ARM_GRAB_GROUND2:
+					if(my_car_data.stuff_num == 1)
+						cmd_arm_grab_ground();
 					break;
-				}
-				case ARM_END:
-				{
-					cmd_arm_place_stuff();
+				case ARM_GRAB_GROUND3:
+					if(my_car_data.stuff_num == 2)
+						cmd_arm_grab_ground();
 					break;
-				}
+//p2 place
+				case ARM_PLACE_GROUND1:
+					if(my_car_data.stuff_num == 3)
+						cmd_arm_place_ground();
+					break;
+				case ARM_PLACE_GROUND2:
+					if(my_car_data.stuff_num == 2)
+						cmd_arm_place_ground();
+					break;
+				case ARM_PLACE_GROUND3:
+					if(my_car_data.stuff_num == 1)
+						cmd_arm_place_ground();
+					break;
+//p2 grab
+				case ARM_GRAB_GROUND4:
+					if(my_car_data.stuff_num == 0)
+						cmd_arm_grab_ground();
+					break;
+				case ARM_GRAB_GROUND5:
+					if(my_car_data.stuff_num == 1)
+						cmd_arm_grab_ground();
+					break;
+				case ARM_GRAB_GROUND6:
+					if(my_car_data.stuff_num == 2)
+						cmd_arm_grab_ground();
+					break;
+//p3 place
+				case ARM_PLACE_MATERIAL1:
+					if(my_car_data.stuff_num == 3)
+						cmd_arm_place_p3();
+					break;
+				case ARM_PLACE_MATERIAL2:
+					if(my_car_data.stuff_num == 2)
+						cmd_arm_place_p3();
+					break;
+				case ARM_PLACE_MATERIAL3:
+					if(my_car_data.stuff_num == 1)
+						cmd_arm_place_p3();
+					break;
+					
 				default :
 					break;
 			}
-			my_arm.act_id = 0;
+			last_cmd = my_arm.act_id;
+			//my_arm.act_id = 0;
+			
 	  }
 		osDelay(20);
 	}

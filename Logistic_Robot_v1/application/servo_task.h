@@ -12,8 +12,8 @@
 #define ANGLE_CAMERA_TO_CODE 90
 #define ANGLE_CAMERA_TO_STUFF 115
 
-#define ANGLE_CLAW_OPEN 90
-#define ANGLE_CLAW_CLOSE 120
+#define ANGLE_CLAW_OPEN  10
+#define ANGLE_CLAW_CLOSE 47
 
 #define ROUNDS_PLACE_PLATE  -7
 #define ROUNDS_TOP_TO_BOTTOM -45
@@ -33,4 +33,9 @@ void cmd_arm_grab_material();
 void cmd_arm_place_ground();
 void cmd_arm_grab_ground();
 void cmd_arm_place_stuff();
+void cmd_arm_end();
+void cmd_arm_grab_p2();
+void cmd_arm_place_p2();
+void cmd_arm_grab_p1();
+void cmd_arm_place_p3();
 #endif

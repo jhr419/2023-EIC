@@ -246,10 +246,12 @@ void commu_task_init()
 }
 void commu_task(void const* argument){
 	commu_task_init();
+	
 	uint8_t tx_msg[19];
 	int initangle=120;
 	int a=2;
-	servo_angle_ctrl(&servo[0],ANGLE_CLAW_CLOSE);
+	//servo_angle_ctrl(&servo[0],ANGLE_CLAW_CLOSE);
+	servo_angle_ctrl(&servo[0],ANGLE_CLAW_OPEN);
 	while(1){
 		if(rising_falling_flag!=HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)){
 			rising_falling_flag =HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
@@ -257,6 +259,7 @@ void commu_task(void const* argument){
 			{
         uart8_printf("ACT0");
 				my_car_data.stuff_num=0;
+				
 //				switch(a){
 //				case ARM_TO_CODE:
 //				{
